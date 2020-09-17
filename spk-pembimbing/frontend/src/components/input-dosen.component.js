@@ -1,26 +1,66 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class InputDosen extends Component {
   constructor(props) {
     super(props);
+
+    this.textInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
 
     this.onChangeNik = this.onChangeNik.bind(this);
     this.onChangeNama = this.onChangeNama.bind(this);
     this.onChangePendidikan = this.onChangePendidikan.bind(this);
     this.onChangeFungsional = this.onChangeFungsional.bind(this);
     this.onChangeKompetensi = this.onChangeKompetensi.bind(this);
+    this.onChangeTingkat = this.onChangeTingkat.bind(this);
     this.onChangeKuota = this.onChangeKuota.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
+      statik: {
+        pendidikan: [],
+        fungsional: [],
+        kompetensi: [],
+        tingkat: [],
+      },
       nik: "",
       nama: "",
-      pendidikan: [],
-      fungsional: [],
-      kompetensi: [],
-      tingkat: [],
+      pendidikan: "",
+      fungsional: "",
+      kompetensi: "",
+      tingkat: "",
       kuota: "",
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      statik: {
+        pendidikan: ["S2", "S3"],
+        fungsional: [
+          "Tenaga Pengajar",
+          "Asisten Ahli",
+          "Lektor",
+          "Lektor Kepala",
+          "Guru Besar",
+        ],
+        kompetensi: [
+          "Sistem dan Teknologi Informasi",
+          "Sistem dan Komputasi Cerdas",
+          "Jaringan Komputer",
+        ],
+        tingkat: ["1", "2", "3", "4", "5", "6"],
+      },
+      pendidikan: "S2",
+      fungsional: "Tenaga Pengajar",
+      kompetensi: "Sistem dan Teknologi Informasi",
+      tingkat: "1",
+    });
+  }
+
+  focusTextInput() {
+    this.textInput.current.focus();
   }
 
   onChangeNik(event) {
@@ -67,32 +107,23 @@ export default class InputDosen extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-  }
 
-  componentDidMount() {
-    this.setState({
-      pendidikan: ["S2", "S3"],
-      fungsional: [
-        "Tenaga Pengajar",
-        "Asisten Ahli",
-        "Lektor",
-        "Lektor Kepala",
-        "Guru Besar",
-      ],
-      kompetensi: [
-        "Sistem dan Teknologi Informasi",
-        "Sistem dan Komputasi Cerdas",
-        "Jaringan Komputer",
-      ],
-      tingkat: [
-        "Tingkat 1",
-        "Tingkat 2",
-        "Tingkat 3",
-        "Tingkat 4",
-        "Tingkat 5",
-        "Tingkat 6",
-      ],
-    });
+    const data = {
+      nik: this.state.nik,
+      nama: this.state.nama,
+      pendidikan: this.state.pendidikan,
+      fungsional: this.state.fungsional,
+      kompetensi: this.state.kompetensi,
+      tingkat: this.state.tingkat,
+      kuota: this.state.kuota,
+    };
+
+    axios
+      .post("http://localhost:8080/pembimbing/add", data)
+      .then((res) => console.log(res.data))
+      .catch((error) => console.log("Error: " + error));
+
+    console.log(this.state);
   }
 
   render() {
@@ -101,37 +132,36 @@ export default class InputDosen extends Component {
         <h3 className="text-center">Input Data Dosen</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label for="nik">NIK: </label>
+            <label htmlFor="nik">NIK: </label>
             <input
               type="number"
               className="form-control"
               id="nik"
-              value={this.state.nik}
+              placeholder="123456"
               onChange={this.onChangeNik}
               required
             />
           </div>
           <div className="fomr-group">
-            <label for="nama">Nama: </label>
+            <label htmlFor="nama">Nama: </label>
             <input
               type="text"
               className="form-control"
               id="nama"
-              value={this.state.username}
+              placeholder="Liliana"
               onChange={this.onChangeNama}
               required
             />
           </div>
           <div className="form-group">
-            <label for="pendidikan">Pendidikan: </label>
+            <label htmlFor="pendidikan">Pendidikan: </label>
             <select
-              ref="userInput"
+              ref={this.textInput}
               className="form-control"
               id="pendidikan"
-              value={this.state.pendidikan}
               onChange={this.onChangePendidikan}
             >
-              {this.state.pendidikan.map((tingkat) => {
+              {this.state.statik.pendidikan.map((tingkat) => {
                 return (
                   <option key={tingkat} value={tingkat}>
                     {tingkat}
@@ -141,15 +171,14 @@ export default class InputDosen extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label for="fungsional">Fungsional: </label>
+            <label htmlFor="fungsional">Fungsional: </label>
             <select
-              ref="userInput"
+              ref={this.textInput}
               className="form-control"
               id="fungsional"
-              value={this.state.fungsional}
               onChange={this.onChangeFungsional}
             >
-              {this.state.fungsional.map((tingkat) => {
+              {this.state.statik.fungsional.map((tingkat) => {
                 return (
                   <option key={tingkat} value={tingkat}>
                     {tingkat}
@@ -159,14 +188,13 @@ export default class InputDosen extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label for="kompetensi">Kompetensi: </label>
+            <label htmlFor="kompetensi">Kompetensi: </label>
             <select
-              ref="userInput"
+              ref={this.textInput}
               className="form-control"
-              value={this.state.kompetensi}
               onChange={this.onChangeKompetensi}
             >
-              {this.state.kompetensi.map((tingkat) => {
+              {this.state.statik.kompetensi.map((tingkat) => {
                 return (
                   <option key={tingkat} value={tingkat}>
                     {tingkat}
@@ -178,12 +206,11 @@ export default class InputDosen extends Component {
           <div className="form-group">
             <label>Tingkat: </label>
             <select
-              ref="userInput"
+              ref={this.textInput}
               className="form-control"
-              value={this.state.tingkat}
               onChange={this.onChangeTingkat}
             >
-              {this.state.tingkat.map((nilai) => {
+              {this.state.statik.tingkat.map((nilai) => {
                 return (
                   <option key={nilai} value={nilai}>
                     {nilai}
@@ -197,14 +224,16 @@ export default class InputDosen extends Component {
             <input
               type="number"
               className="form-control"
-              value={this.state.kuota}
+              placeholder="0"
               onChange={this.onChangeKuota}
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+          <div className="form-group">
+            <button type="submit" className="btn btn-primary">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     );
