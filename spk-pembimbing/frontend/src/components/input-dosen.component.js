@@ -129,7 +129,7 @@ export default class InputDosen extends Component {
   render() {
     return (
       <div className="container">
-        <h3 className="text-center">Input Data Dosen</h3>
+        <h3 className="text-center">INPUT DATA DOSEN PEMBIMBING</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label htmlFor="nik">NIK: </label>

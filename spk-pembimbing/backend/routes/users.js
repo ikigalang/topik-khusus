@@ -9,14 +9,22 @@ router.route("/").get((req, res) => {
 });
 
 // search user
-router.route("/").get((req, res) => {
+router.route("/search").post((req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   User.find({
     username: username,
     password: password,
   })
-    .then((user) => res.json(user))
+    .then((user) =>
+      user.length > 0
+        ? res.json({
+            status: true,
+            _id: user[0]._id,
+            username: user[0].username,
+          })
+        : res.json({ status: false })
+    )
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
