@@ -1,52 +1,52 @@
 const router = require("express").Router();
-let Bobot = require("../models/bobot.model");
+let Statik = require("../models/statik.model");
 
-// get all bobot
+// get all statik data
 router.route("/").get((req, res) => {
-  Bobot.find()
-    .then((bobot) => res.json(bobot))
+  Statik.find()
+    .then((statik) => res.json(statik))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
-// add new bobot
+// add new statik
 router.route("/add").post((req, res) => {
   const pendidikan = req.body.pendidikan;
   const fungsional = req.body.fungsional;
   const kompetensi = req.body.kompetensi;
-  const kuota = req.body.kuota;
+  const tingkat = req.body.tingkat;
 
-  const newBobot = new Bobot({
+  const newStatik = new Statik({
     pendidikan: pendidikan,
     fungsional: fungsional,
     kompetensi: kompetensi,
-    kuota: kuota,
+    tingkat: tingkat,
   });
 
-  newBobot
+  newStatik
     .save()
-    .then(() => res.json("Bobot added!"))
+    .then(() => res.json("Statik added!"))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
-// update bobot
+// update statik
 router.route("/update/:id").post((req, res) => {
-  Bobot.findById(req.params.id).then((bobot) => {
-    bobot.pendidikan = req.body.pendidikan;
-    bobot.fungsional = req.body.fungsional;
-    bobot.kompetensi = req.body.kompetensi;
-    bobot.kuota = req.body.kuota;
+  Statik.findById(req.params.id).then((statik) => {
+    statik.pendidikan = req.body.pendidikan;
+    statik.fungsional = req.body.fungsional;
+    statik.kompetensi = req.body.kompetensi;
+    statik.tingkat = req.body.kuota;
 
-    bobot
+    statik
       .save()
-      .then(() => res.json("Bobot updated!"))
+      .then(() => res.json("Tingkat updated!"))
       .catch((error) => res.status(400).json("Error; " + error));
   });
 });
 
-// delete bobot
+// delete user
 router.route("/delete/:id").delete((req, res) => {
-  Bobot.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Bobot deleted!"))
+  User.findByIdAndDelete(req.params.id)
+    .then(() => res.json("User deleted!"))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 

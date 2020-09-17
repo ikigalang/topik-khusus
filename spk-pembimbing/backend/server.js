@@ -24,13 +24,17 @@ connection.once("open", () => {
 });
 
 // router
-const usersRouter = require("./routes/users");
-const pembimbingRouter = require("./routes/pembimbing");
+const bimbinganRouter = require("./routes/bimbingan");
 const bobotRouter = require("./routes/bobot");
+const pembimbingRouter = require("./routes/pembimbing");
+const statikRouter = require("./routes/statik");
+const usersRouter = require("./routes/users");
 
-app.use("/users", usersRouter);
-app.use("/pembimbing", pembimbingRouter);
+app.use("/bimbingan", bimbinganRouter);
 app.use("/bobot", bobotRouter);
+app.use("/pembimbing", pembimbingRouter);
+app.use("/statik", statikRouter);
+app.use("/users", usersRouter);
 
 app.listen(port, () => {
   console.log(`Server is runnning on port: ${port}`);
