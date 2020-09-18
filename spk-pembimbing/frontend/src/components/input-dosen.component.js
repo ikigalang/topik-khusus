@@ -35,28 +35,25 @@ export default class InputDosen extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      statik: {
-        pendidikan: ["S2", "S3"],
-        fungsional: [
-          "Tenaga Pengajar",
-          "Asisten Ahli",
-          "Lektor",
-          "Lektor Kepala",
-          "Guru Besar",
-        ],
-        kompetensi: [
-          "Sistem dan Teknologi Informasi",
-          "Sistem dan Komputasi Cerdas",
-          "Jaringan Komputer",
-        ],
-        tingkat: ["1", "2", "3", "4", "5", "6"],
-      },
-      pendidikan: "S2",
-      fungsional: "Tenaga Pengajar",
-      kompetensi: "Sistem dan Teknologi Informasi",
-      tingkat: "1",
-    });
+    Axios.get("http://localhost:8080/statik/")
+      .then((response) => {
+        this.setState({
+          statik: {
+            pendidikan: response.data[0].pendidikan,
+            fungsional: response.data[0].fungsional,
+            kompetensi: response.data[0].kompetensi,
+            tingkat: response.data[0].tingkat,
+          },
+          pendidikan: response.data[0].pendidikan[0],
+          fungsional: response.data[0].fungsional[0],
+          kompetensi: response.data[0].kompetensi[0],
+          tingkat: response.data[0].tingkat[0],
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    this.setState({});
   }
 
   focusTextInput() {
