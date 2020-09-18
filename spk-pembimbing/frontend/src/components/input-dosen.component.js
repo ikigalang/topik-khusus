@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import Axios from "axios";
 
 export default class InputDosen extends Component {
   constructor(props) {
@@ -118,8 +118,7 @@ export default class InputDosen extends Component {
       kuota: this.state.kuota,
     };
 
-    axios
-      .post("http://localhost:8080/pembimbing/add", data)
+    Axios.post("http://localhost:8080/pembimbing/add", data)
       .then((res) => console.log(res.data))
       .catch((error) => console.log("Error: " + error));
 
