@@ -34,7 +34,7 @@ router.route("/update/:id").post((req, res) => {
     statik.pendidikan = req.body.pendidikan;
     statik.fungsional = req.body.fungsional;
     statik.kompetensi = req.body.kompetensi;
-    statik.tingkat = req.body.kuota;
+    statik.tingkat = req.body.tingkat;
 
     statik
       .save()

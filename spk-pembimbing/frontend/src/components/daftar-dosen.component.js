@@ -48,10 +48,9 @@ export default class DaftarDosen extends Component {
     Axios.delete("http://localhost:8080/pembimbing/delete/" + id)
       .then((res) => {
         console.log(res.data);
-
         this.setState({
-          listDosen: this.setState.listDosen.filter(
-            (element) => element.id !== id
+          dataDosen: this.state.dataDosen.filter(
+            (element) => element._id !== id
           ),
         });
       })
