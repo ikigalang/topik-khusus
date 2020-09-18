@@ -12,7 +12,7 @@ const Dosen = (props) => (
     <td>{props.dosen.tingkat}</td>
     <td>{props.dosen.kuota}</td>
     <td>
-      <Link to={"/edit/" + props.dosen._id}>Edit</Link>|
+      <Link to={"/edit-dosen/" + props.dosen._id}>Edit</Link>|
       <a
         href="#"
         onClick={() => {

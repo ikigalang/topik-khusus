@@ -53,7 +53,6 @@ export default class InputDosen extends Component {
       .catch((error) => {
         console.log(error);
       });
-    this.setState({});
   }
 
   focusTextInput() {
@@ -118,8 +117,6 @@ export default class InputDosen extends Component {
     Axios.post("http://localhost:8080/pembimbing/add", data)
       .then((res) => console.log(res.data))
       .catch((error) => console.log("Error: " + error));
-
-    console.log(this.state);
   }
 
   render() {

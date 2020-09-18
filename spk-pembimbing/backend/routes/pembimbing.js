@@ -8,6 +8,13 @@ router.route("/").get((req, res) => {
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
+// find pembimbing by id
+router.route("/:id").get((req, res) => {
+  Pembimbing.findById(req.params.id)
+    .then((pembimbing) => res.json(pembimbing))
+    .catch((error) => res.status(400).json("Error: " + error));
+});
+
 // add new pembimbing
 router.route("/add").post((req, res) => {
   const nik = req.body.nik;
