@@ -130,13 +130,16 @@ export default class EditDosen extends Component {
       "http://localhost:8080/pembimbing/update/" + this.props.match.params.id,
       data
     )
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        console.log(res.data);
+        window.location = "/daftar-dosen";
+      })
       .catch((error) => console.log("Error: " + error));
   }
 
   render() {
     return (
-      <div className="container">
+      <div className="container mt-4">
         <h3 className="text-center">EDIT DATA DOSEN PEMBIMBING</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">

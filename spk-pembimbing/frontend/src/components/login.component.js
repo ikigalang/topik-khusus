@@ -54,7 +54,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="container-sm">
+      <div className="container-sm mt-4">
         <h3 className="text-center">LOGIN</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">

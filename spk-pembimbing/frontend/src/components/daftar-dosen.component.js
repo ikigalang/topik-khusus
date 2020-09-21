@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 
 const Dosen = (props) => (
-  <tr>
+  <tr className="text-center">
     <td>{props.dosen.nama}</td>
     <td>{props.dosen.nik}</td>
     <td>{props.dosen.pendidikan}</td>
@@ -12,15 +12,22 @@ const Dosen = (props) => (
     <td>{props.dosen.tingkat}</td>
     <td>{props.dosen.kuota}</td>
     <td>
-      <Link to={"/edit-dosen/" + props.dosen._id}>Edit</Link>|
-      <a
-        href="#"
-        onClick={() => {
-          props.deleteDosen(props.dosen._id);
-        }}
-      >
-        Delete
-      </a>
+      <div className="btn-group" role="group" aria-label="Button option">
+        <Link to={"/edit-dosen/" + props.dosen._id}>
+          <button type="button" className="btn btn-warning mx-1">
+            Edit
+          </button>
+        </Link>
+        <button
+          type="button"
+          className="btn btn-danger mx-1"
+          onClick={() => {
+            props.deleteDosen(props.dosen._id);
+          }}
+        >
+          Delete
+        </button>
+      </div>
     </td>
   </tr>
 );
@@ -67,10 +74,10 @@ export default class DaftarDosen extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container-fluid mt-4">
         <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
         <table className="table">
-          <thead className="thead-light">
+          <thead className="thead-light text-center">
             <tr>
               <th>Nama</th>
               <th>NIK</th>
