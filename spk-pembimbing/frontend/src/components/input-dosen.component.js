@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const API_STATIK = process.env.REACT_APP_API_STATIK;
+const API_PEMBIMBING_ADD = process.env.REACT_APP_API_PEMBIMBING_ADD;
+
 export default class InputDosen extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +38,7 @@ export default class InputDosen extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:8080/statik/")
+    Axios.get(API_STATIK)
       .then((response) => {
         this.setState({
           statik: {
@@ -114,7 +117,7 @@ export default class InputDosen extends Component {
       kuota: this.state.kuota,
     };
 
-    Axios.post("http://localhost:8080/pembimbing/add", data)
+    Axios.post(API_PEMBIMBING_ADD, data)
       .then((res) => console.log(res.data))
       .catch((error) => console.log("Error: " + error));
   }

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 
+const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
+const API_PEMBIMBING_DELETE = process.env.REACT_APP_API_PEMBIMBING_DELETE;
+
 const Dosen = (props) => (
   <tr className="text-center">
     <td>{props.dosen.nama}</td>
@@ -42,7 +45,7 @@ export default class DaftarDosen extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:8080/pembimbing/")
+    Axios.get(API_PEMBIMBING)
       .then((response) => {
         this.setState({ dataDosen: response.data });
       })
@@ -52,7 +55,7 @@ export default class DaftarDosen extends Component {
   }
 
   deleteDosen(id) {
-    Axios.delete("http://localhost:8080/pembimbing/delete/" + id)
+    Axios.delete(API_PEMBIMBING_DELETE + id)
       .then((res) => {
         console.log(res.data);
         this.setState({

@@ -5,7 +5,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="container mt-4 text-center">
-        <h3>EDIT DATA DOSEN PEMBIMBING</h3>
+        <h3>HOME</h3>
         <div className="row mt-5">
           <div className="col-sm">
             <Link to="/input-dosen" className="nav-link">
@@ -24,7 +24,7 @@ export default class Home extends Component {
         </div>
         <div className="row mt-2">
           <div className="col-sm">
-            <Link to="/#" className="nav-link">
+            <Link to="/edit-kriteria" className="nav-link">
               <button type="button" className="btn text-light bg-warning w-100">
                 EDIT BOBOT KRITERIA
               </button>

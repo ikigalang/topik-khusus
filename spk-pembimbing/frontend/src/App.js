@@ -8,6 +8,7 @@ import Login from "./components/login.component";
 import InputDosen from "./components/input-dosen.component";
 import EditDosen from "./components/edit-dosen.component";
 import DaftarDosen from "./components/daftar-dosen.component";
+import EditKriteria from "./components/edit-kriteria.component";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/input-dosen" component={InputDosen} />
       <Route path="/edit-dosen/:id" component={EditDosen} />
       <Route path="/daftar-dosen" component={DaftarDosen} />
+      <Route path="/edit-kriteria" component={EditKriteria} />
     </Router>
   );
 }

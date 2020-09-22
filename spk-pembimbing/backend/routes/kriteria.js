@@ -1,14 +1,14 @@
 const router = require("express").Router();
-let Bobot = require("../models/bobot.model");
+let Kriteria = require("../models/kriteria.model");
 
-// get all bobot
+// get all kriteria
 router.route("/").get((req, res) => {
-  Bobot.find()
-    .then((bobot) => res.json(bobot))
+  Kriteria.find()
+    .then((kriteria) => res.json(kriteria))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
-// add new bobot
+// add new kriteria
 router.route("/add").post((req, res) => {
   const pendidikan1 = req.body.pembimbing1.pendidikan;
   const fungsional1 = req.body.pembimbing1.fungsional;
@@ -18,9 +18,8 @@ router.route("/add").post((req, res) => {
   const fungsional2 = req.body.pembimbing2.fungsional;
   const kompetensi2 = req.body.pembimbing2.kompetensi;
   const kuota2 = req.body.pembimbing2.kuota;
-  console.log(pendidikan1);
 
-  const newBobot = new Bobot({
+  const newBobot = new Kriteria({
     pembimbing1: {
       pendidikan: pendidikan1,
       fungsional: fungsional1,
@@ -37,33 +36,33 @@ router.route("/add").post((req, res) => {
 
   newBobot
     .save()
-    .then(() => res.json("Bobot added!"))
+    .then(() => res.json("Kriteria added!"))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
-// update bobot
+// update krteria
 router.route("/update/:id").post((req, res) => {
-  Bobot.findById(req.params.id).then((bobot) => {
-    bobot.pembimbing1.pendidikan = req.body.pembimbing1.pendidikan;
-    bobot.pembimbing1.fungsional = req.body.pembimbing1.fungsional;
-    bobot.pembimbing1.kompetensi = req.body.pembimbing1.kompetensi;
-    bobot.pembimbing1.kuota = req.body.pembimbing1.kuota;
-    bobot.pembimbing2.pendidikan = req.body.pembimbing2.pendidikan;
-    bobot.pembimbing2.fungsional = req.body.pembimbing2.fungsional;
-    bobot.pembimbing2.kompetensi = req.body.pembimbing2.kompetensi;
-    bobot.pembimbing2.kuota = req.body.pembimbing2.kuota;
+  Kriteria.findById(req.params.id).then((kriteria) => {
+    kriteria.pembimbing1.pendidikan = req.body.pembimbing1.pendidikan;
+    kriteria.pembimbing1.fungsional = req.body.pembimbing1.fungsional;
+    kriteria.pembimbing1.kompetensi = req.body.pembimbing1.kompetensi;
+    kriteria.pembimbing1.kuota = req.body.pembimbing1.kuota;
+    kriteria.pembimbing2.pendidikan = req.body.pembimbing2.pendidikan;
+    kriteria.pembimbing2.fungsional = req.body.pembimbing2.fungsional;
+    kriteria.pembimbing2.kompetensi = req.body.pembimbing2.kompetensi;
+    kriteria.pembimbing2.kuota = req.body.pembimbing2.kuota;
 
-    bobot
+    kriteria
       .save()
-      .then(() => res.json("Bobot updated!"))
+      .then(() => res.json("Kriteria updated!"))
       .catch((error) => res.status(400).json("Error; " + error));
   });
 });
 
-// delete bobot
+// delete kriteria
 router.route("/delete/:id").delete((req, res) => {
-  Bobot.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Bobot deleted!"))
+  Kriteria.findByIdAndDelete(req.params.id)
+    .then(() => res.json("Kriteria deleted!"))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 

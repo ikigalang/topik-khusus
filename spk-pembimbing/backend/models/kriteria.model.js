@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const bobotSchema = new Schema(
+const kriteriaSchema = new Schema(
   {
     pembimbing1: {
       pendidikan: {
@@ -46,6 +46,6 @@ const bobotSchema = new Schema(
   }
 );
 
-const Bobot = mongoose.model("Bobot", bobotSchema);
+const Kriteria = mongoose.model("Kriteria", kriteriaSchema);
 
-module.exports = Bobot;
+module.exports = Kriteria;

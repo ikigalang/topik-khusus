@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const API_USER_SEARCH = process.env.REACT_APP_API_USER_SEARCH;
+
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -42,10 +44,8 @@ export default class Login extends Component {
       password: this.state.password,
     };
 
-    console.log(data);
-
     axios
-      .post("http://localhost:8080/users/search", data)
+      .post(API_USER_SEARCH, data)
       .then((res) =>
         res.data.status ? (window.location = "/") : console.log(res.data.status)
       )

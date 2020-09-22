@@ -25,13 +25,13 @@ connection.once("open", () => {
 
 // router
 const bimbinganRouter = require("./routes/bimbingan");
-const bobotRouter = require("./routes/bobot");
+const kriteriaRouter = require("./routes/kriteria");
 const pembimbingRouter = require("./routes/pembimbing");
 const statikRouter = require("./routes/statik");
 const usersRouter = require("./routes/users");
 
 app.use("/bimbingan", bimbinganRouter);
-app.use("/bobot", bobotRouter);
+app.use("/kriteria", kriteriaRouter);
 app.use("/pembimbing", pembimbingRouter);
 app.use("/statik", statikRouter);
 app.use("/users", usersRouter);

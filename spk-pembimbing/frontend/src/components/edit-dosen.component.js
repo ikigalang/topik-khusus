@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
+const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
+const API_STATIK = process.env.REACT_APP_API_STATIK;
+
 export default class EditDosen extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +39,7 @@ export default class EditDosen extends Component {
   }
 
   componentDidMount() {
-    Axios.get("http://localhost:8080/pembimbing/" + this.props.match.params.id)
+    Axios.get(API_PEMBIMBING + this.props.match.params.id)
       .then((response) => {
         this.setState({
           nik: response.data.nik,
@@ -51,7 +55,7 @@ export default class EditDosen extends Component {
         console.log(error);
       });
 
-    Axios.get("http://localhost:8080/statik/")
+    Axios.get(API_STATIK)
       .then((response) => {
         this.setState({
           statik: {
@@ -126,10 +130,7 @@ export default class EditDosen extends Component {
       kuota: this.state.kuota,
     };
 
-    Axios.post(
-      "http://localhost:8080/pembimbing/update/" + this.props.match.params.id,
-      data
-    )
+    Axios.post(API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
       .then((res) => {
         console.log(res.data);
         window.location = "/daftar-dosen";
