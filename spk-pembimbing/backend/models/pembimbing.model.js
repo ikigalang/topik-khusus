@@ -26,16 +26,17 @@ const pembimbingSchema = new Schema(
       trim: true,
       minlength: 3,
     },
-    kompetensi: {
-      type: String,
+    kompetensi1: {
+      type: Number,
       required: true,
-      trim: true,
-      minlength: 3,
     },
-    tingkat: {
-      type: String,
+    kompetensi2: {
+      type: Number,
       required: true,
-      trim: true,
+    },
+    kompetensi3: {
+      type: Number,
+      required: true,
     },
     kuota: {
       type: Number,

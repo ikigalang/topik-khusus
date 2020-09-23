@@ -28,6 +28,12 @@ const statikSchema = new Schema(
         required: true,
       },
     ],
+    bobot: [
+      {
+        type: Number,
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

@@ -3,10 +3,14 @@ import Axios from "axios";
 
 const API_KRITERIA = process.env.REACT_APP_API_KRITERIA;
 const API_KRITERIA_UPDATE = process.env.REACT_APP_API_KRITERIA_UPDATE;
+const API_STATIK = process.env.REACT_APP_API_STATIK;
 
 export default class EditKriteria extends Component {
   constructor(props) {
     super(props);
+
+    this.textInput = React.createRef();
+    this.focusTextInput = this.focusTextInput.bind(this);
 
     this.onChangePendidikan1 = this.onChangePendidikan1.bind(this);
     this.onChangeFungsional1 = this.onChangeFungsional1.bind(this);
@@ -22,14 +26,15 @@ export default class EditKriteria extends Component {
       idKriteria: "",
       pembimbing1: {},
       pembimbing2: {},
-      pendidikan1: "",
-      fungsional1: "",
-      kompetensi1: "",
-      kuota1: "",
-      pendidikan2: "",
-      fungsional2: "",
-      kompetensi2: "",
-      kuota2: "",
+      pendidikan1: 0,
+      fungsional1: 0,
+      kompetensi1: 0,
+      kuota1: 0,
+      pendidikan2: 0,
+      fungsional2: 0,
+      kompetensi2: 0,
+      kuota2: 0,
+      bobot: [],
     };
   }
 
@@ -49,6 +54,16 @@ export default class EditKriteria extends Component {
         kuota2: response.data[0].pembimbing2.kuota,
       });
     });
+
+    Axios.get(API_STATIK).then((response) => {
+      this.setState({
+        bobot: response.data[0].bobot,
+      });
+    });
+  }
+
+  focusTextInput() {
+    this.textInput.current.focus();
   }
 
   onChangePendidikan1(event) {
@@ -115,8 +130,6 @@ export default class EditKriteria extends Component {
       },
     };
 
-    console.log(data);
-
     Axios.post(API_KRITERIA_UPDATE + this.state.idKriteria, data)
       .then((res) => console.log(res.data))
       .catch((error) => console.log(error));
@@ -131,56 +144,84 @@ export default class EditKriteria extends Component {
           <thead className="thead-light text-center">
             <tr>
               <th>Kriteria</th>
-              <th>Bobot (1-100)</th>
+              <th>Bobot</th>
             </tr>
           </thead>
           <tbody>
             <tr className="text-center">
               <td>Pendidikan</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.pendidikan1}
                   onChange={this.onChangePendidikan1}
-                  placeholder={this.state.pembimbing1.pendidikan}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
             <tr className="text-center">
               <td>Fungsional</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.fungsional1}
                   onChange={this.onChangeFungsional1}
-                  placeholder={this.state.pembimbing1.fungsional}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
             <tr className="text-center">
               <td>Kompetensi</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.kompetensi1}
                   onChange={this.onChangeKompetensi1}
-                  placeholder={this.state.pembimbing1.kompetensi}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
             <tr className="text-center">
               <td>Kuota</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.kuota1}
                   onChange={this.onChangeKuota1}
-                  placeholder={this.state.pembimbing1.kuota}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
           </tbody>
@@ -190,56 +231,84 @@ export default class EditKriteria extends Component {
           <thead className="thead-light text-center">
             <tr>
               <th>Kriteria</th>
-              <th>Bobot (1-100)</th>
+              <th>Bobot</th>
             </tr>
           </thead>
           <tbody>
             <tr className="text-center">
               <td>Pendidikan</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.pendidikan2}
                   onChange={this.onChangePendidikan2}
-                  placeholder={this.state.pembimbing2.pendidikan}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
             <tr className="text-center">
               <td>Fungsional</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.fungsional2}
                   onChange={this.onChangeFungsional2}
-                  placeholder={this.state.pembimbing2.fungsional}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
             <tr className="text-center">
               <td>Kompetensi</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.kompetensi2}
                   onChange={this.onChangeKompetensi2}
-                  placeholder={this.state.pembimbing2.kompetensi}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
             <tr className="text-center">
               <td>Kuota</td>
               <td className="w-25">
-                <input
-                  type="number"
-                  min="0"
+                <select
+                  ref={this.textInput}
                   className="form-control"
+                  value={this.state.kuota2}
                   onChange={this.onChangeKuota2}
-                  placeholder={this.state.pembimbing2.kuota}
-                ></input>
+                >
+                  {this.state.bobot.map((bobot) => {
+                    return (
+                      <option key={bobot} value={bobot}>
+                        {bobot}
+                      </option>
+                    );
+                  })}
+                </select>
               </td>
             </tr>
           </tbody>

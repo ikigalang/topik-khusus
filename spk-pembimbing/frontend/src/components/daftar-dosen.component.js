@@ -11,8 +11,9 @@ const Dosen = (props) => (
     <td>{props.dosen.nik}</td>
     <td>{props.dosen.pendidikan}</td>
     <td>{props.dosen.fungsional}</td>
-    <td>{props.dosen.kompetensi}</td>
-    <td>{props.dosen.tingkat}</td>
+    <td>{props.dosen.kompetensi1}</td>
+    <td>{props.dosen.kompetensi2}</td>
+    <td>{props.dosen.kompetensi3}</td>
     <td>{props.dosen.kuota}</td>
     <td>
       <div className="btn-group" role="group" aria-label="Button option">
@@ -77,19 +78,20 @@ export default class DaftarDosen extends Component {
 
   render() {
     return (
-      <div className="container-fluid mt-4">
+      <div className="px-2 mt-4">
         <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
         <table className="table">
           <thead className="thead-light text-center">
             <tr>
-              <th>Nama</th>
-              <th>NIK</th>
-              <th>Pendidikan</th>
-              <th>Fungsional</th>
-              <th>Kompetensi</th>
-              <th>Tingkat</th>
-              <th>Kuota</th>
-              <th>Opsi</th>
+              <th className="align-middle">Nama</th>
+              <th className="align-middle">NIK</th>
+              <th className="align-middle">Pendidikan</th>
+              <th className="align-middle">Fungsional</th>
+              <th className="align-middle">Kompetensi I</th>
+              <th className="align-middle">Kompetensi II</th>
+              <th className="align-middle">Kompetensi III</th>
+              <th className="align-middle">Kuota</th>
+              <th className="align-middle">Opsi</th>
             </tr>
           </thead>
           <tbody>{this.listDosen()}</tbody>

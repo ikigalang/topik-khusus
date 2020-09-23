@@ -14,12 +14,14 @@ router.route("/add").post((req, res) => {
   const fungsional = req.body.fungsional;
   const kompetensi = req.body.kompetensi;
   const tingkat = req.body.tingkat;
+  const bobot = req.body.bobot;
 
   const newStatik = new Statik({
     pendidikan: pendidikan,
     fungsional: fungsional,
     kompetensi: kompetensi,
     tingkat: tingkat,
+    bobot: bobot,
   });
 
   newStatik
@@ -35,6 +37,7 @@ router.route("/update/:id").post((req, res) => {
     statik.fungsional = req.body.fungsional;
     statik.kompetensi = req.body.kompetensi;
     statik.tingkat = req.body.tingkat;
+    statik.bobot = req.body.bobot;
 
     statik
       .save()
@@ -43,10 +46,10 @@ router.route("/update/:id").post((req, res) => {
   });
 });
 
-// delete user
+// delete statik
 router.route("/delete/:id").delete((req, res) => {
   User.findByIdAndDelete(req.params.id)
-    .then(() => res.json("User deleted!"))
+    .then(() => res.json("Statik deleted!"))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 

@@ -6,7 +6,7 @@ export default class Home extends Component {
     return (
       <div className="container mt-4 text-center">
         <h3>HOME</h3>
-        <div className="row mt-5">
+        <div className="row mt-4">
           <div className="col-sm">
             <Link to="/input-dosen" className="nav-link">
               <button type="button" className="btn btn-primary w-100">
@@ -31,7 +31,7 @@ export default class Home extends Component {
             </Link>
           </div>
           <div className="col-sm">
-            <Link to="/#" className="nav-link">
+            <Link to="/rekomendasi" className="nav-link">
               <button type="button" className="btn text-light bg-success w-100">
                 CARI REKOMENDASI
               </button>

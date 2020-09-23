@@ -16,8 +16,9 @@ export default class EditDosen extends Component {
     this.onChangeNama = this.onChangeNama.bind(this);
     this.onChangePendidikan = this.onChangePendidikan.bind(this);
     this.onChangeFungsional = this.onChangeFungsional.bind(this);
-    this.onChangeKompetensi = this.onChangeKompetensi.bind(this);
-    this.onChangeTingkat = this.onChangeTingkat.bind(this);
+    this.onChangeKompetensi1 = this.onChangeKompetensi1.bind(this);
+    this.onChangeKompetensi2 = this.onChangeKompetensi2.bind(this);
+    this.onChangeKompetensi3 = this.onChangeKompetensi3.bind(this);
     this.onChangeKuota = this.onChangeKuota.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -32,8 +33,9 @@ export default class EditDosen extends Component {
       nama: "",
       pendidikan: "",
       fungsional: "",
-      kompetensi: "",
-      tingkat: "",
+      kompetensi1: "",
+      kompetensi2: "",
+      kompetensi3: "",
       kuota: "",
     };
   }
@@ -46,8 +48,9 @@ export default class EditDosen extends Component {
           nama: response.data.nama,
           pendidikan: response.data.pendidikan,
           fungsional: response.data.fungsional,
-          kompetensi: response.data.kompetensi,
-          tingkat: response.data.tingkat,
+          kompetensi1: response.data.kompetensi1,
+          kompetensi2: response.data.kompetensi2,
+          kompetensi3: response.data.kompetensi3,
           kuota: response.data.kuota,
         });
       })
@@ -99,15 +102,21 @@ export default class EditDosen extends Component {
     });
   }
 
-  onChangeKompetensi(event) {
+  onChangeKompetensi1(event) {
     this.setState({
       kompetensi: event.target.value,
     });
   }
 
-  onChangeTingkat(event) {
+  onChangeKompetensi2(event) {
     this.setState({
-      tingkat: event.target.value,
+      kompetensi: event.target.value,
+    });
+  }
+
+  onChangeKompetensi3(event) {
+    this.setState({
+      kompetensi: event.target.value,
     });
   }
 
@@ -125,8 +134,9 @@ export default class EditDosen extends Component {
       nama: this.state.nama,
       pendidikan: this.state.pendidikan,
       fungsional: this.state.fungsional,
-      kompetensi: this.state.kompetensi,
-      tingkat: this.state.tingkat,
+      kompetensi1: this.state.kompetensi1,
+      kompetensi2: this.state.kompetensi2,
+      kompetensi3: this.state.kompetensi3,
       kuota: this.state.kuota,
     };
 
@@ -154,7 +164,7 @@ export default class EditDosen extends Component {
               required
             />
           </div>
-          <div className="fomr-group">
+          <div className="form-group">
             <label htmlFor="nama">Nama: </label>
             <input
               type="text"
@@ -202,15 +212,17 @@ export default class EditDosen extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor="kompetensi">Kompetensi: </label>
+            <label htmlFor="kompetensi1">
+              Nilai kompetensi di bidang {this.state.statik.kompetensi[0]}:
+            </label>
             <select
               ref={this.textInput}
               className="form-control"
-              id="kompetensi"
-              value={this.state.kompetensi}
-              onChange={this.onChangeKompetensi}
+              id="kompetensi1"
+              value={this.state.kompetensi1}
+              onChange={this.onChangeKompetensi1}
             >
-              {this.state.statik.kompetensi.map((tingkat) => {
+              {this.state.statik.tingkat.map((tingkat) => {
                 return (
                   <option key={tingkat} value={tingkat}>
                     {tingkat}
@@ -220,18 +232,40 @@ export default class EditDosen extends Component {
             </select>
           </div>
           <div className="form-group">
-            <label>Tingkat: </label>
+            <label htmlFor="kompetensi2">
+              Nilai kompetensi di bidang {this.state.statik.kompetensi[1]}:
+            </label>
             <select
               ref={this.textInput}
               className="form-control"
-              id="tingkat"
-              value={this.state.tingkat}
-              onChange={this.onChangeTingkat}
+              id="kompetensi2"
+              value={this.state.kompetensi2}
+              onChange={this.onChangeKompetensi2}
             >
-              {this.state.statik.tingkat.map((nilai) => {
+              {this.state.statik.tingkat.map((tingkat) => {
                 return (
-                  <option key={nilai} value={nilai}>
-                    {nilai}
+                  <option key={tingkat} value={tingkat}>
+                    {tingkat}
+                  </option>
+                );
+              })}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="kompetensi3">
+              Nilai kompetensi di bidang {this.state.statik.kompetensi[2]}:
+            </label>
+            <select
+              ref={this.textInput}
+              className="form-control"
+              id="kompetensi3"
+              value={this.state.kompetensi3}
+              onChange={this.onChangeKompetensi3}
+            >
+              {this.state.statik.tingkat.map((tingkat) => {
+                return (
+                  <option key={tingkat} value={tingkat}>
+                    {tingkat}
                   </option>
                 );
               })}

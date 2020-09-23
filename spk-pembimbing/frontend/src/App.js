@@ -9,6 +9,8 @@ import InputDosen from "./components/input-dosen.component";
 import EditDosen from "./components/edit-dosen.component";
 import DaftarDosen from "./components/daftar-dosen.component";
 import EditKriteria from "./components/edit-kriteria.component";
+import Rekomendasi from "./components/rekomendasi.component";
+import RekomendasiTable from "./components/rekomendasi-table.component";
 
 function App() {
   return (
@@ -20,6 +22,11 @@ function App() {
       <Route path="/edit-dosen/:id" component={EditDosen} />
       <Route path="/daftar-dosen" component={DaftarDosen} />
       <Route path="/edit-kriteria" component={EditKriteria} />
+      <Route path="/rekomendasi" exact component={Rekomendasi} />
+      <Route
+        path="/rekomendasi/hasil/:nama/:nim/:index/"
+        component={RekomendasiTable}
+      />
     </Router>
   );
 }
