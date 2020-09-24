@@ -36,6 +36,8 @@ export default class RekomendasiTable extends Component {
       nim: 0,
       kompetensiIndex: 0,
       pembimbing: [],
+      pembimbing1: [],
+      pembimbing2: [],
       scorePendidikan: [],
       scoreFungsional: [],
       scoreKompetensi1: [],
@@ -74,8 +76,6 @@ export default class RekomendasiTable extends Component {
             });
             this.setState({
               pembimbing: dummyPembimbing,
-            });
-            this.setState({
               nama: this.props.match.params.nama,
               nim: Number(this.props.match.params.nim),
               kompetensiIndex: Number(this.props.match.params.index),
@@ -227,15 +227,6 @@ export default class RekomendasiTable extends Component {
               }
               let dummyKuota = this.state.scoreKuota;
               dummyKuota.push(scoreKuota);
-
-              this.setState({
-                scorePendidikan: dummyPendidikan,
-                scoreFungsional: dummyFungsional,
-                scoreKompetensi1: dummyKompetensi1,
-                scoreKompetensi2: dummyKompetensi2,
-                scoreKompetensi3: dummyKompetensi3,
-                dummyKuota: dummyKuota,
-              });
             });
           })
           .then(() => {
@@ -247,9 +238,12 @@ export default class RekomendasiTable extends Component {
                 this.state.scorePendidikan[n] /
                 Math.max(...this.state.scorePendidikan);
 
-              let rA1C2 =
-                this.state.scoreFungsional[n] /
-                Math.max(...this.state.scoreFungsional);
+              let rA1C2 = 0;
+              if (Math.max(...this.state.scoreFungsional) !== 0) {
+                rA1C2 =
+                  this.state.scoreFungsional[n] /
+                  Math.max(...this.state.scoreFungsional);
+              }
 
               let rA1C3 = 0;
               switch (this.state.kompetensiIndex) {
@@ -272,8 +266,11 @@ export default class RekomendasiTable extends Component {
                   console.warn("Kompetensi index not valid");
               }
 
-              let rA1C4 =
-                this.state.scoreKuota[n] / Math.max(...this.state.scoreKuota);
+              let rA1C4 = 0;
+              if (Math.max(...this.state.scoreKuota) !== 0) {
+                rA1C4 =
+                  this.state.scoreKuota[n] / Math.max(...this.state.scoreKuota);
+              }
 
               let VA1 =
                 rA1C1 * this.state.kriteria.pembimbing1.pendidikan +
@@ -289,41 +286,49 @@ export default class RekomendasiTable extends Component {
 
               // set score
               let dummy = pembimbing;
-              pembimbing.score1 = {
-                index: n,
-                score: VA1,
-              };
+              pembimbing.score1 = VA1;
 
-              pembimbing.score2 = {
-                index: n,
-                score: VA2,
-              };
+              pembimbing.score2 = VA2;
 
               dummyPembimbing.push(dummy);
-            });
-            dummyPembimbing.sort(this.compare);
-            this.setState({
-              pembimbing: dummyPembimbing,
+
+              // sorting
+              this.setState({
+                pembimbing1: JSON.parse(JSON.stringify(this.state.pembimbing)),
+                pembimbing2: JSON.parse(JSON.stringify(this.state.pembimbing)),
+              });
+              let sort1 = this.state.pembimbing1.sort((a, b) => {
+                if (a.score1 < b.score1) {
+                  return 1;
+                } else {
+                  return -1;
+                }
+              });
+              let sort2 = this.state.pembimbing2.sort((a, b) => {
+                if (a.score2 < b.score2) {
+                  return 1;
+                } else {
+                  return -1;
+                }
+              });
+
+              this.setState({
+                pembimbing1: sort1,
+                pembimbing2: sort2,
+              });
+
+              console.log("Sorting Done");
             });
           });
       });
   }
 
-  compare(a, b) {
-    if (a.score1.score > b.score1.score) {
-      return -1;
-    } else if (a.score1.score < b.score1.score) {
-      return 1;
-    }
-    return 0;
-  }
-
   pembimbing1() {
-    return this.state.pembimbing.map((dosen, n) => {
+    return this.state.pembimbing1.map((dosen, n) => {
       return (
         <Dosen
           dosen={dosen}
-          score={this.state.pembimbing[n].score1.score}
+          score={this.state.pembimbing1[n].score1}
           deleteDosen={this.deleteDosen}
           key={dosen._id}
         />
@@ -332,11 +337,11 @@ export default class RekomendasiTable extends Component {
   }
 
   pembimbing2() {
-    return this.state.pembimbing.map((dosen, n) => {
+    return this.state.pembimbing2.map((dosen, n) => {
       return (
         <Dosen
           dosen={dosen}
-          score={this.state.pembimbing[n].score2.score}
+          score={this.state.pembimbing2[n].score2}
           deleteDosen={this.deleteDosen}
           key={dosen._id}
         />

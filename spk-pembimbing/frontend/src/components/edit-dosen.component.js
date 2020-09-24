@@ -33,9 +33,9 @@ export default class EditDosen extends Component {
       nama: "",
       pendidikan: "",
       fungsional: "",
-      kompetensi1: "",
-      kompetensi2: "",
-      kompetensi3: "",
+      kompetensi1: 0,
+      kompetensi2: 0,
+      kompetensi3: 0,
       kuota: "",
     };
   }
@@ -104,19 +104,19 @@ export default class EditDosen extends Component {
 
   onChangeKompetensi1(event) {
     this.setState({
-      kompetensi: event.target.value,
+      kompetensi1: event.target.value,
     });
   }
 
   onChangeKompetensi2(event) {
     this.setState({
-      kompetensi: event.target.value,
+      kompetensi2: event.target.value,
     });
   }
 
   onChangeKompetensi3(event) {
     this.setState({
-      kompetensi: event.target.value,
+      kompetensi3: event.target.value,
     });
   }
 
@@ -139,6 +139,8 @@ export default class EditDosen extends Component {
       kompetensi3: this.state.kompetensi3,
       kuota: this.state.kuota,
     };
+
+    console.log(this.state.kompetensi1);
 
     Axios.post(API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
       .then((res) => {
