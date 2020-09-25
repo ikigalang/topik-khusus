@@ -15,11 +15,7 @@ const Dosen = (props) => (
     <td>{props.dosen.kompetensi3}</td>
     <td>{props.dosen.kuota}</td>
     <td>{props.score}</td>
-    <td>
-      <button type="submit" className="btn btn-primary">
-        Pilih
-      </button>
-    </td>
+    <td>{props.button}</td>
   </tr>
 );
 
@@ -29,6 +25,8 @@ export default class RekomendasiTable extends Component {
 
     this.pembimbing1 = this.pembimbing1.bind(this);
     this.pembimbing2 = this.pembimbing2.bind(this);
+    this.onSelected = this.onSelected.bind(this);
+    this.onReset = this.onReset.bind(this);
 
     this.state = {
       kriteria: {},
@@ -44,6 +42,8 @@ export default class RekomendasiTable extends Component {
       scoreKompetensi2: [],
       scoreKompetensi3: [],
       scoreKuota: [],
+      selected1: {},
+      selected2: {},
     };
   }
 
@@ -58,8 +58,9 @@ export default class RekomendasiTable extends Component {
         Axios.get(API_PEMBIMBING)
           .then((response) => {
             let dummyPembimbing = this.state.pembimbing;
-            response.data.forEach((pembimbing) => {
+            response.data.forEach((pembimbing, n) => {
               let dummyData = {
+                index: n,
                 _id: pembimbing._id,
                 nik: pembimbing.nik,
                 fungsional: pembimbing.fungsional,
@@ -71,6 +72,8 @@ export default class RekomendasiTable extends Component {
                 pendidikan: pembimbing.pendidikan,
                 score1: 0,
                 score2: 0,
+                isDisabled: false,
+                btn: "btn btn-primary",
               };
               dummyPembimbing.push(dummyData);
             });
@@ -297,6 +300,7 @@ export default class RekomendasiTable extends Component {
                 pembimbing1: JSON.parse(JSON.stringify(this.state.pembimbing)),
                 pembimbing2: JSON.parse(JSON.stringify(this.state.pembimbing)),
               });
+
               let sort1 = this.state.pembimbing1.sort((a, b) => {
                 if (a.score1 < b.score1) {
                   return 1;
@@ -316,8 +320,6 @@ export default class RekomendasiTable extends Component {
                 pembimbing1: sort1,
                 pembimbing2: sort2,
               });
-
-              console.log("Sorting Done");
             });
           });
       });
@@ -325,10 +327,30 @@ export default class RekomendasiTable extends Component {
 
   pembimbing1() {
     return this.state.pembimbing1.map((dosen, n) => {
+      let button = (
+        <button
+          type="submit"
+          className={dosen.btn}
+          onClick={this.onSelected.bind(this, dosen.index, true)}
+        >
+          Pilih
+        </button>
+      );
+      if (
+        this.state.selected1.index === dosen.index ||
+        this.state.selected2.index === dosen.index
+      ) {
+        button = (
+          <button type="submit" className={dosen.btn} disabled>
+            Pilih
+          </button>
+        );
+      }
       return (
         <Dosen
           dosen={dosen}
           score={this.state.pembimbing1[n].score1}
+          button={button}
           deleteDosen={this.deleteDosen}
           key={dosen._id}
         />
@@ -338,14 +360,83 @@ export default class RekomendasiTable extends Component {
 
   pembimbing2() {
     return this.state.pembimbing2.map((dosen, n) => {
+      let button = (
+        <button
+          type="submit"
+          className={dosen.btn}
+          onClick={this.onSelected.bind(this, dosen.index, false)}
+        >
+          Pilih
+        </button>
+      );
+      if (
+        this.state.selected1.index === dosen.index ||
+        this.state.selected2.index === dosen.index
+      ) {
+        button = (
+          <button type="submit" className={dosen.btn} disabled>
+            Pilih
+          </button>
+        );
+      }
       return (
         <Dosen
           dosen={dosen}
           score={this.state.pembimbing2[n].score2}
+          button={button}
           deleteDosen={this.deleteDosen}
           key={dosen._id}
         />
       );
+    });
+  }
+
+  onSelected(index, isFirst) {
+    let tabelAtas = this.state.pembimbing1;
+    let tabelBawah = this.state.pembimbing2;
+
+    if (isFirst) {
+      tabelAtas.forEach((pembimbing) => {
+        if (pembimbing.index === index) {
+          this.setState({
+            selected1: pembimbing,
+          });
+          pembimbing.btn = "btn btn-success";
+        } else {
+          pembimbing.btn = "btn btn-secondary";
+        }
+      });
+    } else {
+      // Bawah
+      tabelBawah.forEach((pembimbing) => {
+        if (pembimbing.index === index) {
+          this.setState({
+            selected2: pembimbing,
+          });
+          pembimbing.btn = "btn btn-success";
+        } else {
+          pembimbing.btn = "btn btn-secondary";
+        }
+      });
+    }
+
+    this.setState({
+      pembimbing1: tabelAtas,
+      pembimbing2: tabelBawah,
+    });
+  }
+
+  onReset() {
+    this.setState({
+      selected1: {},
+      selected2: {},
+    });
+
+    this.state.pembimbing1.forEach((pembimbing) => {
+      pembimbing.btn = "btn btn-primary";
+    });
+    this.state.pembimbing2.forEach((pembimbing) => {
+      pembimbing.btn = "btn btn-primary";
     });
   }
 
@@ -390,6 +481,13 @@ export default class RekomendasiTable extends Component {
           <tbody className="text-center">{this.pembimbing2()}</tbody>
         </table>
         <div className="text-right">
+          <button
+            type="reset"
+            className="btn btn-warning mb-4 mr-2"
+            onClick={this.onReset}
+          >
+            Reset
+          </button>
           <button
             type="submit"
             className="btn btn-primary w-25 mb-4"
