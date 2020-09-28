@@ -498,7 +498,7 @@ export default class RekomendasiTable extends Component {
               Axios.post(API_BIMBINGAN_ADD, data)
                 .then((res) => {
                   console.log(res.data);
-                  window.location = "/";
+                  window.location = "/home";
                 })
                 .catch((error) => console.log("Error: " + error));
             })

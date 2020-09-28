@@ -89,6 +89,7 @@ export default class Rekomendasi extends Component {
                 type="number"
                 className="form-control"
                 id="nim"
+                min="0"
                 placeholder="171051001"
                 onChange={this.onChangeNim}
                 required

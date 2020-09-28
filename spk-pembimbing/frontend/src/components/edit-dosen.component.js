@@ -140,11 +140,10 @@ export default class EditDosen extends Component {
       kuota: this.state.kuota,
     };
 
-    console.log(this.state.kompetensi1);
-
     Axios.post(API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
       .then((res) => {
         console.log(res.data);
+        alert("Edit success!");
         window.location = "/daftar-dosen";
       })
       .catch((error) => console.log("Error: " + error));
@@ -164,6 +163,7 @@ export default class EditDosen extends Component {
                 type="number"
                 className="form-control"
                 id="nik"
+                min="0"
                 value={this.state.nik}
                 onChange={this.onChangeNik}
                 required
@@ -282,6 +282,7 @@ export default class EditDosen extends Component {
                 type="number"
                 className="form-control"
                 id="kuota"
+                min="0"
                 value={this.state.kuota}
                 onChange={this.onChangeKuota}
                 required

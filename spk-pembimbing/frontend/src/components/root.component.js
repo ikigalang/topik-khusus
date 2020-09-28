@@ -5,6 +5,11 @@ export default class Login extends Component {
 
     this.isLoggedIn = this.isLoggedIn.bind(this);
   }
+
+  componentDidMount() {
+    this.isLoggedIn();
+  }
+
   isLoggedIn() {
     if (localStorage.getItem("loginState" === "1")) {
       window.location = "/home";

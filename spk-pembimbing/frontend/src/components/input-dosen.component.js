@@ -130,7 +130,8 @@ export default class InputDosen extends Component {
     Axios.post(API_PEMBIMBING_ADD, data)
       .then((res) => {
         console.log(res.data);
-        window.location = "/";
+        alert("Input success!");
+        window.location = "/input-dosen";
       })
       .catch((error) => console.log("Error: " + error));
   }

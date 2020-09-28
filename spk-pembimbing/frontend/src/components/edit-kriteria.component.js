@@ -131,7 +131,11 @@ export default class EditKriteria extends Component {
     };
 
     Axios.post(API_KRITERIA_UPDATE + this.state.idKriteria, data)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        console.log(res.data);
+        alert("Edit success!");
+        window.location = "/home";
+      })
       .catch((error) => console.log(error));
   }
 
