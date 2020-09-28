@@ -13,6 +13,10 @@ const bimbinganSchema = new Schema({
     type: Number,
     required: true,
   },
+  kompetensi: {
+    type: Number,
+    required: true,
+  },
   idPembimbing1: {
     type: String,
     required: true,

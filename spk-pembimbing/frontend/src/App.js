@@ -11,6 +11,7 @@ import DaftarDosen from "./components/daftar-dosen.component";
 import EditKriteria from "./components/edit-kriteria.component";
 import Rekomendasi from "./components/rekomendasi.component";
 import RekomendasiTable from "./components/rekomendasi-table.component";
+import DaftarBimbingan from "./components/daftar-bimbingan.component";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         path="/rekomendasi/hasil/:nama/:nim/:index/"
         component={RekomendasiTable}
       />
+      <Route path="/daftar-bimbingan" component={DaftarBimbingan} />
     </Router>
   );
 }

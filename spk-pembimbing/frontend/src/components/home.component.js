@@ -40,7 +40,7 @@ export default class Home extends Component {
         </div>
         <div className="row mt-2">
           <div className="col-sm">
-            <Link to="/#" className="nav-link">
+            <Link to="/daftar-bimbingan" className="nav-link">
               <button
                 type="button"
                 className="btn text-light bg-secondary w-100"

@@ -474,6 +474,7 @@ export default class RekomendasiTable extends Component {
     const data = {
       nama: this.props.match.params.nama,
       nim: this.props.match.params.nim,
+      kompetensi: this.props.match.params.index,
       idPembimbing1: this.state.selected1._id,
       idPembimbing2: this.state.selected2._id,
     };

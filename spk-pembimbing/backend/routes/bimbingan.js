@@ -12,12 +12,14 @@ router.route("/").get((req, res) => {
 router.route("/add").post((req, res) => {
   const nama = req.body.nama;
   const nim = req.body.nim;
+  const kompetensi = req.body.kompetensi;
   const idPembimbing1 = req.body.idPembimbing1;
   const idPembimbing2 = req.body.idPembimbing2;
 
   const newBimbingan = new Bimbingan({
     nama,
     nim,
+    kompetensi,
     idPembimbing1,
     idPembimbing2,
   });
@@ -33,6 +35,7 @@ router.route("/update/:id").post((req, res) => {
   Bimbingan.findById(req.params.id).then((bimbingan) => {
     bimbingan.nama = req.body.nama;
     bimbingan.nim = req.body.nim;
+    bimbingan.kompetensi = req.body.kompetensi;
     bimbingan.idPembimbing1 = req.body.idPembimbing1;
     bimbingan.idPembimbing2 = req.body.idPembimbing2;
 
@@ -45,6 +48,7 @@ router.route("/update/:id").post((req, res) => {
 
 // delete bimbingan
 router.route("/delete/:id").delete((req, res) => {
+  console.log(req.params.id);
   Bimbingan.findByIdAndDelete(req.params.id)
     .then(() => res.json("Bimbingan deleted!"))
     .catch((error) => res.status(400).json("Error: " + error));
