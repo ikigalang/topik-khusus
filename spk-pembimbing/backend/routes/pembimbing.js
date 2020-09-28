@@ -65,7 +65,7 @@ router.route("/update/:id").post((req, res) => {
 // delete pembimbing
 router.route("/delete/:id").delete((req, res) => {
   Pembimbing.findByIdAndDelete(req.params.id)
-    .then(() => res.json("Course deleted!"))
+    .then(() => res.json("Pembimbing deleted!"))
     .catch((error) => res.status(400).json("Error: " + error));
 });
 

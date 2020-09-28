@@ -48,7 +48,6 @@ router.route("/update/:id").post((req, res) => {
 
 // delete bimbingan
 router.route("/delete/:id").delete((req, res) => {
-  console.log(req.params.id);
   Bimbingan.findByIdAndDelete(req.params.id)
     .then(() => res.json("Bimbingan deleted!"))
     .catch((error) => res.status(400).json("Error: " + error));

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
+const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
 const API_PEMBIMBING_DELETE = process.env.REACT_APP_API_PEMBIMBING_DELETE;
 
 const Dosen = (props) => (
@@ -42,7 +43,10 @@ export default class DaftarDosen extends Component {
 
     this.deleteDosen = this.deleteDosen.bind(this);
 
-    this.state = { dataDosen: [] };
+    this.state = {
+      dataDosen: [],
+      dataBimbingan: [],
+    };
   }
 
   componentDidMount() {
@@ -50,22 +54,37 @@ export default class DaftarDosen extends Component {
       .then((response) => {
         this.setState({ dataDosen: response.data });
       })
+      .then(() => {
+        Axios.get(API_BIMBINGAN).then((response) => {
+          this.setState({ dataBimbingan: response.data });
+        });
+      })
       .catch((error) => {
         console.log(error);
       });
   }
 
   deleteDosen(id) {
-    Axios.delete(API_PEMBIMBING_DELETE + id)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({
-          dataDosen: this.state.dataDosen.filter(
-            (element) => element._id !== id
-          ),
-        });
-      })
-      .catch((error) => console.log(error));
+    let free = true;
+    this.state.dataBimbingan.forEach((bimbingan) => {
+      if (bimbingan.idPembimbing1 === id || bimbingan.idPembimbing2 === id) {
+        free = false;
+      }
+    });
+    if (free) {
+      Axios.delete(API_PEMBIMBING_DELETE + id)
+        .then((res) => {
+          console.log(res.data);
+          this.setState({
+            dataDosen: this.state.dataDosen.filter(
+              (element) => element._id !== id
+            ),
+          });
+        })
+        .catch((error) => console.log(error));
+    } else {
+      alert("Tidak dapat menghapus karena ada mahasiswa yang sedang bimbingan");
+    }
   }
 
   listDosen() {
@@ -81,7 +100,7 @@ export default class DaftarDosen extends Component {
       window.location = "/login";
     } else {
       return (
-        <div className="px-2 mt-4">
+        <div className="container mt-4">
           <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
           <table className="table">
             <thead className="thead-light text-center">
