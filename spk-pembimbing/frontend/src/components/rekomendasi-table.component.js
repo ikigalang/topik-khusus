@@ -2,20 +2,22 @@ import React, { Component } from "react";
 import Axios from "axios";
 
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
+const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_KRITERIA = process.env.REACT_APP_API_KRITERIA;
+const API_BIMBINGAN_ADD = process.env.REACT_APP_API_BIMBINGAN_ADD;
 
 const Dosen = (props) => (
   <tr className="text-center">
-    <td>{props.dosen.nama}</td>
-    <td>{props.dosen.nik}</td>
-    <td>{props.dosen.pendidikan}</td>
-    <td>{props.dosen.fungsional}</td>
-    <td>{props.dosen.kompetensi1}</td>
-    <td>{props.dosen.kompetensi2}</td>
-    <td>{props.dosen.kompetensi3}</td>
-    <td>{props.dosen.kuota}</td>
-    <td>{props.score}</td>
-    <td>{props.button}</td>
+    <td className="align-middle">{props.dosen.nama}</td>
+    <td className="align-middle">{props.dosen.nik}</td>
+    <td className="align-middle">{props.dosen.pendidikan}</td>
+    <td className="align-middle">{props.dosen.fungsional}</td>
+    <td className="align-middle">{props.dosen.kompetensi1}</td>
+    <td className="align-middle">{props.dosen.kompetensi2}</td>
+    <td className="align-middle">{props.dosen.kompetensi3}</td>
+    <td className="align-middle">{props.dosen.kuota}</td>
+    <td className="align-middle">{props.score}</td>
+    <td className="align-middle">{props.button}</td>
   </tr>
 );
 
@@ -27,11 +29,10 @@ export default class RekomendasiTable extends Component {
     this.pembimbing2 = this.pembimbing2.bind(this);
     this.onSelected = this.onSelected.bind(this);
     this.onReset = this.onReset.bind(this);
+    this.onSave = this.onSave.bind(this);
 
     this.state = {
       kriteria: {},
-      nama: "",
-      nim: 0,
       kompetensiIndex: 0,
       pembimbing: [],
       pembimbing1: [],
@@ -79,8 +80,6 @@ export default class RekomendasiTable extends Component {
             });
             this.setState({
               pembimbing: dummyPembimbing,
-              nama: this.props.match.params.nama,
-              nim: Number(this.props.match.params.nim),
               kompetensiIndex: Number(this.props.match.params.index),
             });
           })
@@ -440,11 +439,101 @@ export default class RekomendasiTable extends Component {
     });
   }
 
+  onSave() {
+    // kuota pembimbing harus ditambah
+
+    let updatePembimbing1 = {};
+    let updatePembimbing2 = {};
+
+    this.state.pembimbing.forEach((pembimbing) => {
+      if (pembimbing._id === this.state.selected1._id) {
+        updatePembimbing1 = {
+          nik: pembimbing.nik,
+          nama: pembimbing.nama,
+          pendidikan: pembimbing.pendidikan,
+          fungsional: pembimbing.fungsional,
+          kompetensi1: pembimbing.kompetensi1,
+          kompetensi2: pembimbing.kompetensi2,
+          kompetensi3: pembimbing.kompetensi3,
+          kuota: pembimbing.kuota + 1,
+        };
+      } else if (pembimbing._id === this.state.selected2._id) {
+        updatePembimbing2 = {
+          nik: pembimbing.nik,
+          nama: pembimbing.nama,
+          pendidikan: pembimbing.pendidikan,
+          fungsional: pembimbing.fungsional,
+          kompetensi1: pembimbing.kompetensi1,
+          kompetensi2: pembimbing.kompetensi2,
+          kompetensi3: pembimbing.kompetensi3,
+          kuota: pembimbing.kuota + 1,
+        };
+      }
+    });
+
+    const data = {
+      nama: this.props.match.params.nama,
+      nim: this.props.match.params.nim,
+      idPembimbing1: this.state.selected1._id,
+      idPembimbing2: this.state.selected2._id,
+    };
+
+    if (
+      Object.keys(updatePembimbing1).length > 0 &&
+      Object.keys(updatePembimbing2).length > 0
+    ) {
+      Axios.post(
+        API_PEMBIMBING_UPDATE + this.state.selected1._id,
+        updatePembimbing1
+      )
+        .then((res) => {
+          console.log(res.data);
+          Axios.post(
+            API_PEMBIMBING_UPDATE + this.state.selected2._id,
+            updatePembimbing2
+          )
+            .then((res) => {
+              console.log(res.data);
+              Axios.post(API_BIMBINGAN_ADD, data)
+                .then((res) => {
+                  console.log(res.data);
+                  window.location = "/";
+                })
+                .catch((error) => console.log("Error: " + error));
+            })
+            .catch((error) => console.log("Error: " + error));
+        })
+        .catch((error) => console.log("Error: " + error));
+    } else {
+      alert("Pilih dosen pembimbing.");
+    }
+  }
+
   render() {
     return (
       <div className="container mt-4">
         <h3 className="text-center">HASIL REKOMENDASI DOSEN PEMBIMBING</h3>
-        <h4 className="text-left mt-4">Pembimbing I</h4>
+
+        <div className="row justify-content-center mt-4">
+          <div className="col-auto">
+            <table className="table table-bordered">
+              <thead className="thead-light text-center">
+                <tr>
+                  <th className="align-middle">Nama Mahasiswa</th>
+                  <th className="align-middle">NIM</th>
+                </tr>
+              </thead>
+              <tbody className="text-center">
+                <tr>
+                  <td>{this.props.match.params.nama}</td>
+                  <td>{this.props.match.params.nim}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <h4 className="text-left">Pembimbing I</h4>
         <table className="table table-bordered">
           <thead className="thead-light text-center">
             <tr>

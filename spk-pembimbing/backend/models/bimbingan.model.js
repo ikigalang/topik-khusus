@@ -9,6 +9,10 @@ const bimbinganSchema = new Schema({
     trim: true,
     minlength: 3,
   },
+  nim: {
+    type: Number,
+    required: true,
+  },
   idPembimbing1: {
     type: String,
     required: true,

@@ -11,11 +11,13 @@ router.route("/").get((req, res) => {
 // add new bimbingan
 router.route("/add").post((req, res) => {
   const nama = req.body.nama;
+  const nim = req.body.nim;
   const idPembimbing1 = req.body.idPembimbing1;
   const idPembimbing2 = req.body.idPembimbing2;
 
   const newBimbingan = new Bimbingan({
     nama,
+    nim,
     idPembimbing1,
     idPembimbing2,
   });
@@ -30,6 +32,7 @@ router.route("/add").post((req, res) => {
 router.route("/update/:id").post((req, res) => {
   Bimbingan.findById(req.params.id).then((bimbingan) => {
     bimbingan.nama = req.body.nama;
+    bimbingan.nim = req.body.nim;
     bimbingan.idPembimbing1 = req.body.idPembimbing1;
     bimbingan.idPembimbing2 = req.body.idPembimbing2;
 
