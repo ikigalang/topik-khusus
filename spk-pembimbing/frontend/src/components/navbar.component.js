@@ -6,7 +6,7 @@ export default class Navbar extends Component {
     return (
       <div>
         <nav className="navbar navbar-dark bg-primary navbar-expand-sm">
-          <Link to="/" className="navbar-brand">
+          <Link to="/home" className="navbar-brand">
             Sistem Pendukung Keputusan
           </Link>
         </nav>

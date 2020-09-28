@@ -77,26 +77,30 @@ export default class DaftarDosen extends Component {
   }
 
   render() {
-    return (
-      <div className="px-2 mt-4">
-        <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
-        <table className="table">
-          <thead className="thead-light text-center">
-            <tr>
-              <th className="align-middle">Nama</th>
-              <th className="align-middle">NIK</th>
-              <th className="align-middle">Pendidikan</th>
-              <th className="align-middle">Fungsional</th>
-              <th className="align-middle">Kompetensi I</th>
-              <th className="align-middle">Kompetensi II</th>
-              <th className="align-middle">Kompetensi III</th>
-              <th className="align-middle">Kuota</th>
-              <th className="align-middle">Opsi</th>
-            </tr>
-          </thead>
-          <tbody>{this.listDosen()}</tbody>
-        </table>
-      </div>
-    );
+    if (localStorage.getItem("loginState" === "0")) {
+      window.location = "/login";
+    } else {
+      return (
+        <div className="px-2 mt-4">
+          <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
+          <table className="table">
+            <thead className="thead-light text-center">
+              <tr>
+                <th className="align-middle">Nama</th>
+                <th className="align-middle">NIK</th>
+                <th className="align-middle">Pendidikan</th>
+                <th className="align-middle">Fungsional</th>
+                <th className="align-middle">Kompetensi I</th>
+                <th className="align-middle">Kompetensi II</th>
+                <th className="align-middle">Kompetensi III</th>
+                <th className="align-middle">Kuota</th>
+                <th className="align-middle">Opsi</th>
+              </tr>
+            </thead>
+            <tbody>{this.listDosen()}</tbody>
+          </table>
+        </div>
+      );
+    }
   }
 }

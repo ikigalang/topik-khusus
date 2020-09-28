@@ -511,82 +511,86 @@ export default class RekomendasiTable extends Component {
   }
 
   render() {
-    return (
-      <div className="container mt-4">
-        <h3 className="text-center">HASIL REKOMENDASI DOSEN PEMBIMBING</h3>
+    if (localStorage.getItem("loginState" === "0")) {
+      window.location = "/login";
+    } else {
+      return (
+        <div className="container mt-4">
+          <h3 className="text-center">HASIL REKOMENDASI DOSEN PEMBIMBING</h3>
 
-        <div className="row justify-content-center mt-4">
-          <div className="col-auto">
-            <table className="table table-bordered">
-              <thead className="thead-light text-center">
-                <tr>
-                  <th className="align-middle">Nama Mahasiswa</th>
-                  <th className="align-middle">NIM</th>
-                </tr>
-              </thead>
-              <tbody className="text-center">
-                <tr>
-                  <td>{this.props.match.params.nama}</td>
-                  <td>{this.props.match.params.nim}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="row justify-content-center mt-4">
+            <div className="col-auto">
+              <table className="table table-bordered">
+                <thead className="thead-light text-center">
+                  <tr>
+                    <th className="align-middle">Nama Mahasiswa</th>
+                    <th className="align-middle">NIM</th>
+                  </tr>
+                </thead>
+                <tbody className="text-center">
+                  <tr>
+                    <td>{this.props.match.params.nama}</td>
+                    <td>{this.props.match.params.nim}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h4 className="text-left">Pembimbing I</h4>
+          <table className="table table-bordered">
+            <thead className="thead-light text-center">
+              <tr>
+                <th className="align-middle">Nama</th>
+                <th className="align-middle">NIK</th>
+                <th className="align-middle">Pendidikan</th>
+                <th className="align-middle">Fungsional</th>
+                <th className="align-middle">Kompetensi I</th>
+                <th className="align-middle">Kompetensi II</th>
+                <th className="align-middle">Kompetensi III</th>
+                <th className="align-middle">Kuota</th>
+                <th className="align-middle">Skor</th>
+                <th className="align-middle">Opsi</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">{this.pembimbing1()}</tbody>
+          </table>
+          <h4 className="text-left mt-4">Pembimbing II</h4>
+          <table className="table table-bordered">
+            <thead className="thead-light text-center">
+              <tr>
+                <th className="align-middle">Nama</th>
+                <th className="align-middle">NIK</th>
+                <th className="align-middle">Pendidikan</th>
+                <th className="align-middle">Fungsional</th>
+                <th className="align-middle">Kompetensi I</th>
+                <th className="align-middle">Kompetensi II</th>
+                <th className="align-middle">Kompetensi III</th>
+                <th className="align-middle">Kuota</th>
+                <th className="align-middle">Skor</th>
+                <th className="align-middle">Opsi</th>
+              </tr>
+            </thead>
+            <tbody className="text-center">{this.pembimbing2()}</tbody>
+          </table>
+          <div className="text-right">
+            <button
+              type="reset"
+              className="btn btn-warning mb-4 mr-2"
+              onClick={this.onReset}
+            >
+              Reset
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary w-25 mb-4"
+              onClick={this.onSave}
+            >
+              Save
+            </button>
           </div>
         </div>
-
-        <h4 className="text-left">Pembimbing I</h4>
-        <table className="table table-bordered">
-          <thead className="thead-light text-center">
-            <tr>
-              <th className="align-middle">Nama</th>
-              <th className="align-middle">NIK</th>
-              <th className="align-middle">Pendidikan</th>
-              <th className="align-middle">Fungsional</th>
-              <th className="align-middle">Kompetensi I</th>
-              <th className="align-middle">Kompetensi II</th>
-              <th className="align-middle">Kompetensi III</th>
-              <th className="align-middle">Kuota</th>
-              <th className="align-middle">Skor</th>
-              <th className="align-middle">Opsi</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">{this.pembimbing1()}</tbody>
-        </table>
-        <h4 className="text-left mt-4">Pembimbing II</h4>
-        <table className="table table-bordered">
-          <thead className="thead-light text-center">
-            <tr>
-              <th className="align-middle">Nama</th>
-              <th className="align-middle">NIK</th>
-              <th className="align-middle">Pendidikan</th>
-              <th className="align-middle">Fungsional</th>
-              <th className="align-middle">Kompetensi I</th>
-              <th className="align-middle">Kompetensi II</th>
-              <th className="align-middle">Kompetensi III</th>
-              <th className="align-middle">Kuota</th>
-              <th className="align-middle">Skor</th>
-              <th className="align-middle">Opsi</th>
-            </tr>
-          </thead>
-          <tbody className="text-center">{this.pembimbing2()}</tbody>
-        </table>
-        <div className="text-right">
-          <button
-            type="reset"
-            className="btn btn-warning mb-4 mr-2"
-            onClick={this.onReset}
-          >
-            Reset
-          </button>
-          <button
-            type="submit"
-            className="btn btn-primary w-25 mb-4"
-            onClick={this.onSave}
-          >
-            Save
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }

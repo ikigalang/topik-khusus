@@ -141,23 +141,27 @@ export default class DaftarBimbingan extends Component {
   }
 
   render() {
-    return (
-      <div className="container mt-4">
-        <h3 className="text-center">DAFTAR MAHASISWA BIMBINGAN</h3>
-        <table className="table">
-          <thead className="thead-light text-center">
-            <tr>
-              <th className="align-middle">Nama</th>
-              <th className="align-middle">NIM</th>
-              <th className="align-middle">Kompetensi</th>
-              <th className="align-middle">Pembimbing I</th>
-              <th className="align-middle">Pembimbing II</th>
-              <th className="align-middle">Opsi</th>
-            </tr>
-          </thead>
-          <tbody>{this.listBimbingan()}</tbody>
-        </table>
-      </div>
-    );
+    if (localStorage.getItem("loginState" === "0")) {
+      window.location = "/login";
+    } else {
+      return (
+        <div className="container mt-4">
+          <h3 className="text-center">DAFTAR MAHASISWA BIMBINGAN</h3>
+          <table className="table">
+            <thead className="thead-light text-center">
+              <tr>
+                <th className="align-middle">Nama</th>
+                <th className="align-middle">NIM</th>
+                <th className="align-middle">Kompetensi</th>
+                <th className="align-middle">Pembimbing I</th>
+                <th className="align-middle">Pembimbing II</th>
+                <th className="align-middle">Opsi</th>
+              </tr>
+            </thead>
+            <tbody>{this.listBimbingan()}</tbody>
+          </table>
+        </div>
+      );
+    }
   }
 }

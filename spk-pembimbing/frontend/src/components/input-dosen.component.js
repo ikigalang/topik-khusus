@@ -128,145 +128,154 @@ export default class InputDosen extends Component {
     };
 
     Axios.post(API_PEMBIMBING_ADD, data)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        console.log(res.data);
+        window.location = "/";
+      })
       .catch((error) => console.log("Error: " + error));
   }
 
   render() {
-    return (
-      <div className="container mt-4">
-        <h3 className="text-center">INPUT DATA DOSEN PEMBIMBING</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="nik">NIK: </label>
-            <input
-              type="number"
-              className="form-control"
-              id="nik"
-              placeholder="123456"
-              onChange={this.onChangeNik}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="nama">Nama: </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nama"
-              placeholder="Liliana"
-              onChange={this.onChangeNama}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="pendidikan">Pendidikan: </label>
-            <select
-              ref={this.textInput}
-              className="form-control"
-              id="pendidikan"
-              onChange={this.onChangePendidikan}
-            >
-              {this.state.statik.pendidikan.map((tingkat) => {
-                return (
-                  <option key={tingkat} value={tingkat}>
-                    {tingkat}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="fungsional">Fungsional: </label>
-            <select
-              ref={this.textInput}
-              className="form-control"
-              id="fungsional"
-              onChange={this.onChangeFungsional}
-            >
-              {this.state.statik.fungsional.map((tingkat) => {
-                return (
-                  <option key={tingkat} value={tingkat}>
-                    {tingkat}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="kompetensi1">
-              Nilai kompetensi di bidang {this.state.statik.kompetensi[0]}:
-            </label>
-            <select
-              ref={this.textInput}
-              className="form-control"
-              id="kompetensi1"
-              onChange={this.onChangeKompetensi1}
-            >
-              {this.state.statik.tingkat.map((tingkat) => {
-                return (
-                  <option key={tingkat} value={tingkat}>
-                    {tingkat}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="kompetensi2">
-              Nilai kompetensi di bidang {this.state.statik.kompetensi[1]}:
-            </label>
-            <select
-              ref={this.textInput}
-              className="form-control"
-              id="kompetensi2"
-              onChange={this.onChangeKompetensi2}
-            >
-              {this.state.statik.tingkat.map((tingkat) => {
-                return (
-                  <option key={tingkat} value={tingkat}>
-                    {tingkat}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="kompetensi3">
-              Nilai kompetensi di bidang {this.state.statik.kompetensi[2]}:
-            </label>
-            <select
-              ref={this.textInput}
-              className="form-control"
-              id="kompetensi3"
-              onChange={this.onChangeKompetensi3}
-            >
-              {this.state.statik.tingkat.map((tingkat) => {
-                return (
-                  <option key={tingkat} value={tingkat}>
-                    {tingkat}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group">
-            <label>Kuota: </label>
-            <input
-              type="number"
-              className="form-control"
-              placeholder="0"
-              onChange={this.onChangeKuota}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
-    );
+    if (localStorage.getItem("loginState" === "0")) {
+      window.location = "/login";
+    } else {
+      return (
+        <div className="container mt-4">
+          <h3 className="text-center">INPUT DATA DOSEN PEMBIMBING</h3>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label htmlFor="nik">NIK: </label>
+              <input
+                type="number"
+                className="form-control"
+                id="nik"
+                placeholder="123456"
+                min="0"
+                onChange={this.onChangeNik}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="nama">Nama: </label>
+              <input
+                type="text"
+                className="form-control"
+                id="nama"
+                placeholder="Liliana"
+                onChange={this.onChangeNama}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="pendidikan">Pendidikan: </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="pendidikan"
+                onChange={this.onChangePendidikan}
+              >
+                {this.state.statik.pendidikan.map((tingkat) => {
+                  return (
+                    <option key={tingkat} value={tingkat}>
+                      {tingkat}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="fungsional">Fungsional: </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="fungsional"
+                onChange={this.onChangeFungsional}
+              >
+                {this.state.statik.fungsional.map((tingkat) => {
+                  return (
+                    <option key={tingkat} value={tingkat}>
+                      {tingkat}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="kompetensi1">
+                Nilai kompetensi di bidang {this.state.statik.kompetensi[0]}:
+              </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="kompetensi1"
+                onChange={this.onChangeKompetensi1}
+              >
+                {this.state.statik.tingkat.map((tingkat) => {
+                  return (
+                    <option key={tingkat} value={tingkat}>
+                      {tingkat}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="kompetensi2">
+                Nilai kompetensi di bidang {this.state.statik.kompetensi[1]}:
+              </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="kompetensi2"
+                onChange={this.onChangeKompetensi2}
+              >
+                {this.state.statik.tingkat.map((tingkat) => {
+                  return (
+                    <option key={tingkat} value={tingkat}>
+                      {tingkat}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="kompetensi3">
+                Nilai kompetensi di bidang {this.state.statik.kompetensi[2]}:
+              </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="kompetensi3"
+                onChange={this.onChangeKompetensi3}
+              >
+                {this.state.statik.tingkat.map((tingkat) => {
+                  return (
+                    <option key={tingkat} value={tingkat}>
+                      {tingkat}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group">
+              <label>Kuota: </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="0"
+                min="0"
+                onChange={this.onChangeKuota}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary">
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
   }
 }

@@ -65,56 +65,60 @@ export default class Rekomendasi extends Component {
   }
 
   render() {
-    return (
-      <div className="container-sm mt-4 w-50">
-        <h3 className="text-center">CARI REKOMENDASI</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="nama">Nama: </label>
-            <input
-              type="text"
-              className="form-control"
-              id="nama"
-              placeholder="Nama Mahasiswa"
-              onChange={this.onChangeName}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="nim">NIM: </label>
-            <input
-              type="number"
-              className="form-control"
-              id="nim"
-              placeholder="171051001"
-              onChange={this.onChangeNim}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="kompetensi">Kompetensi: </label>
-            <select
-              ref={this.textInput}
-              className="form-control"
-              id="kompetensi"
-              onChange={this.onChangeKompetensi}
-            >
-              {this.state.statikKompetensi.map((kompetensi) => {
-                return (
-                  <option key={kompetensi} value={kompetensi}>
-                    {kompetensi}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
-          <div className="form-group text-right">
-            <button type="submit" className="btn btn-primary w-25">
-              Cari
-            </button>
-          </div>
-        </form>
-      </div>
-    );
+    if (localStorage.getItem("loginState" === "0")) {
+      window.location = "/login";
+    } else {
+      return (
+        <div className="container-sm mt-4 w-50">
+          <h3 className="text-center">CARI REKOMENDASI</h3>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label htmlFor="nama">Nama: </label>
+              <input
+                type="text"
+                className="form-control"
+                id="nama"
+                placeholder="Nama Mahasiswa"
+                onChange={this.onChangeName}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="nim">NIM: </label>
+              <input
+                type="number"
+                className="form-control"
+                id="nim"
+                placeholder="171051001"
+                onChange={this.onChangeNim}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="kompetensi">Kompetensi: </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="kompetensi"
+                onChange={this.onChangeKompetensi}
+              >
+                {this.state.statikKompetensi.map((kompetensi) => {
+                  return (
+                    <option key={kompetensi} value={kompetensi}>
+                      {kompetensi}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="form-group text-right">
+              <button type="submit" className="btn btn-primary w-25">
+                Cari
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
   }
 }

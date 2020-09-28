@@ -46,46 +46,59 @@ export default class Login extends Component {
 
     axios
       .post(API_USER_SEARCH, data)
-      .then((res) =>
-        res.data.status ? (window.location = "/") : console.log(res.data.status)
-      )
+      .then((res) => {
+        if (res.data.status) {
+          localStorage.setItem("loginState", "1");
+          window.location = "/home";
+        } else {
+          alert("Username/password wrong!");
+          this.setState({
+            username: "",
+            password: "",
+          });
+        }
+      })
       .catch((error) => console.log("Error: " + error));
   }
 
   render() {
-    return (
-      <div className="container-sm mt-4">
-        <h3 className="text-center">LOGIN</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group">
-            <label htmlFor="username">Username: </label>
-            <input
-              type="text"
-              className="form-control"
-              id="username"
-              placeholder="Username"
-              onChange={this.onChangeUsername}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              className="form-control"
-              id="password"
-              placeholder="Password"
-              onChange={this.onChangePassword}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">
-              Login
-            </button>
-          </div>
-        </form>
-      </div>
-    );
+    if (localStorage.getItem("loginState") === "1") {
+      window.location = "/home";
+    } else {
+      return (
+        <div className="container-sm mt-4">
+          <h3 className="text-center">LOGIN</h3>
+          <form onSubmit={this.onSubmit}>
+            <div className="form-group">
+              <label htmlFor="username">Username: </label>
+              <input
+                type="text"
+                className="form-control"
+                id="username"
+                value={this.state.username}
+                onChange={this.onChangeUsername}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password: </label>
+              <input
+                type="password"
+                className="form-control"
+                id="password"
+                value={this.state.password}
+                onChange={this.onChangePassword}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <button type="submit" className="btn btn-primary">
+                Login
+              </button>
+            </div>
+          </form>
+        </div>
+      );
+    }
   }
 }
