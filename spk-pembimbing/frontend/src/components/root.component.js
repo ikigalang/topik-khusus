@@ -11,7 +11,8 @@ export default class Login extends Component {
   }
 
   isLoggedIn() {
-    if (localStorage.getItem("loginState" === "1")) {
+    console.log(localStorage.getItem("loginState"));
+    if (localStorage.getItem("loginState") === "1") {
       window.location = "/home";
     } else {
       window.location = "/login";

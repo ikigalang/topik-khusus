@@ -47,6 +47,7 @@ export default class Login extends Component {
     axios
       .post(API_USER_SEARCH, data)
       .then((res) => {
+        console.log(res);
         if (res.data.status) {
           localStorage.setItem("loginState", "1");
           window.location = "/home";
