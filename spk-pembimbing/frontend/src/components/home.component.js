@@ -9,6 +9,7 @@ export default class Home extends Component {
   }
 
   onLogout() {
+    alert("Anda telah logout.");
     localStorage.setItem("loginState", "0");
   }
 
