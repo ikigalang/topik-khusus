@@ -140,194 +140,196 @@ export default class EditKriteria extends Component {
   }
 
   render() {
-    if (localStorage.getItem("loginState" === "0")) {
+    if (localStorage.getItem("loginState") === "0") {
       window.location = "/login";
     } else {
       return (
         <div className="container mt-4 text-center">
           <h3>EDIT BOBOT KRITERIA</h3>
-          <h4 className="text-left mt-4">Pembimbing I</h4>
-          <table className="table table-bordered">
-            <thead className="thead-light text-center">
-              <tr>
-                <th>Kriteria</th>
-                <th>Bobot</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-center">
-                <td>Pendidikan</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.pendidikan1}
-                    onChange={this.onChangePendidikan1}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr className="text-center">
-                <td>Fungsional</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.fungsional1}
-                    onChange={this.onChangeFungsional1}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr className="text-center">
-                <td>Kompetensi</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.kompetensi1}
-                    onChange={this.onChangeKompetensi1}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr className="text-center">
-                <td>Kuota</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.kuota1}
-                    onChange={this.onChangeKuota1}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <h4 className="text-left mt-4">Pembimbing II</h4>
-          <table className="table table-bordered">
-            <thead className="thead-light text-center">
-              <tr>
-                <th>Kriteria</th>
-                <th>Bobot</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className="text-center">
-                <td>Pendidikan</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.pendidikan2}
-                    onChange={this.onChangePendidikan2}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr className="text-center">
-                <td>Fungsional</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.fungsional2}
-                    onChange={this.onChangeFungsional2}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr className="text-center">
-                <td>Kompetensi</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.kompetensi2}
-                    onChange={this.onChangeKompetensi2}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-              <tr className="text-center">
-                <td>Kuota</td>
-                <td className="w-25">
-                  <select
-                    ref={this.textInput}
-                    className="form-control"
-                    value={this.state.kuota2}
-                    onChange={this.onChangeKuota2}
-                  >
-                    {this.state.bobot.map((bobot) => {
-                      return (
-                        <option key={bobot} value={bobot}>
-                          {bobot}
-                        </option>
-                      );
-                    })}
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div className="text-right">
-            <button
-              type="submit"
-              className="btn btn-primary w-25 mb-4"
-              onClick={this.onSave}
-            >
-              Save
-            </button>
+          <div className="w-50 mx-auto">
+            <h4 className="text-left mt-4">Pembimbing I</h4>
+            <table className="table table-bordered">
+              <thead className="thead-light text-center">
+                <tr>
+                  <th>Kriteria</th>
+                  <th>Bobot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="text-center">
+                  <td>Pendidikan</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.pendidikan1}
+                      onChange={this.onChangePendidikan1}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td>Fungsional</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.fungsional1}
+                      onChange={this.onChangeFungsional1}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td>Kompetensi</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.kompetensi1}
+                      onChange={this.onChangeKompetensi1}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td>Kuota</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.kuota1}
+                      onChange={this.onChangeKuota1}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <h4 className="text-left mt-4">Pembimbing II</h4>
+            <table className="table table-bordered">
+              <thead className="thead-light text-center">
+                <tr>
+                  <th>Kriteria</th>
+                  <th>Bobot</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="text-center">
+                  <td>Pendidikan</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.pendidikan2}
+                      onChange={this.onChangePendidikan2}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td>Fungsional</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.fungsional2}
+                      onChange={this.onChangeFungsional2}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td>Kompetensi</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.kompetensi2}
+                      onChange={this.onChangeKompetensi2}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+                <tr className="text-center">
+                  <td>Kuota</td>
+                  <td className="w-25">
+                    <select
+                      ref={this.textInput}
+                      className="form-control"
+                      value={this.state.kuota2}
+                      onChange={this.onChangeKuota2}
+                    >
+                      {this.state.bobot.map((bobot) => {
+                        return (
+                          <option key={bobot} value={bobot}>
+                            {bobot}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div className="text-right">
+              <button
+                type="submit"
+                className="btn btn-primary w-25 mb-4"
+                onClick={this.onSave}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       );

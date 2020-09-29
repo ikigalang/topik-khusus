@@ -65,13 +65,13 @@ export default class Rekomendasi extends Component {
   }
 
   render() {
-    if (localStorage.getItem("loginState" === "0")) {
+    if (localStorage.getItem("loginState") === "0") {
       window.location = "/login";
     } else {
       return (
         <div className="container-sm mt-4 w-50">
           <h3 className="text-center">CARI REKOMENDASI</h3>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.onSubmit} className="w-50 mx-auto">
             <div className="form-group">
               <label htmlFor="nama">Nama: </label>
               <input

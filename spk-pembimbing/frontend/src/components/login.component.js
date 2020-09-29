@@ -68,7 +68,7 @@ export default class Login extends Component {
       return (
         <div className="container-sm mt-4">
           <h3 className="text-center">LOGIN</h3>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.onSubmit} className="w-50 mx-auto">
             <div className="form-group">
               <label htmlFor="username">Username: </label>
               <input
@@ -91,7 +91,7 @@ export default class Login extends Component {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group text-right">
               <button type="submit" className="btn btn-primary">
                 Login
               </button>

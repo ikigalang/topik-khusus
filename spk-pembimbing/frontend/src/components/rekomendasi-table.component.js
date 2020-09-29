@@ -288,9 +288,11 @@ export default class RekomendasiTable extends Component {
 
               // set score
               let dummy = pembimbing;
-              pembimbing.score1 = VA1;
+              pembimbing.score1 =
+                Math.round((VA1 + Number.EPSILON) * 100) / 100;
 
-              pembimbing.score2 = VA2;
+              pembimbing.score2 =
+                Math.round((VA2 + Number.EPSILON) * 100) / 100;
 
               dummyPembimbing.push(dummy);
 
@@ -511,7 +513,7 @@ export default class RekomendasiTable extends Component {
   }
 
   render() {
-    if (localStorage.getItem("loginState" === "0")) {
+    if (localStorage.getItem("loginState") === "0") {
       window.location = "/login";
     } else {
       return (

@@ -7,6 +7,7 @@ export default class Navbar extends Component {
     if (localStorage.getItem("loginState") === "0") {
       address = "/login";
     }
+    console.log(window.location.pathname);
     return (
       <div>
         <nav className="navbar navbar-dark bg-primary navbar-expand-sm">

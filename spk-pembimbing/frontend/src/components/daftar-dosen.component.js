@@ -96,7 +96,7 @@ export default class DaftarDosen extends Component {
   }
 
   render() {
-    if (localStorage.getItem("loginState" === "0")) {
+    if (localStorage.getItem("loginState") === "0") {
       window.location = "/login";
     } else {
       return (

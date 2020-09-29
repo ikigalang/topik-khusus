@@ -150,13 +150,13 @@ export default class EditDosen extends Component {
   }
 
   render() {
-    if (localStorage.getItem("loginState" === "0")) {
+    if (localStorage.getItem("loginState") === "0") {
       window.location = "/login";
     } else {
       return (
         <div className="container mt-4">
           <h3 className="text-center">EDIT DATA DOSEN PEMBIMBING</h3>
-          <form onSubmit={this.onSubmit}>
+          <form onSubmit={this.onSubmit} className="w-50 mx-auto">
             <div className="form-group">
               <label htmlFor="nik">NIK: </label>
               <input
