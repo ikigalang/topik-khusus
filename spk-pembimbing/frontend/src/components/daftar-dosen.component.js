@@ -112,7 +112,7 @@ export default class DaftarDosen extends Component {
                 <th className="align-middle">Kompetensi I</th>
                 <th className="align-middle">Kompetensi II</th>
                 <th className="align-middle">Kompetensi III</th>
-                <th className="align-middle">Kuota</th>
+                <th className="align-middle">Jumlah Bimbingan</th>
                 <th className="align-middle">Opsi</th>
               </tr>
             </thead>

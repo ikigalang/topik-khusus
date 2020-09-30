@@ -259,7 +259,7 @@ export default class InputDosen extends Component {
               </select>
             </div>
             <div className="form-group">
-              <label>Kuota: </label>
+              <label>Jumlah bimbingan saat ini: </label>
               <input
                 type="number"
                 className="form-control"
