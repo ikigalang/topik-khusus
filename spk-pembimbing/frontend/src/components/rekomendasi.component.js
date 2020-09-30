@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 
 const API_STATIK = process.env.REACT_APP_API_STATIK;
+const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
 
 export default class Rekomendasi extends Component {
   constructor(props) {
@@ -55,13 +56,31 @@ export default class Rekomendasi extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    window.location =
-      "/rekomendasi/hasil/" +
-      this.state.nama +
-      "/" +
-      this.state.nim +
-      "/" +
-      this.state.kompetensiIndex;
+    // validasi nim
+
+    let isAlreadySubmitted = false;
+
+    Axios.get(API_BIMBINGAN)
+      .then((response) => {
+        response.data.forEach((bimbingan) => {
+          if (bimbingan.nim === Number(this.state.nim)) {
+            isAlreadySubmitted = true;
+          }
+        });
+      })
+      .then(() => {
+        if (!isAlreadySubmitted) {
+          window.location =
+            "/rekomendasi/hasil/" +
+            this.state.nama +
+            "/" +
+            this.state.nim +
+            "/" +
+            this.state.kompetensiIndex;
+        } else {
+          alert("NIM sudah digunakan.");
+        }
+      });
   }
 
   render() {

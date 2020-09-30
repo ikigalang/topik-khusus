@@ -3,6 +3,7 @@ import Axios from "axios";
 
 const API_STATIK = process.env.REACT_APP_API_STATIK;
 const API_PEMBIMBING_ADD = process.env.REACT_APP_API_PEMBIMBING_ADD;
+const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 
 export default class InputDosen extends Component {
   constructor(props) {
@@ -116,24 +117,41 @@ export default class InputDosen extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-    const data = {
-      nik: this.state.nik,
-      nama: this.state.nama,
-      pendidikan: this.state.pendidikan,
-      fungsional: this.state.fungsional,
-      kompetensi1: this.state.kompetensi1,
-      kompetensi2: this.state.kompetensi2,
-      kompetensi3: this.state.kompetensi3,
-      kuota: this.state.kuota,
-    };
+    let isAlreadySubmitted = false;
 
-    Axios.post(API_PEMBIMBING_ADD, data)
-      .then((res) => {
-        console.log(res.data);
-        alert("Input success!");
-        window.location = "/input-dosen";
+    Axios.get(API_PEMBIMBING)
+      .then((response) => {
+        response.data.forEach((pembimbing) => {
+          if (pembimbing.nik === Number(this.state.nik)) {
+            isAlreadySubmitted = true;
+          }
+        });
       })
-      .catch((error) => console.log("Error: " + error));
+      .then(() => {
+        if (!isAlreadySubmitted) {
+          const data = {
+            nik: this.state.nik,
+            nama: this.state.nama,
+            pendidikan: this.state.pendidikan,
+            fungsional: this.state.fungsional,
+            kompetensi1: this.state.kompetensi1,
+            kompetensi2: this.state.kompetensi2,
+            kompetensi3: this.state.kompetensi3,
+            kuota: this.state.kuota,
+          };
+
+          Axios.post(API_PEMBIMBING_ADD, data)
+            .then((res) => {
+              console.log(res.data);
+              alert("Input success!");
+              window.location = "/input-dosen";
+            })
+            .catch((error) => console.log("Error: " + error));
+        } else {
+          alert("NIK sudah digunakan.");
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   render() {
