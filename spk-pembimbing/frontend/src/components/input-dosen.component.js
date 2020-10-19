@@ -122,7 +122,7 @@ export default class InputDosen extends Component {
     Axios.get(API_PEMBIMBING)
       .then((response) => {
         response.data.forEach((pembimbing) => {
-          if (pembimbing.nik === Number(this.state.nik)) {
+          if (pembimbing.nik === this.state.nik) {
             isAlreadySubmitted = true;
           }
         });
@@ -165,11 +165,10 @@ export default class InputDosen extends Component {
             <div className="form-group">
               <label htmlFor="nik">NIK: </label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="nik"
                 placeholder="123456"
-                min="0"
                 onChange={this.onChangeNik}
                 required
               />

@@ -129,24 +129,41 @@ export default class EditDosen extends Component {
   onSubmit(event) {
     event.preventDefault();
 
-    const data = {
-      nik: this.state.nik,
-      nama: this.state.nama,
-      pendidikan: this.state.pendidikan,
-      fungsional: this.state.fungsional,
-      kompetensi1: this.state.kompetensi1,
-      kompetensi2: this.state.kompetensi2,
-      kompetensi3: this.state.kompetensi3,
-      kuota: this.state.kuota,
-    };
+    let isAlreadySubmitted = false;
 
-    Axios.post(API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
-      .then((res) => {
-        console.log(res.data);
-        alert("Edit success!");
-        window.location = "/daftar-dosen";
+    Axios.get(API_PEMBIMBING)
+      .then((response) => {
+        response.data.forEach((pembimbing) => {
+          if (pembimbing.nik === this.state.nik) {
+            isAlreadySubmitted = true;
+          }
+        });
       })
-      .catch((error) => console.log("Error: " + error));
+      .then(() => {
+        if (!isAlreadySubmitted) {
+          const data = {
+            nik: this.state.nik,
+            nama: this.state.nama,
+            pendidikan: this.state.pendidikan,
+            fungsional: this.state.fungsional,
+            kompetensi1: this.state.kompetensi1,
+            kompetensi2: this.state.kompetensi2,
+            kompetensi3: this.state.kompetensi3,
+            kuota: this.state.kuota,
+          };
+
+          Axios.post(API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
+            .then((res) => {
+              console.log(res.data);
+              alert("Edit success!");
+              window.location = "/daftar-dosen";
+            })
+            .catch((error) => console.log("Error: " + error));
+        } else {
+          alert("NIK sudah digunakan.");
+        }
+      })
+      .catch((error) => console.log(error));
   }
 
   render() {
@@ -160,10 +177,9 @@ export default class EditDosen extends Component {
             <div className="form-group">
               <label htmlFor="nik">NIK: </label>
               <input
-                type="number"
+                type="text"
                 className="form-control"
                 id="nik"
-                min="0"
                 value={this.state.nik}
                 onChange={this.onChangeNik}
                 required
