@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_KRITERIA = process.env.REACT_APP_API_KRITERIA;
@@ -49,14 +50,14 @@ export default class RekomendasiTable extends Component {
   }
 
   componentDidMount() {
-    Axios.get(API_KRITERIA)
+    Axios.get(APP_SERVER_URL + API_KRITERIA)
       .then((response) => {
         this.setState({
           kriteria: response.data[0],
         });
       })
       .then(() => {
-        Axios.get(API_PEMBIMBING)
+        Axios.get(APP_SERVER_URL + API_PEMBIMBING)
           .then((response) => {
             let dummyPembimbing = this.state.pembimbing;
             response.data.forEach((pembimbing, n) => {
@@ -486,18 +487,18 @@ export default class RekomendasiTable extends Component {
       Object.keys(updatePembimbing2).length > 0
     ) {
       Axios.post(
-        API_PEMBIMBING_UPDATE + this.state.selected1._id,
+        APP_SERVER_URL + API_PEMBIMBING_UPDATE + this.state.selected1._id,
         updatePembimbing1
       )
         .then((res) => {
           console.log(res.data);
           Axios.post(
-            API_PEMBIMBING_UPDATE + this.state.selected2._id,
+            APP_SERVER_URL + API_PEMBIMBING_UPDATE + this.state.selected2._id,
             updatePembimbing2
           )
             .then((res) => {
               console.log(res.data);
-              Axios.post(API_BIMBINGAN_ADD, data)
+              Axios.post(APP_SERVER_URL + API_BIMBINGAN_ADD, data)
                 .then((res) => {
                   console.log(res.data);
                   window.location = "/home";

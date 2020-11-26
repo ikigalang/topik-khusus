@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_KRITERIA = process.env.REACT_APP_API_KRITERIA;
 const API_KRITERIA_UPDATE = process.env.REACT_APP_API_KRITERIA_UPDATE;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
@@ -39,7 +40,7 @@ export default class EditKriteria extends Component {
   }
 
   componentDidMount() {
-    Axios.get(API_KRITERIA).then((response) => {
+    Axios.get(APP_SERVER_URL + API_KRITERIA).then((response) => {
       this.setState({
         idKriteria: response.data[0]._id,
         pembimbing1: response.data[0].pembimbing1,
@@ -55,7 +56,7 @@ export default class EditKriteria extends Component {
       });
     });
 
-    Axios.get(API_STATIK).then((response) => {
+    Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
       this.setState({
         bobot: response.data[0].bobot,
       });
@@ -130,7 +131,7 @@ export default class EditKriteria extends Component {
       },
     };
 
-    Axios.post(API_KRITERIA_UPDATE + this.state.idKriteria, data)
+    Axios.post(APP_SERVER_URL + API_KRITERIA_UPDATE + this.state.idKriteria, data)
       .then((res) => {
         console.log(res.data);
         alert("Edit success!");

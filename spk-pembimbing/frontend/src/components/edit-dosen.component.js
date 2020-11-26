@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
@@ -41,7 +42,7 @@ export default class EditDosen extends Component {
   }
 
   componentDidMount() {
-    Axios.get(API_PEMBIMBING + this.props.match.params.id)
+    Axios.get(APP_SERVER_URL + API_PEMBIMBING + this.props.match.params.id)
       .then((response) => {
         this.setState({
           nik: response.data.nik,
@@ -58,7 +59,7 @@ export default class EditDosen extends Component {
         console.log(error);
       });
 
-    Axios.get(API_STATIK)
+    Axios.get(APP_SERVER_URL + API_STATIK)
       .then((response) => {
         this.setState({
           statik: {
@@ -131,7 +132,7 @@ export default class EditDosen extends Component {
 
     let isAlreadySubmitted = false;
 
-    Axios.get(API_PEMBIMBING)
+    Axios.get(APP_SERVER_URL + API_PEMBIMBING)
       .then((response) => {
         response.data.forEach((pembimbing) => {
           if (pembimbing.nik === this.state.nik) {
@@ -152,7 +153,7 @@ export default class EditDosen extends Component {
             kuota: this.state.kuota,
           };
 
-          Axios.post(API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
+          Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
             .then((res) => {
               console.log(res.data);
               alert("Edit success!");

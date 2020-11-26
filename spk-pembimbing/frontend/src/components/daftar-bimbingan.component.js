@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import { Link } from "react-router-dom";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
@@ -28,7 +29,7 @@ const Mahasiswa = (props) => (
             );
           }}
         >
-          Delete
+          Batalkan
         </button>
       </div>
     </td>
@@ -49,17 +50,17 @@ export default class DaftarBimbingan extends Component {
   }
 
   componentDidMount() {
-    Axios.get(API_PEMBIMBING)
+    Axios.get(APP_SERVER_URL + API_PEMBIMBING)
       .then((response) => {
         this.setState({ dataPembimbing: response.data });
       })
       .then(() => {
-        Axios.get(API_BIMBINGAN).then((response) => {
+        Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {
           this.setState({ dataBimbingan: response.data });
         });
       })
       .then(() => {
-        Axios.get(API_STATIK).then((response) => {
+        Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
           this.setState({ kompetensi: response.data[0].kompetensi });
         });
       })
@@ -89,12 +90,12 @@ export default class DaftarBimbingan extends Component {
       kompetensi3: idPembimbing2.kompetensi3,
       kuota: idPembimbing2.kuota - 1,
     };
-    Axios.delete(API_BIMBINGAN_DELETE + id)
+    Axios.delete(APP_SERVER_URL + API_BIMBINGAN_DELETE + id)
       .then((res) => {
         console.log(res.data);
       })
       .then(() => {
-        Axios.post(API_PEMBIMBING_UPDATE + idPembimbing1._id, data1)
+        Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing1._id, data1)
           .then((res) => {
             console.log(res.data);
           })
@@ -103,7 +104,7 @@ export default class DaftarBimbingan extends Component {
           });
       })
       .then(() => {
-        Axios.post(API_PEMBIMBING_UPDATE + idPembimbing2._id, data2).then(
+        Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing2._id, data2).then(
           (res) => {
             console.log(res.data);
           }

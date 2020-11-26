@@ -29,12 +29,14 @@ connection.once("open", () => {
 const bimbinganRouter = require("./routes/bimbingan");
 const kriteriaRouter = require("./routes/kriteria");
 const pembimbingRouter = require("./routes/pembimbing");
+const mahasiswaRouter = require("./routes/mahasiswa");
 const statikRouter = require("./routes/statik");
 const usersRouter = require("./routes/users");
 
 app.use("/bimbingan", bimbinganRouter);
 app.use("/kriteria", kriteriaRouter);
 app.use("/pembimbing", pembimbingRouter);
+app.use("/mahasiswa", mahasiswaRouter);
 app.use("/statik", statikRouter);
 app.use("/users", usersRouter);
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
 const API_PEMBIMBING_DELETE = process.env.REACT_APP_API_PEMBIMBING_DELETE;
@@ -50,12 +51,12 @@ export default class DaftarDosen extends Component {
   }
 
   componentDidMount() {
-    Axios.get(API_PEMBIMBING)
+    Axios.get(APP_SERVER_URL + API_PEMBIMBING)
       .then((response) => {
         this.setState({ dataDosen: response.data });
       })
       .then(() => {
-        Axios.get(API_BIMBINGAN).then((response) => {
+        Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {
           this.setState({ dataBimbingan: response.data });
         });
       })
@@ -72,7 +73,7 @@ export default class DaftarDosen extends Component {
       }
     });
     if (free) {
-      Axios.delete(API_PEMBIMBING_DELETE + id)
+      Axios.delete(APP_SERVER_URL + API_PEMBIMBING_DELETE + id)
         .then((res) => {
           console.log(res.data);
           this.setState({

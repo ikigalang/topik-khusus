@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
 
@@ -13,6 +14,8 @@ export default class Rekomendasi extends Component {
 
     this.onChangeName = this.onChangeName.bind(this);
     this.onChangeNim = this.onChangeNim.bind(this);
+    this.onChangeTahun = this.onChangeTahun.bind(this);
+    this.onChangeSemester = this.onChangeSemester.bind(this);
     this.onChangeKompetensi = this.onChangeKompetensi.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
@@ -20,12 +23,14 @@ export default class Rekomendasi extends Component {
       statikKompetensi: [],
       nama: "",
       nim: 0,
+      tahun: 0,
+      semester: 0,
       kompetensiIndex: 0,
     };
   }
 
   componentDidMount() {
-    Axios.get(API_STATIK).then((response) => {
+    Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
       this.setState({
         statikKompetensi: response.data[0].kompetensi,
       });
@@ -48,6 +53,18 @@ export default class Rekomendasi extends Component {
     });
   }
 
+  onChangeTahun(event) {
+    this.setState({
+      tahun: event.target.value,
+    });
+  }
+
+  onChangeSemester(event) {
+    this.setState({
+      semester: event.target.value,
+    });
+  }
+
   onChangeKompetensi(event) {
     this.setState({
       kompetensiIndex: event.target.selectedIndex,
@@ -60,7 +77,7 @@ export default class Rekomendasi extends Component {
 
     let isAlreadySubmitted = false;
 
-    Axios.get(API_BIMBINGAN)
+    Axios.get(APP_SERVER_URL + API_BIMBINGAN)
       .then((response) => {
         response.data.forEach((bimbingan) => {
           if (bimbingan.nim === Number(this.state.nim)) {
@@ -88,20 +105,9 @@ export default class Rekomendasi extends Component {
       window.location = "/login";
     } else {
       return (
-        <div className="container-sm mt-4 w-50">
+        <div className="container-sm mt-4">
           <h3 className="text-center">CARI REKOMENDASI</h3>
           <form onSubmit={this.onSubmit} className="w-50 mx-auto">
-            <div className="form-group">
-              <label htmlFor="nama">Nama: </label>
-              <input
-                type="text"
-                className="form-control"
-                id="nama"
-                placeholder="Nama Mahasiswa"
-                onChange={this.onChangeName}
-                required
-              />
-            </div>
             <div className="form-group">
               <label htmlFor="nim">NIM: </label>
               <input
@@ -113,6 +119,42 @@ export default class Rekomendasi extends Component {
                 onChange={this.onChangeNim}
                 required
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="nama">Nama: </label>
+              <input
+                type="text"
+                className="form-control"
+                id="nama"
+                placeholder="Nama Mahasiswa"
+                readOnly
+              />
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div className="form-group">
+                  <label htmlFor="tahun">Tahun: </label>
+                  <input
+                    type="number"
+                    className="form-control"
+                    id="tahun"
+                    min="0"
+                    placeholder="2020"
+                    onChange={this.onChangeTahun}
+                    required
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div className="form-group">
+                  <label htmlFor="semester">Semester: </label>
+                  <select id="semester" class="form-control" onChange={this.onChangeSemester}
+                    required>
+                    <option selected>1</option>
+                    <option>2</option>
+                  </select>
+                </div>
+              </div>
             </div>
             <div className="form-group">
               <label htmlFor="kompetensi">Kompetensi: </label>

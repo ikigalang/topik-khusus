@@ -29,6 +29,14 @@ const bimbinganSchema = new Schema({
     trim: true,
     minlength: 3,
   },
+  tahunRegistrasi: {
+    type: Number,
+    required: true,
+  },
+  semesterRegistrasi: {
+    type: Number,
+    required: true,
+  },
 });
 
 const Bimbingan = mongoose.model("Bimbingan", bimbinganSchema);

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
 const API_PEMBIMBING_ADD = process.env.REACT_APP_API_PEMBIMBING_ADD;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
@@ -41,7 +42,7 @@ export default class InputDosen extends Component {
   }
 
   componentDidMount() {
-    Axios.get(API_STATIK)
+    Axios.get(APP_SERVER_URL + API_STATIK)
       .then((response) => {
         this.setState({
           statik: {
@@ -119,10 +120,10 @@ export default class InputDosen extends Component {
 
     let isAlreadySubmitted = false;
 
-    Axios.get(API_PEMBIMBING)
+    Axios.get(APP_SERVER_URL + API_PEMBIMBING)
       .then((response) => {
         response.data.forEach((pembimbing) => {
-          if (pembimbing.nik === this.state.nik) {
+          if (pembimbing.nik === Number(this.state.nik)) {
             isAlreadySubmitted = true;
           }
         });
@@ -140,7 +141,7 @@ export default class InputDosen extends Component {
             kuota: this.state.kuota,
           };
 
-          Axios.post(API_PEMBIMBING_ADD, data)
+          Axios.post(APP_SERVER_URL + API_PEMBIMBING_ADD, data)
             .then((res) => {
               console.log(res.data);
               alert("Input success!");
@@ -220,13 +221,14 @@ export default class InputDosen extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="kompetensi1">
-                Nilai kompetensi di bidang {this.state.statik.kompetensi[0]}:
+                Tingkat kompetensi di bidang {this.state.statik.kompetensi[0]}:
               </label>
               <select
                 ref={this.textInput}
                 className="form-control"
                 id="kompetensi1"
                 onChange={this.onChangeKompetensi1}
+                aria-describedby="describeKompetensi1"
               >
                 {this.state.statik.tingkat.map((tingkat) => {
                   return (
@@ -236,16 +238,20 @@ export default class InputDosen extends Component {
                   );
                 })}
               </select>
+              <small id="describeKompetensi1" class="form-text text-muted">
+                Semakin kecil nilai semakin bagus.
+              </small>
             </div>
             <div className="form-group">
               <label htmlFor="kompetensi2">
-                Nilai kompetensi di bidang {this.state.statik.kompetensi[1]}:
+                Tingkat kompetensi di bidang {this.state.statik.kompetensi[1]}:
               </label>
               <select
                 ref={this.textInput}
                 className="form-control"
                 id="kompetensi2"
                 onChange={this.onChangeKompetensi2}
+                aria-describedby="describeKompetensi2"
               >
                 {this.state.statik.tingkat.map((tingkat) => {
                   return (
@@ -255,16 +261,20 @@ export default class InputDosen extends Component {
                   );
                 })}
               </select>
+              <small id="describeKompetensi2" class="form-text text-muted">
+                Semakin kecil nilai semakin bagus.
+              </small>
             </div>
             <div className="form-group">
               <label htmlFor="kompetensi3">
-                Nilai kompetensi di bidang {this.state.statik.kompetensi[2]}:
+                Tingkat kompetensi di bidang {this.state.statik.kompetensi[2]}:
               </label>
               <select
                 ref={this.textInput}
                 className="form-control"
                 id="kompetensi3"
                 onChange={this.onChangeKompetensi3}
+                aria-describedby="describeKompetensi3"
               >
                 {this.state.statik.tingkat.map((tingkat) => {
                   return (
@@ -274,6 +284,9 @@ export default class InputDosen extends Component {
                   );
                 })}
               </select>
+              <small id="describeKompetensi3" class="form-text text-muted">
+                Semakin kecil nilai semakin bagus.
+              </small>
             </div>
             <div className="form-group">
               <label>Jumlah bimbingan saat ini: </label>

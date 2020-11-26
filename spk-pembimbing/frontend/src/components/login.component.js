@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_USER_SEARCH = process.env.REACT_APP_API_USER_SEARCH;
 
 export default class Login extends Component {
@@ -45,7 +46,7 @@ export default class Login extends Component {
     };
 
     axios
-      .post(API_USER_SEARCH, data)
+      .post(APP_SERVER_URL + API_USER_SEARCH, data)
       .then((res) => {
         console.log(res);
         if (res.data.status) {
