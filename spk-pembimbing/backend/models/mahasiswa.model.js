@@ -14,12 +14,6 @@ const mahasiswaSchema = new Schema(
       trim: true,
       minlength: 3,
     },
-    konsentrasi: {
-      type: String,
-      required: true,
-      trim: true,
-      minlength: 2,
-    },
   },
   {
     timestamps: true,

@@ -299,8 +299,11 @@ export default class InputDosen extends Component {
                 required
               />
             </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
+            <div className="text-right">
+              <button
+                type="submit"
+                className="btn btn-primary w-25 mb-4"
+              >
                 Submit
               </button>
             </div>
