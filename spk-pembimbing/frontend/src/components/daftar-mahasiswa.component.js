@@ -12,7 +12,7 @@ const Mahasiswa = (props) => (
     <td>{props.mahasiswa.nama}</td>
     <td>{props.mahasiswa.nim}</td>
     <td className="w-25">
-      <Link to={"/edit-mahasiswa/" + props.mahasiswa._id}>
+      <Link to={"/edit-mahasiswa/" + props.mahasiswa.nim}>
         <button type="button" className="btn btn-warning mx-1 d-inline">
           Edit
           </button>
@@ -21,7 +21,7 @@ const Mahasiswa = (props) => (
         type="button"
         className="btn btn-danger mx-2 d-inline"
         onClick={() => {
-          props.deleteMahasiswa(props.mahasiswa._id);
+          props.deleteMahasiswa(props.mahasiswa.nim);
         }}
       >
         Delete

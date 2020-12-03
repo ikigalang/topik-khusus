@@ -31,6 +31,7 @@ export default class EditDosen extends Component {
         tingkat: [],
       },
       nik: "",
+      NewNik: "",
       nama: "",
       pendidikan: "",
       fungsional: "",
@@ -46,6 +47,7 @@ export default class EditDosen extends Component {
       .then((response) => {
         this.setState({
           nik: response.data.nik,
+          NewNik: response.data.nik,
           nama: response.data.nama,
           pendidikan: response.data.pendidikan,
           fungsional: response.data.fungsional,
@@ -81,7 +83,7 @@ export default class EditDosen extends Component {
 
   onChangeNik(event) {
     this.setState({
-      nik: event.target.value,
+      NewNik: event.target.value,
     });
   }
 
@@ -135,8 +137,10 @@ export default class EditDosen extends Component {
     Axios.get(APP_SERVER_URL + API_PEMBIMBING)
       .then((response) => {
         response.data.forEach((pembimbing) => {
-          if (pembimbing.nik === this.state.nik) {
-            isAlreadySubmitted = true;
+          if (pembimbing.nik === this.state.NewNik) {
+            if (this.state.NewNik !== this.state.nik) {
+              isAlreadySubmitted = true;
+            }
           }
         });
       })

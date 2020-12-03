@@ -34,7 +34,8 @@ router.route("/add").post((req, res) => {
 
 // update mahasiswa
 router.route("/update/:nim").post((req, res) => {
-  Mahasiswa.findById(req.params.nim).then((mahasiswa) => {
+  const query = { "nim": req.params.nim };
+  Mahasiswa.findOne(query).then((mahasiswa) => {
     mahasiswa.nim = req.body.nim;
     mahasiswa.nama = req.body.nama;
 
