@@ -3,23 +3,17 @@ import { Link } from "react-router-dom";
 import Axios from "axios";
 
 const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
-const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
+const API_MAHASISWA = process.env.REACT_APP_API_MAHASISWA;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
-const API_PEMBIMBING_DELETE = process.env.REACT_APP_API_PEMBIMBING_DELETE;
+const API_MAHASISWA_DELETE = process.env.REACT_APP_API_MAHASISWA_DELETE;
 
-const Dosen = (props) => (
+const Mahasiswa = (props) => (
   <tr className="text-center">
-    <td>{props.dosen.nama}</td>
-    <td>{props.dosen.nik}</td>
-    <td>{props.dosen.pendidikan}</td>
-    <td>{props.dosen.fungsional}</td>
-    <td>{props.dosen.kompetensi1}</td>
-    <td>{props.dosen.kompetensi2}</td>
-    <td>{props.dosen.kompetensi3}</td>
-    <td>{props.dosen.kuota}</td>
+    <td>{props.mahasiswa.nama}</td>
+    <td>{props.mahasiswa.nim}</td>
     <td>
       <div className="btn-group" role="group" aria-label="Button option">
-        <Link to={"/edit-dosen/" + props.dosen._id}>
+        <Link to={"/edit-mahasiswa/" + props.mahasiswa._id}>
           <button type="button" className="btn btn-warning mx-1">
             Edit
           </button>
@@ -28,7 +22,7 @@ const Dosen = (props) => (
           type="button"
           className="btn btn-danger mx-1"
           onClick={() => {
-            props.deleteDosen(props.dosen._id);
+            props.deleteMahasiswa(props.mahasiswa.nim);
           }}
         >
           Delete
@@ -42,18 +36,18 @@ export default class DaftarDosen extends Component {
   constructor(props) {
     super(props);
 
-    this.deleteDosen = this.deleteDosen.bind(this);
+    this.deleteMahasiswa = this.deleteMahasiswa.bind(this);
 
     this.state = {
-      dataDosen: [],
+      dataMahasiswa: [],
       dataBimbingan: [],
     };
   }
 
   componentDidMount() {
-    Axios.get(APP_SERVER_URL + API_PEMBIMBING)
+    Axios.get(APP_SERVER_URL + API_MAHASISWA)
       .then((response) => {
-        this.setState({ dataDosen: response.data });
+        this.setState({ dataMahasiswa: response.data });
       })
       .then(() => {
         Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {
@@ -65,19 +59,19 @@ export default class DaftarDosen extends Component {
       });
   }
 
-  deleteDosen(id) {
+  deleteMahasiswa(nim) {
     let free = true;
     this.state.dataBimbingan.forEach((bimbingan) => {
-      if (bimbingan.idPembimbing1 === id || bimbingan.idPembimbing2 === id) {
+      if (bimbingan.nim === nim) {
         free = false;
       }
     });
     if (free) {
-      Axios.delete(APP_SERVER_URL + API_PEMBIMBING_DELETE + id)
+      Axios.delete(APP_SERVER_URL + API_MAHASISWA_DELETE + nim)
         .then((res) => {
           this.setState({
-            dataDosen: this.state.dataDosen.filter(
-              (element) => element._id !== id
+            dataMahasiswa: this.state.dataMahasiswa.filter(
+              (element) => element._id !== nim
             ),
           });
         })
@@ -87,10 +81,10 @@ export default class DaftarDosen extends Component {
     }
   }
 
-  listDosen() {
-    return this.state.dataDosen.map((dosen) => {
+  listMahasiswa() {
+    return this.state.dataMahasiswa.map((mahasiswa) => {
       return (
-        <Dosen dosen={dosen} deleteDosen={this.deleteDosen} key={dosen._id} />
+        <Mahasiswa mahasiswa={mahasiswa} deleteMahasiswa={this.deleteMahasiswa} key={mahasiswa.nim} />
       );
     });
   }
@@ -101,22 +95,16 @@ export default class DaftarDosen extends Component {
     } else {
       return (
         <div className="container mt-4">
-          <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
+          <h3 className="text-center">DAFTAR MAHASISWA</h3>
           <table className="table">
             <thead className="thead-light text-center">
               <tr>
                 <th className="align-middle">Nama</th>
-                <th className="align-middle">NIK</th>
-                <th className="align-middle">Pendidikan</th>
-                <th className="align-middle">Fungsional</th>
-                <th className="align-middle">Kompetensi I</th>
-                <th className="align-middle">Kompetensi II</th>
-                <th className="align-middle">Kompetensi III</th>
-                <th className="align-middle">Jumlah Bimbingan</th>
+                <th className="align-middle">NIM</th>
                 <th className="align-middle">Opsi</th>
               </tr>
             </thead>
-            <tbody>{this.listDosen()}</tbody>
+            <tbody>{this.listMahasiswa()}</tbody>
           </table>
         </div>
       );

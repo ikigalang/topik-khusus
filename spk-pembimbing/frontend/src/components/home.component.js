@@ -51,7 +51,7 @@ export default class Home extends Component {
             </div>
             <div className="row mt-2">
               <div className="col-sm">
-                <Link to="/daftar-dosen" className="nav-link">
+                <Link to="/daftar-mahasiswa" className="nav-link">
                   <button type="button" className="btn btn-info w-100">
                     <div className="m-2">
                       <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-person-lines-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">

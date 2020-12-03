@@ -130,8 +130,8 @@ export default class Rekomendasi extends Component {
                 readOnly
               />
             </div>
-            <div class="form-row">
-              <div class="col">
+            <div className="form-row">
+              <div className="col">
                 <div className="form-group">
                   <label htmlFor="tahun">Tahun: </label>
                   <input
@@ -145,12 +145,12 @@ export default class Rekomendasi extends Component {
                   />
                 </div>
               </div>
-              <div class="col">
+              <div className="col">
                 <div className="form-group">
                   <label htmlFor="semester">Semester: </label>
-                  <select id="semester" class="form-control" onChange={this.onChangeSemester}
+                  <select id="semester" className="form-control" onChange={this.onChangeSemester}
                     required>
-                    <option selected>1</option>
+                    <option defaultValue>1</option>
                     <option>2</option>
                   </select>
                 </div>

@@ -10,6 +10,7 @@ import InputMahasiswa from "./components/input-mahasiswa.component";
 import InputDosen from "./components/input-dosen.component";
 import EditDosen from "./components/edit-dosen.component";
 import DaftarDosen from "./components/daftar-dosen.component";
+import DaftarMahasiswa from "./components/daftar-mahasiswa.component";
 import EditKriteria from "./components/edit-kriteria.component";
 import Rekomendasi from "./components/rekomendasi.component";
 import RekomendasiTable from "./components/rekomendasi-table.component";
@@ -26,6 +27,7 @@ function App() {
       <Route path="/input-dosen" component={InputDosen} />
       <Route path="/edit-dosen/:id" component={EditDosen} />
       <Route path="/daftar-dosen" component={DaftarDosen} />
+      <Route path="/daftar-mahasiswa" component={DaftarMahasiswa} />
       <Route path="/edit-kriteria" component={EditKriteria} />
       <Route path="/rekomendasi" exact component={Rekomendasi} />
       <Route
