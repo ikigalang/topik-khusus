@@ -11,23 +11,21 @@ const Mahasiswa = (props) => (
   <tr className="text-center">
     <td>{props.mahasiswa.nama}</td>
     <td>{props.mahasiswa.nim}</td>
-    <td>
-      <div className="btn-group" role="group" aria-label="Button option">
-        <Link to={"/edit-mahasiswa/" + props.mahasiswa._id}>
-          <button type="button" className="btn btn-warning mx-1">
-            Edit
+    <td className="w-25">
+      <Link to={"/edit-mahasiswa/" + props.mahasiswa._id}>
+        <button type="button" className="btn btn-warning mx-1 d-inline">
+          Edit
           </button>
-        </Link>
-        <button
-          type="button"
-          className="btn btn-danger mx-1"
-          onClick={() => {
-            props.deleteMahasiswa(props.mahasiswa.nim);
-          }}
-        >
-          Delete
+      </Link>
+      <button
+        type="button"
+        className="btn btn-danger mx-2 d-inline"
+        onClick={() => {
+          props.deleteMahasiswa(props.mahasiswa._id);
+        }}
+      >
+        Delete
         </button>
-      </div>
     </td>
   </tr>
 );

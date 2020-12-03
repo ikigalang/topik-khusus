@@ -17,23 +17,21 @@ const Dosen = (props) => (
     <td>{props.dosen.kompetensi2}</td>
     <td>{props.dosen.kompetensi3}</td>
     <td>{props.dosen.kuota}</td>
-    <td>
-      <div className="btn-group" role="group" aria-label="Button option">
-        <Link to={"/edit-dosen/" + props.dosen._id}>
-          <button type="button" className="btn btn-warning mx-1">
-            Edit
+    <td className="w-25">
+      <Link to={"/edit-dosen/" + props.dosen._id}>
+        <button type="button" className="btn btn-warning mx-1 d-inline">
+          Edit
           </button>
-        </Link>
-        <button
-          type="button"
-          className="btn btn-danger mx-1"
-          onClick={() => {
-            props.deleteDosen(props.dosen._id);
-          }}
-        >
-          Delete
+      </Link>
+      <button
+        type="button"
+        className="btn btn-danger mx-2 d-inline"
+        onClick={() => {
+          props.deleteDosen(props.dosen._id);
+        }}
+      >
+        Delete
         </button>
-      </div>
     </td>
   </tr>
 );
