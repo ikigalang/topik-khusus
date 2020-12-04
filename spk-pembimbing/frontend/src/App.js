@@ -33,7 +33,7 @@ function App() {
       <Route path="/edit-kriteria" component={EditKriteria} />
       <Route path="/rekomendasi" exact component={Rekomendasi} />
       <Route
-        path="/rekomendasi/hasil/:nama/:nim/:index/"
+        path="/rekomendasi/hasil/:nama/:nim/:index/:semester/:tahun"
         component={RekomendasiTable}
       />
       <Route path="/daftar-bimbingan" component={DaftarBimbingan} />

@@ -24,7 +24,7 @@ export default class Rekomendasi extends Component {
       nama: "",
       nim: 0,
       tahun: 0,
-      semester: 0,
+      semester: 1,
       kompetensiIndex: 0,
     };
   }
@@ -93,7 +93,11 @@ export default class Rekomendasi extends Component {
             "/" +
             this.state.nim +
             "/" +
-            this.state.kompetensiIndex;
+            this.state.kompetensiIndex +
+            "/" +
+            this.state.semester +
+            "/" +
+            this.state.tahun;
         } else {
           alert("NIM sudah digunakan.");
         }

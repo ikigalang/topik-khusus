@@ -11,6 +11,7 @@ const API_STATIK = process.env.REACT_APP_API_STATIK;
 
 const Mahasiswa = (props) => (
   <tr className="text-center">
+    <td>{props.bimbingan.tahun}.{props.bimbingan.semester}</td>
     <td>{props.bimbingan.nama}</td>
     <td>{props.bimbingan.nim}</td>
     <td>{props.kompetensi[props.bimbingan.kompetensi]}</td>
@@ -151,6 +152,7 @@ export default class DaftarBimbingan extends Component {
           <table className="table">
             <thead className="thead-light text-center">
               <tr>
+                <th className="align-middle">Masa Reg.</th>
                 <th className="align-middle">Nama</th>
                 <th className="align-middle">NIM</th>
                 <th className="align-middle">Kompetensi</th>

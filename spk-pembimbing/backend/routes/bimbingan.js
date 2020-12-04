@@ -15,6 +15,9 @@ router.route("/add").post((req, res) => {
   const kompetensi = req.body.kompetensi;
   const idPembimbing1 = req.body.idPembimbing1;
   const idPembimbing2 = req.body.idPembimbing2;
+  const semester = req.body.semester;
+  const tahun = req.body.tahun;
+  const status = req.body.status;
 
   const newBimbingan = new Bimbingan({
     nama,
@@ -22,6 +25,9 @@ router.route("/add").post((req, res) => {
     kompetensi,
     idPembimbing1,
     idPembimbing2,
+    semester,
+    tahun,
+    status,
   });
 
   newBimbingan
@@ -38,6 +44,9 @@ router.route("/update/:id").post((req, res) => {
     bimbingan.kompetensi = req.body.kompetensi;
     bimbingan.idPembimbing1 = req.body.idPembimbing1;
     bimbingan.idPembimbing2 = req.body.idPembimbing2;
+    bimbingan.semester = req.body.semester;
+    bimbingan.tahun = req.body.tahun;
+    bimbingan.status = req.body.status;
 
     bimbingan
       .save()

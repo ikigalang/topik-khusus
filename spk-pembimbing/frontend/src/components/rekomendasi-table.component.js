@@ -72,6 +72,7 @@ export default class RekomendasiTable extends Component {
                 kuota: pembimbing.kuota,
                 nama: pembimbing.nama,
                 pendidikan: pembimbing.pendidikan,
+                status: pembimbing.status,
                 score1: 0,
                 score2: 0,
                 isDisabled: false,
@@ -480,7 +481,11 @@ export default class RekomendasiTable extends Component {
       kompetensi: this.props.match.params.index,
       idPembimbing1: this.state.selected1._id,
       idPembimbing2: this.state.selected2._id,
+      tahun: this.props.match.params.tahun,
+      semester: this.props.match.params.semester,
+      status: 0,
     };
+    console.log(data);
 
     if (
       Object.keys(updatePembimbing1).length > 0 &&
@@ -528,12 +533,14 @@ export default class RekomendasiTable extends Component {
                   <tr>
                     <th className="align-middle">Nama Mahasiswa</th>
                     <th className="align-middle">NIM</th>
+                    <th className="align-middle">Masa Registrasi</th>
                   </tr>
                 </thead>
                 <tbody className="text-center">
                   <tr>
                     <td>{this.props.match.params.nama}</td>
                     <td>{this.props.match.params.nim}</td>
+                    <td>{this.props.match.params.tahun}.{this.props.match.params.semester}</td>
                   </tr>
                 </tbody>
               </table>
