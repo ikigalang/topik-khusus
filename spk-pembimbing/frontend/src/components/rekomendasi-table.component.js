@@ -216,14 +216,26 @@ export default class RekomendasiTable extends Component {
               dummyKompetensi3.push(scoreKompetensi3);
 
               // score kuota
-              if (pembimbing.kuota >= 0 && pembimbing.kuota <= 5) {
+              if (pembimbing.kuota >= 0 && pembimbing.kuota <= 2) {
                 scoreKuota = 1;
-              } else if (pembimbing.kuota >= 6 && pembimbing.kuota <= 10) {
-                scoreKuota = 0.75;
-              } else if (pembimbing.kuota >= 11 && pembimbing.kuota <= 15) {
+              } else if (pembimbing.kuota >= 3 && pembimbing.kuota <= 4) {
+                scoreKuota = 0.9;
+              } else if (pembimbing.kuota >= 5 && pembimbing.kuota <= 6) {
+                scoreKuota = 0.8;
+              } else if (pembimbing.kuota >= 7 && pembimbing.kuota <= 8) {
+                scoreKuota = 0.7;
+              } else if (pembimbing.kuota >= 9 && pembimbing.kuota <= 10) {
+                scoreKuota = 0.6;
+              } else if (pembimbing.kuota >= 11 && pembimbing.kuota <= 12) {
                 scoreKuota = 0.5;
-              } else if (pembimbing.kuota >= 16 && pembimbing.kuota <= 20) {
-                scoreKuota = 0.25;
+              } else if (pembimbing.kuota >= 13 && pembimbing.kuota <= 14) {
+                scoreKuota = 0.4;
+              } else if (pembimbing.kuota >= 15 && pembimbing.kuota <= 16) {
+                scoreKuota = 0.3;
+              } else if (pembimbing.kuota >= 17 && pembimbing.kuota <= 18) {
+                scoreKuota = 0.2;
+              } else if (pembimbing.kuota >= 19 && pembimbing.kuota <= 20) {
+                scoreKuota = 0.1;
               } else if (pembimbing.kuota >= 21) {
                 scoreKuota = 0;
               } else {
