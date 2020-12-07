@@ -6,6 +6,7 @@ const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
+const API_BIMBINGAN_UPDATE = process.env.REACT_APP_API_BIMBINGAN_UPDATE;
 const API_BIMBINGAN_DELETE = process.env.REACT_APP_API_BIMBINGAN_DELETE;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
 
@@ -17,22 +18,33 @@ const Mahasiswa = (props) => (
     <td>{props.kompetensi[props.bimbingan.kompetensi]}</td>
     <td>{props.pembimbing1[0].nama}</td>
     <td>{props.pembimbing2[0].nama}</td>
-    <td>
-      <div className="btn-group" role="group" aria-label="Button option">
-        <button
-          type="button"
-          className="btn btn-danger mx-1"
-          onClick={() => {
-            props.deleteBimbingan(
-              props.bimbingan._id,
-              props.pembimbing1[0],
-              props.pembimbing2[0]
-            );
-          }}
-        >
-          Batalkan
+    <td className="w-25">
+      <button
+        type="button"
+        className="btn btn-warning mx-1 d-inline"
+        onClick={() => {
+          props.selesaiBimbingan(
+            props.bimbingan,
+            props.pembimbing1[0],
+            props.pembimbing2[0]
+          );
+        }}
+      >
+        Selesai
         </button>
-      </div>
+      <button
+        type="button"
+        className="btn btn-danger mx-1 d-inline"
+        onClick={() => {
+          props.deleteBimbingan(
+            props.bimbingan._id,
+            props.pembimbing1[0],
+            props.pembimbing2[0]
+          );
+        }}
+      >
+        Batalkan
+        </button>
     </td>
   </tr>
 );
@@ -42,6 +54,7 @@ export default class DaftarBimbingan extends Component {
     super(props);
 
     this.deleteBimbingan = this.deleteBimbingan.bind(this);
+    this.selesaiBimbingan = this.selesaiBimbingan.bind(this);
 
     this.state = {
       dataPembimbing: [],
@@ -57,7 +70,7 @@ export default class DaftarBimbingan extends Component {
       })
       .then(() => {
         Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {
-          this.setState({ dataBimbingan: response.data });
+          this.setState({ dataBimbingan: response.data.filter((bimbingan) => bimbingan.status === 0) });
         });
       })
       .then(() => {
@@ -68,6 +81,68 @@ export default class DaftarBimbingan extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  selesaiBimbingan(bimbingan, idPembimbing1, idPembimbing2) {
+    const data = {
+      nama: bimbingan.nama,
+      nim: bimbingan.nim,
+      kompetensi: bimbingan.kompetensi,
+      idPembimbing1: idPembimbing1._id,
+      idPembimbing2: idPembimbing2._id,
+      tahun: bimbingan.tahun,
+      semester: bimbingan.semester,
+      status: 1,
+    };
+
+    const data1 = {
+      nik: idPembimbing1.nik,
+      nama: idPembimbing1.nama,
+      pendidikan: idPembimbing1.pendidikan,
+      fungsional: idPembimbing1.fungsional,
+      kompetensi1: idPembimbing1.kompetensi1,
+      kompetensi2: idPembimbing1.kompetensi2,
+      kompetensi3: idPembimbing1.kompetensi3,
+      kuota: idPembimbing1.kuota - 1,
+    };
+    const data2 = {
+      nik: idPembimbing2.nik,
+      nama: idPembimbing2.nama,
+      pendidikan: idPembimbing2.pendidikan,
+      fungsional: idPembimbing2.fungsional,
+      kompetensi1: idPembimbing2.kompetensi1,
+      kompetensi2: idPembimbing2.kompetensi2,
+      kompetensi3: idPembimbing2.kompetensi3,
+      kuota: idPembimbing2.kuota - 1,
+    };
+    Axios.post(APP_SERVER_URL + API_BIMBINGAN_UPDATE + bimbingan._id, data)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .then(() => {
+        Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing1._id, data1)
+          .then((res) => {
+            console.log(res.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .then(() => {
+        Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing2._id, data2).then(
+          (res) => {
+            console.log(res.data);
+          }
+        );
+      })
+      .then(() => {
+        this.setState({
+          dataBimbingan: this.state.dataBimbingan.filter(
+            (element) => element._id !== bimbingan._id
+          ),
+        });
+      })
+      .catch((error) => console.log(error));
   }
 
   deleteBimbingan(id, idPembimbing1, idPembimbing2) {
@@ -136,6 +211,7 @@ export default class DaftarBimbingan extends Component {
           pembimbing2={pembimbing2}
           kompetensi={this.state.kompetensi}
           deleteBimbingan={this.deleteBimbingan}
+          selesaiBimbingan={this.selesaiBimbingan}
           key={bimbingan._id}
         />
       );

@@ -36,7 +36,7 @@ router.route("/add").post((req, res) => {
     .catch((error) => res.status(400).json("Error: " + error));
 });
 
-// update bobot
+// update bimbingan
 router.route("/update/:id").post((req, res) => {
   Bimbingan.findById(req.params.id).then((bimbingan) => {
     bimbingan.nama = req.body.nama;

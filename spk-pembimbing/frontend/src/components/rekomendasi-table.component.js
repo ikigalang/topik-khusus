@@ -497,7 +497,6 @@ export default class RekomendasiTable extends Component {
       semester: this.props.match.params.semester,
       status: 0,
     };
-    console.log(data);
 
     if (
       Object.keys(updatePembimbing1).length > 0 &&
