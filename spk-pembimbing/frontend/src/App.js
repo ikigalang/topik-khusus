@@ -16,6 +16,7 @@ import EditKriteria from "./components/edit-kriteria.component";
 import Rekomendasi from "./components/rekomendasi.component";
 import RekomendasiTable from "./components/rekomendasi-table.component";
 import DaftarBimbingan from "./components/daftar-bimbingan.component";
+import DaftarSelesaiBimbingan from "./components/daftar-selesai-bimbingan.component";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         component={RekomendasiTable}
       />
       <Route path="/daftar-bimbingan" component={DaftarBimbingan} />
+      <Route path="/daftar-selesai-bimbingan" component={DaftarSelesaiBimbingan} />
     </Router>
   );
 }
