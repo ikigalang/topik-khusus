@@ -4,6 +4,7 @@ import Axios from "axios";
 const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
+const API_MAHASISWA_SEARCH = process.env.REACT_APP_API_MAHASISWA_SEARCH;
 
 export default class Rekomendasi extends Component {
   constructor(props) {
@@ -21,11 +22,12 @@ export default class Rekomendasi extends Component {
 
     this.state = {
       statikKompetensi: [],
-      nama: "",
+      nama: "Masukkan NIM",
       nim: 0,
       tahun: 0,
       semester: 1,
       kompetensiIndex: 0,
+      disabled: true
     };
   }
 
@@ -48,6 +50,22 @@ export default class Rekomendasi extends Component {
   }
 
   onChangeNim(event) {
+    Axios.get(APP_SERVER_URL + API_MAHASISWA_SEARCH + event.target.value)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data) {
+          this.setState({
+            nama: response.data.nama,
+            disabled: false
+          });
+        } else {
+          this.setState({
+            nama: "NIM tidak ditemukan",
+            disabled: true
+          });
+        }
+      })
+      .catch((error) => console.log(error));
     this.setState({
       nim: event.target.value,
     });
@@ -130,7 +148,7 @@ export default class Rekomendasi extends Component {
                 type="text"
                 className="form-control"
                 id="nama"
-                placeholder="Nama Mahasiswa"
+                placeholder={this.state.nama}
                 readOnly
               />
             </div>
@@ -178,7 +196,7 @@ export default class Rekomendasi extends Component {
               </select>
             </div>
             <div className="form-group text-right">
-              <button type="submit" className="btn btn-primary w-25">
+              <button type="submit" className="btn btn-primary w-25" disabled={this.state.disabled}>
                 Cari
               </button>
             </div>
