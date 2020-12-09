@@ -35,10 +35,13 @@ export default class DaftarDosen extends Component {
     super(props);
 
     this.deleteMahasiswa = this.deleteMahasiswa.bind(this);
+    this.onCari = this.onCari.bind(this);
+    this.onChangeNim = this.onChangeNim.bind(this);
 
     this.state = {
       dataMahasiswa: [],
       dataBimbingan: [],
+      nim: ""
     };
   }
 
@@ -46,6 +49,27 @@ export default class DaftarDosen extends Component {
     Axios.get(APP_SERVER_URL + API_MAHASISWA)
       .then((response) => {
         this.setState({ dataMahasiswa: response.data });
+      })
+      .then(() => {
+        Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {
+          this.setState({ dataBimbingan: response.data });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  onChangeNim(event) {
+    this.setState({
+      nim: event.target.value,
+    });
+  }
+
+  onCari() {
+    Axios.get(APP_SERVER_URL + API_MAHASISWA)
+      .then((response) => {
+        this.setState({ dataMahasiswa: response.data.filter((mahasiswa) => mahasiswa.nim === Number(this.state.nim)) });
       })
       .then(() => {
         Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {
@@ -94,6 +118,10 @@ export default class DaftarDosen extends Component {
       return (
         <div className="container mt-4">
           <h3 className="text-center">DAFTAR MAHASISWA</h3>
+          <div className="form-group text-right m-2">
+            <input className="form-control mr-sm-2 w-25 d-inline-block" type="search" placeholder="Cari berdasarkan NIM" aria-label="Search" onChange={this.onChangeNim} />
+            <button className="btn btn-primary my-2 my-sm-0" type="submit" onClick={this.onCari}>Cari</button>
+          </div>
           <table className="table">
             <thead className="thead-light text-center">
               <tr>

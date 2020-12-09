@@ -55,11 +55,14 @@ export default class DaftarBimbingan extends Component {
 
     this.deleteBimbingan = this.deleteBimbingan.bind(this);
     this.selesaiBimbingan = this.selesaiBimbingan.bind(this);
+    this.onCari = this.onCari.bind(this);
+    this.onChangeNim = this.onChangeNim.bind(this);
 
     this.state = {
       dataPembimbing: [],
       dataBimbingan: [],
       kompetensi: [],
+      nim: ""
     };
   }
 
@@ -77,6 +80,22 @@ export default class DaftarBimbingan extends Component {
         Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
           this.setState({ kompetensi: response.data[0].kompetensi });
         });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  onChangeNim(event) {
+    this.setState({
+      nim: event.target.value,
+    });
+  }
+
+  onCari() {
+    Axios.get(APP_SERVER_URL + API_BIMBINGAN)
+      .then((response) => {
+        this.setState({ dataBimbingan: response.data.filter((bimbingan) => bimbingan.status === 0 && bimbingan.nim === Number(this.state.nim)) });
       })
       .catch((error) => {
         console.log(error);
@@ -225,6 +244,10 @@ export default class DaftarBimbingan extends Component {
       return (
         <div className="container mt-4">
           <h3 className="text-center">DAFTAR MAHASISWA BIMBINGAN</h3>
+          <div className="form-group text-right m-2">
+            <input className="form-control mr-sm-2 w-25 d-inline-block" type="search" placeholder="Cari berdasarkan NIM" aria-label="Search" onChange={this.onChangeNim} />
+            <button className="btn btn-primary my-2 my-sm-0" type="submit" onClick={this.onCari}>Cari</button>
+          </div>
           <table className="table">
             <thead className="thead-light text-center">
               <tr>

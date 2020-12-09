@@ -43,12 +43,6 @@ export default class Rekomendasi extends Component {
     this.textInput.current.focus();
   }
 
-  onChangeName(event) {
-    this.setState({
-      nama: event.target.value,
-    });
-  }
-
   onChangeNim(event) {
     Axios.get(APP_SERVER_URL + API_MAHASISWA_SEARCH + event.target.value)
       .then((response) => {
