@@ -13,7 +13,6 @@ export default class Rekomendasi extends Component {
     this.textInput = React.createRef();
     this.focusTextInput = this.focusTextInput.bind(this);
 
-    this.onChangeName = this.onChangeName.bind(this);
     this.onChangeNim = this.onChangeNim.bind(this);
     this.onChangeTahun = this.onChangeTahun.bind(this);
     this.onChangeSemester = this.onChangeSemester.bind(this);

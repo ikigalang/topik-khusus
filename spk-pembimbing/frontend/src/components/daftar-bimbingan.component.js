@@ -57,12 +57,18 @@ export default class DaftarBimbingan extends Component {
     this.selesaiBimbingan = this.selesaiBimbingan.bind(this);
     this.onCari = this.onCari.bind(this);
     this.onChangeNim = this.onChangeNim.bind(this);
+    this.onSortMreg = this.onSortMreg.bind(this);
+    this.onSortNama = this.onSortNama.bind(this);
+    this.onSortNim = this.onSortNim.bind(this);
 
     this.state = {
       dataPembimbing: [],
       dataBimbingan: [],
       kompetensi: [],
-      nim: ""
+      nim: "",
+      sortMreg: 0,
+      sortName: 0,
+      sortNim: 0
     };
   }
 
@@ -215,6 +221,63 @@ export default class DaftarBimbingan extends Component {
       .catch((error) => console.log(error));
   }
 
+  onSortMreg() {
+    const dummyDataBimbingan = this.state.dataBimbingan;
+    if (this.state.sortMreg === 0) {
+      this.setState({
+        dataBimbingan: dummyDataBimbingan.sort((a, b) => (a.tahun > b.tahun) ? 1 : (a.tahun === b.tahun) ? ((a.semester > b.semester) ? 1 : -1) : -1),
+        sortMreg: 1,
+        sortNim: 0,
+        sortName: 0
+      });
+    } else {
+      this.setState({
+        dataBimbingan: dummyDataBimbingan.sort((a, b) => (a.tahun < b.tahun) ? 1 : (a.tahun === b.tahun) ? ((a.semester < b.semester) ? 1 : -1) : -1),
+        sortMreg: 0,
+        sortNim: 0,
+        sortName: 0
+      });
+    }
+  }
+
+  onSortNama() {
+    const dummyDataBimbingan = this.state.dataBimbingan;
+    if (this.state.sortName === 0) {
+      this.setState({
+        dataBimbingan: dummyDataBimbingan.sort((a, b) => (a.nama > b.nama) ? 1 : -1),
+        sortMreg: 0,
+        sortName: 1,
+        sortNim: 0
+      });
+    } else {
+      this.setState({
+        dataBimbingan: dummyDataBimbingan.sort((a, b) => (a.nama < b.nama) ? 1 : -1),
+        sortMreg: 0,
+        sortName: 0,
+        sortNim: 0
+      });
+    }
+  }
+
+  onSortNim() {
+    const dummyDataBimbingan = this.state.dataBimbingan;
+    if (this.state.sortNim === 0) {
+      this.setState({
+        dataBimbingan: dummyDataBimbingan.sort((a, b) => (a.nim > b.nim) ? 1 : -1),
+        sortMreg: 0,
+        sortNim: 1,
+        sortNama: 0
+      });
+    } else {
+      this.setState({
+        dataBimbingan: dummyDataBimbingan.sort((a, b) => (a.nim < b.nim) ? 1 : -1),
+        sortMreg: 0,
+        sortNim: 0,
+        sortNama: 0
+      });
+    }
+  }
+
   listBimbingan() {
     return this.state.dataBimbingan.map((bimbingan) => {
       const pembimbing1 = this.state.dataPembimbing.filter(
@@ -251,9 +314,24 @@ export default class DaftarBimbingan extends Component {
           <table className="table">
             <thead className="thead-light text-center">
               <tr>
-                <th className="align-middle">Masa Reg.</th>
-                <th className="align-middle">Nama</th>
-                <th className="align-middle">NIM</th>
+                <th className="align-middle" role="button" onClick={this.onSortMreg}>Masa Reg. {this.state.sortMreg ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                  </svg>}
+                </th>
+                <th className="align-middle" role="button" onClick={this.onSortNama}>Nama {this.state.sortName ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                  </svg>}
+                </th>
+                <th className="align-middle" role="button" onClick={this.onSortNim}>NIM {this.state.sortNim ? <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                  <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+                </svg> : <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fillRule="currentColor" className="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                    <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+                  </svg>}
+                </th>
                 <th className="align-middle">Kompetensi</th>
                 <th className="align-middle">Pembimbing I</th>
                 <th className="align-middle">Pembimbing II</th>
