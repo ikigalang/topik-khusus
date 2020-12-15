@@ -48,8 +48,13 @@ router.route("/update/:nim").post((req, res) => {
 
 // delete mahasiswa
 router.route("/delete/:nim").delete((req, res) => {
-  Mahasiswa.findByIdAndDelete(req.params.nim)
-    .then(() => res.json("Mahasiswa deleted!"))
+  const query = { "nim": req.params.nim };
+  Mahasiswa.findOne(query)
+    .then((mahasiswa) => {
+      Mahasiswa.findByIdAndDelete(mahasiswa._id)
+        .then(() => res.json("Mahasiswa deleted!"))
+        .catch((error) => res.status(400).json("Error: " + error));
+    })
     .catch((error) => res.status(400).json("Error: " + error));
 });
 

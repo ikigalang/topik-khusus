@@ -131,7 +131,7 @@ export default class DaftarDosen extends Component {
         .then((res) => {
           this.setState({
             dataMahasiswa: this.state.dataMahasiswa.filter(
-              (element) => element._id !== nim
+              (element) => element.nim !== nim
             ),
           });
         })

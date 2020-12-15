@@ -238,7 +238,7 @@ export default class InputDosen extends Component {
                   );
                 })}
               </select>
-              <small id="describeKompetensi1" class="form-text text-muted">
+              <small id="describeKompetensi1" className="form-text text-muted">
                 Semakin kecil nilai semakin bagus.
               </small>
             </div>
@@ -261,7 +261,7 @@ export default class InputDosen extends Component {
                   );
                 })}
               </select>
-              <small id="describeKompetensi2" class="form-text text-muted">
+              <small id="describeKompetensi2" className="form-text text-muted">
                 Semakin kecil nilai semakin bagus.
               </small>
             </div>
@@ -284,7 +284,7 @@ export default class InputDosen extends Component {
                   );
                 })}
               </select>
-              <small id="describeKompetensi3" class="form-text text-muted">
+              <small id="describeKompetensi3" className="form-text text-muted">
                 Semakin kecil nilai semakin bagus.
               </small>
             </div>
