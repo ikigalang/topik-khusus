@@ -8,6 +8,7 @@ const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_BIMBINGAN = process.env.REACT_APP_API_BIMBINGAN;
 const API_BIMBINGAN_UPDATE = process.env.REACT_APP_API_BIMBINGAN_UPDATE;
 const API_BIMBINGAN_DELETE = process.env.REACT_APP_API_BIMBINGAN_DELETE;
+const API_MAHASISWA_SEARCH = process.env.REACT_APP_API_MAHASISWA_SEARCH;
 const API_STATIK = process.env.REACT_APP_API_STATIK;
 
 const Mahasiswa = (props) => (
@@ -15,7 +16,7 @@ const Mahasiswa = (props) => (
     <td>{props.bimbingan.tahun}.{props.bimbingan.semester}</td>
     <td>{props.bimbingan.nama}</td>
     <td>{props.bimbingan.nim}</td>
-    <td>{props.kompetensi[props.bimbingan.kompetensi]}</td>
+    <td>{props.kompetensi[props.konsentrasi]}</td>
     <td>{props.pembimbing1[0].nama}</td>
     <td>{props.pembimbing2[0].nama}</td>
     <td className="w-25">
@@ -128,7 +129,8 @@ export default class DaftarBimbingan extends Component {
       kompetensi1: idPembimbing1.kompetensi1,
       kompetensi2: idPembimbing1.kompetensi2,
       kompetensi3: idPembimbing1.kompetensi3,
-      kuota: idPembimbing1.kuota - 1,
+      kuota1: idPembimbing1.kuota1 - 1,
+      kuota2: idPembimbing1.kuota2,
     };
     const data2 = {
       nik: idPembimbing2.nik,
@@ -138,7 +140,8 @@ export default class DaftarBimbingan extends Component {
       kompetensi1: idPembimbing2.kompetensi1,
       kompetensi2: idPembimbing2.kompetensi2,
       kompetensi3: idPembimbing2.kompetensi3,
-      kuota: idPembimbing2.kuota - 1,
+      kuota1: idPembimbing2.kuota1,
+      kuota2: idPembimbing2.kuota2 - 1,
     };
     Axios.post(APP_SERVER_URL + API_BIMBINGAN_UPDATE + bimbingan._id, data)
       .then((res) => {
@@ -179,7 +182,8 @@ export default class DaftarBimbingan extends Component {
       kompetensi1: idPembimbing1.kompetensi1,
       kompetensi2: idPembimbing1.kompetensi2,
       kompetensi3: idPembimbing1.kompetensi3,
-      kuota: idPembimbing1.kuota - 1,
+      kuota1: idPembimbing1.kuota1 - 1,
+      kuota2: idPembimbing1.kuota2,
     };
     const data2 = {
       nik: idPembimbing2.nik,
@@ -189,7 +193,8 @@ export default class DaftarBimbingan extends Component {
       kompetensi1: idPembimbing2.kompetensi1,
       kompetensi2: idPembimbing2.kompetensi2,
       kompetensi3: idPembimbing2.kompetensi3,
-      kuota: idPembimbing2.kuota - 1,
+      kuota1: idPembimbing2.kuota1 - 1,
+      kuota2: idPembimbing2.kuota2,
     };
     Axios.delete(APP_SERVER_URL + API_BIMBINGAN_DELETE + id)
       .then((res) => {
@@ -280,6 +285,14 @@ export default class DaftarBimbingan extends Component {
 
   listBimbingan() {
     return this.state.dataBimbingan.map((bimbingan) => {
+      let konsentrasi = 0;
+      Axios.get(APP_SERVER_URL + API_MAHASISWA_SEARCH + bimbingan.nim)
+        .then((response) => {
+          konsentrasi = response.data.konsentrasi;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       const pembimbing1 = this.state.dataPembimbing.filter(
         (element) => element._id === bimbingan.idPembimbing1
       );
@@ -289,6 +302,7 @@ export default class DaftarBimbingan extends Component {
       return (
         <Mahasiswa
           bimbingan={bimbingan}
+          konsentrasi={konsentrasi}
           pembimbing1={pembimbing1}
           pembimbing2={pembimbing2}
           kompetensi={this.state.kompetensi}
@@ -332,7 +346,7 @@ export default class DaftarBimbingan extends Component {
                     <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
                   </svg>}
                 </th>
-                <th className="align-middle">Kompetensi</th>
+                <th className="align-middle">Konsentrasi</th>
                 <th className="align-middle">Pembimbing I</th>
                 <th className="align-middle">Pembimbing II</th>
                 <th className="align-middle">Opsi</th>

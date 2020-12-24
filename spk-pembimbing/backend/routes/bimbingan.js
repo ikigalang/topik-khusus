@@ -12,7 +12,6 @@ router.route("/").get((req, res) => {
 router.route("/add").post((req, res) => {
   const nama = req.body.nama;
   const nim = req.body.nim;
-  const kompetensi = req.body.kompetensi;
   const idPembimbing1 = req.body.idPembimbing1;
   const idPembimbing2 = req.body.idPembimbing2;
   const semester = req.body.semester;
@@ -22,7 +21,6 @@ router.route("/add").post((req, res) => {
   const newBimbingan = new Bimbingan({
     nama,
     nim,
-    kompetensi,
     idPembimbing1,
     idPembimbing2,
     semester,
@@ -41,7 +39,6 @@ router.route("/update/:id").post((req, res) => {
   Bimbingan.findById(req.params.id).then((bimbingan) => {
     bimbingan.nama = req.body.nama;
     bimbingan.nim = req.body.nim;
-    bimbingan.kompetensi = req.body.kompetensi;
     bimbingan.idPembimbing1 = req.body.idPembimbing1;
     bimbingan.idPembimbing2 = req.body.idPembimbing2;
     bimbingan.semester = req.body.semester;

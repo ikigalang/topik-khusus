@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 
 const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const API_STATIK = process.env.REACT_APP_API_STATIK;
 const API_PEMBIMBING = process.env.REACT_APP_API_PEMBIMBING;
 const API_PEMBIMBING_UPDATE = process.env.REACT_APP_API_PEMBIMBING_UPDATE;
 const API_KRITERIA = process.env.REACT_APP_API_KRITERIA;
@@ -16,7 +17,7 @@ const Dosen = (props) => (
     <td className="align-middle">{props.dosen.kompetensi1}</td>
     <td className="align-middle">{props.dosen.kompetensi2}</td>
     <td className="align-middle">{props.dosen.kompetensi3}</td>
-    <td className="align-middle">{props.dosen.kuota}</td>
+    <td className="align-middle bg-light"><p className="font-weight-bold">{props.kuota}</p></td>
     <td className="align-middle">{props.score}</td>
     <td className="align-middle">{props.button}</td>
   </tr>
@@ -34,7 +35,8 @@ export default class RekomendasiTable extends Component {
 
     this.state = {
       kriteria: {},
-      kompetensiIndex: 0,
+      konsentrasi: "Loading...",
+      statikKonsentrasi: [],
       pembimbing: [],
       pembimbing1: [],
       pembimbing2: [],
@@ -43,7 +45,8 @@ export default class RekomendasiTable extends Component {
       scoreKompetensi1: [],
       scoreKompetensi2: [],
       scoreKompetensi3: [],
-      scoreKuota: [],
+      scoreKuota1: [],
+      scoreKuota2: [],
       selected1: {},
       selected2: {},
     };
@@ -54,6 +57,13 @@ export default class RekomendasiTable extends Component {
       .then((response) => {
         this.setState({
           kriteria: response.data[0],
+        });
+      })
+      .then(() => {
+        Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
+          this.setState({
+            statikKonsentrasi: response.data[0].kompetensi,
+          });
         });
       })
       .then(() => {
@@ -69,7 +79,8 @@ export default class RekomendasiTable extends Component {
                 kompetensi1: pembimbing.kompetensi1,
                 kompetensi2: pembimbing.kompetensi2,
                 kompetensi3: pembimbing.kompetensi3,
-                kuota: pembimbing.kuota,
+                kuota1: pembimbing.kuota1,
+                kuota2: pembimbing.kuota2,
                 nama: pembimbing.nama,
                 pendidikan: pembimbing.pendidikan,
                 status: pembimbing.status,
@@ -82,7 +93,7 @@ export default class RekomendasiTable extends Component {
             });
             this.setState({
               pembimbing: dummyPembimbing,
-              kompetensiIndex: Number(this.props.match.params.index),
+              konsentrasi: Number(this.props.match.params.index),
             });
           })
           .then(() => {
@@ -93,7 +104,8 @@ export default class RekomendasiTable extends Component {
               let scoreKompetensi1 = 0;
               let scoreKompetensi2 = 0;
               let scoreKompetensi3 = 0;
-              let scoreKuota = 0;
+              let scoreKuota1 = 0;
+              let scoreKuota2 = 0;
 
               // score pendidikan
               switch (pembimbing.pendidikan) {
@@ -215,34 +227,64 @@ export default class RekomendasiTable extends Component {
               let dummyKompetensi3 = this.state.scoreKompetensi3;
               dummyKompetensi3.push(scoreKompetensi3);
 
-              // score kuota
-              if (pembimbing.kuota >= 0 && pembimbing.kuota <= 2) {
-                scoreKuota = 1;
-              } else if (pembimbing.kuota >= 3 && pembimbing.kuota <= 4) {
-                scoreKuota = 0.9;
-              } else if (pembimbing.kuota >= 5 && pembimbing.kuota <= 6) {
-                scoreKuota = 0.8;
-              } else if (pembimbing.kuota >= 7 && pembimbing.kuota <= 8) {
-                scoreKuota = 0.7;
-              } else if (pembimbing.kuota >= 9 && pembimbing.kuota <= 10) {
-                scoreKuota = 0.6;
-              } else if (pembimbing.kuota >= 11 && pembimbing.kuota <= 12) {
-                scoreKuota = 0.5;
-              } else if (pembimbing.kuota >= 13 && pembimbing.kuota <= 14) {
-                scoreKuota = 0.4;
-              } else if (pembimbing.kuota >= 15 && pembimbing.kuota <= 16) {
-                scoreKuota = 0.3;
-              } else if (pembimbing.kuota >= 17 && pembimbing.kuota <= 18) {
-                scoreKuota = 0.2;
-              } else if (pembimbing.kuota >= 19 && pembimbing.kuota <= 20) {
-                scoreKuota = 0.1;
-              } else if (pembimbing.kuota >= 21) {
-                scoreKuota = 0;
+              // score kuota 1
+              if (pembimbing.kuota1 >= 0 && pembimbing.kuota1 <= 2) {
+                scoreKuota1 = 1;
+              } else if (pembimbing.kuota1 >= 3 && pembimbing.kuota1 <= 4) {
+                scoreKuota1 = 0.9;
+              } else if (pembimbing.kuota1 >= 5 && pembimbing.kuota1 <= 6) {
+                scoreKuota1 = 0.8;
+              } else if (pembimbing.kuota1 >= 7 && pembimbing.kuota1 <= 8) {
+                scoreKuota1 = 0.7;
+              } else if (pembimbing.kuota1 >= 9 && pembimbing.kuota1 <= 10) {
+                scoreKuota1 = 0.6;
+              } else if (pembimbing.kuota1 >= 11 && pembimbing.kuota1 <= 12) {
+                scoreKuota1 = 0.5;
+              } else if (pembimbing.kuota1 >= 13 && pembimbing.kuota1 <= 14) {
+                scoreKuota1 = 0.4;
+              } else if (pembimbing.kuota1 >= 15 && pembimbing.kuota1 <= 16) {
+                scoreKuota1 = 0.3;
+              } else if (pembimbing.kuota1 >= 17 && pembimbing.kuota1 <= 18) {
+                scoreKuota1 = 0.2;
+              } else if (pembimbing.kuota1 >= 19 && pembimbing.kuota1 <= 20) {
+                scoreKuota1 = 0.1;
+              } else if (pembimbing.kuota1 >= 21) {
+                scoreKuota1 = 0;
               } else {
                 console.warn(pembimbing.nama + ": Kuota not found!");
               }
-              let dummyKuota = this.state.scoreKuota;
-              dummyKuota.push(scoreKuota);
+
+              // score kuota2
+              if (pembimbing.kuota2 >= 0 && pembimbing.kuota2 <= 2) {
+                scoreKuota2 = 1;
+              } else if (pembimbing.kuota2 >= 3 && pembimbing.kuota2 <= 4) {
+                scoreKuota2 = 0.9;
+              } else if (pembimbing.kuota2 >= 5 && pembimbing.kuota2 <= 6) {
+                scoreKuota2 = 0.8;
+              } else if (pembimbing.kuota2 >= 7 && pembimbing.kuota2 <= 8) {
+                scoreKuota2 = 0.7;
+              } else if (pembimbing.kuota2 >= 9 && pembimbing.kuota2 <= 10) {
+                scoreKuota2 = 0.6;
+              } else if (pembimbing.kuota2 >= 11 && pembimbing.kuota2 <= 12) {
+                scoreKuota2 = 0.5;
+              } else if (pembimbing.kuota2 >= 13 && pembimbing.kuota2 <= 14) {
+                scoreKuota2 = 0.4;
+              } else if (pembimbing.kuota2 >= 15 && pembimbing.kuota2 <= 16) {
+                scoreKuota2 = 0.3;
+              } else if (pembimbing.kuota2 >= 17 && pembimbing.kuota2 <= 18) {
+                scoreKuota2 = 0.2;
+              } else if (pembimbing.kuota2 >= 19 && pembimbing.kuota2 <= 20) {
+                scoreKuota2 = 0.1;
+              } else if (pembimbing.kuota2 >= 21) {
+                scoreKuota2 = 0;
+              } else {
+                console.warn(pembimbing.nama + ": Kuota not found!");
+              }
+
+              let dummyKuota1 = this.state.scoreKuota1;
+              dummyKuota1.push(scoreKuota1);
+              let dummyKuota2 = this.state.scoreKuota2;
+              dummyKuota2.push(scoreKuota2);
             });
           })
           .then(() => {
@@ -262,7 +304,7 @@ export default class RekomendasiTable extends Component {
               }
 
               let rA1C3 = 0;
-              switch (this.state.kompetensiIndex) {
+              switch (this.state.konsentrasi) {
                 case 0:
                   rA1C3 =
                     this.state.scoreKompetensi1[n] /
@@ -282,23 +324,28 @@ export default class RekomendasiTable extends Component {
                   console.warn("Kompetensi index not valid");
               }
 
-              let rA1C4 = 0;
-              if (Math.max(...this.state.scoreKuota) !== 0) {
-                rA1C4 =
-                  this.state.scoreKuota[n] / Math.max(...this.state.scoreKuota);
+              let rA1C41 = 0;
+              if (Math.max(...this.state.scoreKuota1) !== 0) {
+                rA1C41 =
+                  this.state.scoreKuota1[n] / Math.max(...this.state.scoreKuota2);
+              }
+              let rA1C42 = 0;
+              if (Math.max(...this.state.scoreKuota2) !== 0) {
+                rA1C42 =
+                  this.state.scoreKuota2[n] / Math.max(...this.state.scoreKuota2);
               }
 
               let VA1 =
                 rA1C1 * this.state.kriteria.pembimbing1.pendidikan +
                 rA1C2 * this.state.kriteria.pembimbing1.fungsional +
                 rA1C3 * this.state.kriteria.pembimbing1.kompetensi +
-                rA1C4 * this.state.kriteria.pembimbing1.kuota;
+                rA1C41 * this.state.kriteria.pembimbing1.kuota;
 
               let VA2 =
                 rA1C1 * this.state.kriteria.pembimbing2.pendidikan +
                 rA1C2 * this.state.kriteria.pembimbing2.fungsional +
                 rA1C3 * this.state.kriteria.pembimbing2.kompetensi +
-                rA1C4 * this.state.kriteria.pembimbing2.kuota;
+                rA1C42 * this.state.kriteria.pembimbing2.kuota;
 
               // set score
               let dummy = pembimbing;
@@ -364,6 +411,7 @@ export default class RekomendasiTable extends Component {
       return (
         <Dosen
           dosen={dosen}
+          kuota={this.state.pembimbing1[n].kuota1}
           score={this.state.pembimbing1[n].score1}
           button={button}
           deleteDosen={this.deleteDosen}
@@ -397,6 +445,7 @@ export default class RekomendasiTable extends Component {
       return (
         <Dosen
           dosen={dosen}
+          kuota={this.state.pembimbing2[n].kuota2}
           score={this.state.pembimbing2[n].score2}
           button={button}
           deleteDosen={this.deleteDosen}
@@ -461,31 +510,30 @@ export default class RekomendasiTable extends Component {
     let updatePembimbing1 = {};
     let updatePembimbing2 = {};
 
-    this.state.pembimbing.forEach((pembimbing) => {
-      if (pembimbing._id === this.state.selected1._id) {
-        updatePembimbing1 = {
-          nik: pembimbing.nik,
-          nama: pembimbing.nama,
-          pendidikan: pembimbing.pendidikan,
-          fungsional: pembimbing.fungsional,
-          kompetensi1: pembimbing.kompetensi1,
-          kompetensi2: pembimbing.kompetensi2,
-          kompetensi3: pembimbing.kompetensi3,
-          kuota: pembimbing.kuota + 1,
-        };
-      } else if (pembimbing._id === this.state.selected2._id) {
-        updatePembimbing2 = {
-          nik: pembimbing.nik,
-          nama: pembimbing.nama,
-          pendidikan: pembimbing.pendidikan,
-          fungsional: pembimbing.fungsional,
-          kompetensi1: pembimbing.kompetensi1,
-          kompetensi2: pembimbing.kompetensi2,
-          kompetensi3: pembimbing.kompetensi3,
-          kuota: pembimbing.kuota + 1,
-        };
-      }
-    });
+
+    updatePembimbing1 = {
+      nik: this.state.selected1.nik,
+      nama: this.state.selected1.nama,
+      pendidikan: this.state.selected1.pendidikan,
+      fungsional: this.state.selected1.fungsional,
+      kompetensi1: this.state.selected1.kompetensi1,
+      kompetensi2: this.state.selected1.kompetensi2,
+      kompetensi3: this.state.selected1.kompetensi3,
+      kuota1: this.state.selected1.kuota1 + 1,
+      kuota2: this.state.selected1.kuota2,
+    };
+
+    updatePembimbing2 = {
+      nik: this.state.selected2.nik,
+      nama: this.state.selected2.nama,
+      pendidikan: this.state.selected2.pendidikan,
+      fungsional: this.state.selected2.fungsional,
+      kompetensi1: this.state.selected2.kompetensi1,
+      kompetensi2: this.state.selected2.kompetensi2,
+      kompetensi3: this.state.selected2.kompetensi3,
+      kuota1: this.state.selected2.kuota1,
+      kuota2: this.state.selected2.kuota2 + 1,
+    };
 
     const data = {
       nama: this.props.match.params.nama,
@@ -544,6 +592,7 @@ export default class RekomendasiTable extends Component {
                   <tr>
                     <th className="align-middle">Nama Mahasiswa</th>
                     <th className="align-middle">NIM</th>
+                    <th className="align-middle">Konsentrasi</th>
                     <th className="align-middle">Masa Registrasi</th>
                   </tr>
                 </thead>
@@ -552,6 +601,7 @@ export default class RekomendasiTable extends Component {
                     <td>{this.props.match.params.nama}</td>
                     <td>{this.props.match.params.nim}</td>
                     <td>{this.props.match.params.tahun}.{this.props.match.params.semester}</td>
+                    <td>{this.state.statikKonsentrasi[this.props.match.params.index]}</td>
                   </tr>
                 </tbody>
               </table>
@@ -562,13 +612,13 @@ export default class RekomendasiTable extends Component {
           <table className="table table-bordered">
             <thead className="thead-light text-center">
               <tr>
-                <th className="align-middle">Nama</th>
+                <th className="align-middle">Nama Dosen</th>
                 <th className="align-middle">NIK</th>
                 <th className="align-middle">Pendidikan</th>
                 <th className="align-middle">Fungsional</th>
-                <th className="align-middle">Kompetensi I</th>
-                <th className="align-middle">Kompetensi II</th>
-                <th className="align-middle">Kompetensi III</th>
+                <th className="align-middle">STI</th>
+                <th className="align-middle">SKC</th>
+                <th className="align-middle">JARKOM</th>
                 <th className="align-middle">Jumlah Bimbingan</th>
                 <th className="align-middle">Skor</th>
                 <th className="align-middle">Opsi</th>
@@ -580,13 +630,13 @@ export default class RekomendasiTable extends Component {
           <table className="table table-bordered">
             <thead className="thead-light text-center">
               <tr>
-                <th className="align-middle">Nama</th>
+                <th className="align-middle">Nama Dosen</th>
                 <th className="align-middle">NIK</th>
                 <th className="align-middle">Pendidikan</th>
                 <th className="align-middle">Fungsional</th>
-                <th className="align-middle">Kompetensi I</th>
-                <th className="align-middle">Kompetensi II</th>
-                <th className="align-middle">Kompetensi III</th>
+                <th className="align-middle">STI</th>
+                <th className="align-middle">SKC</th>
+                <th className="align-middle">JARKOM</th>
                 <th className="align-middle">Jumlah Bimbingan</th>
                 <th className="align-middle">Skor</th>
                 <th className="align-middle">Opsi</th>

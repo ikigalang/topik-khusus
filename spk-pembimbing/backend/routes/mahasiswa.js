@@ -20,10 +20,12 @@ router.route("/search/:nim").get((req, res) => {
 router.route("/add").post((req, res) => {
   const nim = req.body.nim;
   const nama = req.body.nama;
+  const konsentrasi = req.body.konsentrasi;
 
   const newMahasiswa = new Mahasiswa({
     nim,
     nama,
+    konsentrasi
   });
 
   newMahasiswa
@@ -33,11 +35,11 @@ router.route("/add").post((req, res) => {
 });
 
 // update mahasiswa
-router.route("/update/:nim").post((req, res) => {
-  const query = { "nim": req.params.nim };
-  Mahasiswa.findOne(query).then((mahasiswa) => {
+router.route("/update/:id").post((req, res) => {
+  Mahasiswa.findById(req.params.id).then((mahasiswa) => {
     mahasiswa.nim = req.body.nim;
     mahasiswa.nama = req.body.nama;
+    mahasiswa.konsentrasi = req.body.konsentrasi;
 
     mahasiswa
       .save()

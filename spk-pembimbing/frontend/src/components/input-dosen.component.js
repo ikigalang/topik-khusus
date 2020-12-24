@@ -20,7 +20,8 @@ export default class InputDosen extends Component {
     this.onChangeKompetensi1 = this.onChangeKompetensi1.bind(this);
     this.onChangeKompetensi2 = this.onChangeKompetensi2.bind(this);
     this.onChangeKompetensi3 = this.onChangeKompetensi3.bind(this);
-    this.onChangeKuota = this.onChangeKuota.bind(this);
+    this.onChangeKuota1 = this.onChangeKuota1.bind(this);
+    this.onChangeKuota2 = this.onChangeKuota2.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -37,7 +38,8 @@ export default class InputDosen extends Component {
       kompetensi1: "",
       kompetensi2: "",
       kompetensi3: "",
-      kuota: "",
+      kuota1: "",
+      kuota2: "",
     };
   }
 
@@ -109,9 +111,15 @@ export default class InputDosen extends Component {
     });
   }
 
-  onChangeKuota(event) {
+  onChangeKuota1(event) {
     this.setState({
-      kuota: event.target.value,
+      kuota1: event.target.value,
+    });
+  }
+
+  onChangeKuota2(event) {
+    this.setState({
+      kuota2: event.target.value,
     });
   }
 
@@ -138,7 +146,8 @@ export default class InputDosen extends Component {
             kompetensi1: this.state.kompetensi1,
             kompetensi2: this.state.kompetensi2,
             kompetensi3: this.state.kompetensi3,
-            kuota: this.state.kuota,
+            kuota1: this.state.kuota1,
+            kuota2: this.state.kuota2,
           };
 
           Axios.post(APP_SERVER_URL + API_PEMBIMBING_ADD, data)
@@ -289,13 +298,24 @@ export default class InputDosen extends Component {
               </small>
             </div>
             <div className="form-group">
-              <label>Jumlah bimbingan saat ini: </label>
+              <label>Jumlah bimbingan saat ini (sebagai Pembimbing 1): </label>
               <input
                 type="number"
                 className="form-control"
                 placeholder="0"
                 min="0"
-                onChange={this.onChangeKuota}
+                onChange={this.onChangeKuota1}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Jumlah bimbingan saat ini (sebagai Pembimbing 2): </label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="0"
+                min="0"
+                onChange={this.onChangeKuota2}
                 required
               />
             </div>

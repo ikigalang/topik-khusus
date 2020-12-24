@@ -20,7 +20,8 @@ export default class EditDosen extends Component {
     this.onChangeKompetensi1 = this.onChangeKompetensi1.bind(this);
     this.onChangeKompetensi2 = this.onChangeKompetensi2.bind(this);
     this.onChangeKompetensi3 = this.onChangeKompetensi3.bind(this);
-    this.onChangeKuota = this.onChangeKuota.bind(this);
+    this.onChangeKuota1 = this.onChangeKuota1.bind(this);
+    this.onChangeKuota2 = this.onChangeKuota2.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
@@ -38,7 +39,8 @@ export default class EditDosen extends Component {
       kompetensi1: 0,
       kompetensi2: 0,
       kompetensi3: 0,
-      kuota: "",
+      kuota1: "",
+      kuota2: "",
     };
   }
 
@@ -54,7 +56,8 @@ export default class EditDosen extends Component {
           kompetensi1: response.data.kompetensi1,
           kompetensi2: response.data.kompetensi2,
           kompetensi3: response.data.kompetensi3,
-          kuota: response.data.kuota,
+          kuota1: response.data.kuota1,
+          kuota2: response.data.kuota2,
         });
       })
       .catch((error) => {
@@ -84,6 +87,7 @@ export default class EditDosen extends Component {
   onChangeNik(event) {
     this.setState({
       NewNik: event.target.value,
+      nik: event.target.value,
     });
   }
 
@@ -123,9 +127,15 @@ export default class EditDosen extends Component {
     });
   }
 
-  onChangeKuota(event) {
+  onChangeKuota1(event) {
     this.setState({
-      kuota: event.target.value,
+      kuota1: event.target.value,
+    });
+  }
+
+  onChangeKuota2(event) {
+    this.setState({
+      kuota2: event.target.value,
     });
   }
 
@@ -154,7 +164,8 @@ export default class EditDosen extends Component {
             kompetensi1: this.state.kompetensi1,
             kompetensi2: this.state.kompetensi2,
             kompetensi3: this.state.kompetensi3,
-            kuota: this.state.kuota,
+            kuota1: this.state.kuota1,
+            kuota2: this.state.kuota2,
           };
 
           Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + this.props.match.params.id, data)
@@ -298,14 +309,24 @@ export default class EditDosen extends Component {
               </select>
             </div>
             <div className="form-group">
-              <label>Jumlah bimbingan saat ini: </label>
+              <label>Jumlah bimbingan saat ini (sebagai Pembimbing 1): </label>
               <input
                 type="number"
                 className="form-control"
-                id="kuota"
+                value={this.state.kuota1}
                 min="0"
-                value={this.state.kuota}
-                onChange={this.onChangeKuota}
+                onChange={this.onChangeKuota1}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Jumlah bimbingan saat ini (sebagai Pembimbing 2): </label>
+              <input
+                type="number"
+                className="form-control"
+                value={this.state.kuota2}
+                min="0"
+                onChange={this.onChangeKuota2}
                 required
               />
             </div>

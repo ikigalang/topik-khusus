@@ -24,7 +24,8 @@ router.route("/add").post((req, res) => {
   const kompetensi1 = req.body.kompetensi1;
   const kompetensi2 = req.body.kompetensi2;
   const kompetensi3 = req.body.kompetensi3;
-  const kuota = req.body.kuota;
+  const kuota1 = req.body.kuota1;
+  const kuota2 = req.body.kuota2;
 
   const newPembimbing = new Pembimbing({
     nik,
@@ -34,7 +35,8 @@ router.route("/add").post((req, res) => {
     kompetensi1,
     kompetensi2,
     kompetensi3,
-    kuota,
+    kuota1,
+    kuota2,
   });
 
   newPembimbing
@@ -53,7 +55,8 @@ router.route("/update/:id").post((req, res) => {
     pembimbing.kompetensi1 = req.body.kompetensi1;
     pembimbing.kompetensi2 = req.body.kompetensi2;
     pembimbing.kompetensi3 = req.body.kompetensi3;
-    pembimbing.kuota = req.body.kuota;
+    pembimbing.kuota1 = req.body.kuota1;
+    pembimbing.kuota2 = req.body.kuota2;
 
     pembimbing
       .save()

@@ -38,7 +38,11 @@ const pembimbingSchema = new Schema(
       type: Number,
       required: true,
     },
-    kuota: {
+    kuota1: {
+      type: Number,
+      required: true,
+    },
+    kuota2: {
       type: Number,
       required: true,
     },

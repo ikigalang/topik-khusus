@@ -23,6 +23,32 @@ export default class Home extends Component {
           <div className="w-75 mx-auto">
             <div className="row mt-4">
               <div className="col-sm">
+                <Link to="/input-dosen" className="nav-link">
+                  <button type="button" className="btn btn-primary w-100">
+                    <div className="m-2">
+                      <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
+                      </svg>
+                    </div>
+                    INPUT DATA DOSEN
+                  </button>
+                </Link>
+              </div>
+              <div className="col-sm">
+                <Link to="/daftar-dosen" className="nav-link">
+                  <button type="button" className="btn btn-info w-100">
+                    <div className="m-2">
+                      <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                      </svg>
+                    </div>
+                    DAFTAR DOSEN
+                  </button>
+                </Link>
+              </div>
+            </div>
+            <div className="row mt-2">
+              <div className="col-sm">
                 <Link to="/input-mahasiswa" className="nav-link">
                   <button type="button" className="btn btn-primary w-100">
                     <div className="m-2">
@@ -37,20 +63,6 @@ export default class Home extends Component {
                 </Link>
               </div>
               <div className="col-sm">
-                <Link to="/input-dosen" className="nav-link">
-                  <button type="button" className="btn btn-primary w-100">
-                    <div className="m-2">
-                      <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M13.498.795l.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
-                      </svg>
-                    </div>
-                    INPUT DATA DOSEN
-                  </button>
-                </Link>
-              </div>
-            </div>
-            <div className="row mt-2">
-              <div className="col-sm">
                 <Link to="/daftar-mahasiswa" className="nav-link">
                   <button type="button" className="btn btn-info w-100">
                     <div className="m-2">
@@ -59,18 +71,6 @@ export default class Home extends Component {
                       </svg>
                     </div>
                     DAFTAR MAHASISWA
-                  </button>
-                </Link>
-              </div>
-              <div className="col-sm">
-                <Link to="/daftar-dosen" className="nav-link">
-                  <button type="button" className="btn btn-info w-100">
-                    <div className="m-2">
-                      <svg width="3em" height="3em" viewBox="0 0 16 16" className="bi bi-list" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                      </svg>
-                    </div>
-                    DAFTAR DOSEN
                   </button>
                 </Link>
               </div>

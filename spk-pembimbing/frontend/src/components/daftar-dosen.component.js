@@ -16,8 +16,9 @@ const Dosen = (props) => (
     <td>{props.dosen.kompetensi1}</td>
     <td>{props.dosen.kompetensi2}</td>
     <td>{props.dosen.kompetensi3}</td>
-    <td>{props.dosen.kuota}</td>
-    <td className="w-25">
+    <td>{props.dosen.kuota1}</td>
+    <td>{props.dosen.kuota2}</td>
+    <td>
       <Link to={"/edit-dosen/" + props.dosen._id}>
         <button type="button" className="btn btn-warning mx-1 d-inline">
           Edit
@@ -159,7 +160,7 @@ export default class DaftarDosen extends Component {
       window.location = "/login";
     } else {
       return (
-        <div className="container mt-4">
+        <div className="container-fluid mt-4">
           <h3 className="text-center">DAFTAR DOSEN PEMBIMBING</h3>
           <div className="form-group text-right m-2">
             <input className="form-control mr-sm-2 w-25 d-inline-block" type="search" placeholder="Cari berdasarkan NIK" aria-label="Search" onChange={this.onChangeNik} />
@@ -182,10 +183,11 @@ export default class DaftarDosen extends Component {
                 </th>
                 <th className="align-middle">Pendidikan</th>
                 <th className="align-middle">Fungsional</th>
-                <th className="align-middle">Kompetensi I</th>
-                <th className="align-middle">Kompetensi II</th>
-                <th className="align-middle">Kompetensi III</th>
-                <th className="align-middle">Jumlah Bimbingan</th>
+                <th className="align-middle">STI</th>
+                <th className="align-middle">SKC</th>
+                <th className="align-middle">JARKOM</th>
+                <th className="align-middle">Jumlah Bimbingan 1</th>
+                <th className="align-middle">Jumlah Bimbingan 2</th>
                 <th className="align-middle">Opsi</th>
               </tr>
             </thead>

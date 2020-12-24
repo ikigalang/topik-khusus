@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Axios from "axios";
 
 const APP_SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const API_STATIK = process.env.REACT_APP_API_STATIK;
 const API_MAHASISWA_SEARCH = process.env.REACT_APP_API_MAHASISWA_SEARCH;
 const API_MAHASISWA_ADD = process.env.REACT_APP_API_MAHASISWA_ADD;
 
@@ -14,12 +15,23 @@ export default class InputMahasiswa extends Component {
 
     this.onChangeNim = this.onChangeNim.bind(this);
     this.onChangeNama = this.onChangeNama.bind(this);
+    this.onChangeKonsentrasi = this.onChangeKonsentrasi.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       nim: "",
       nama: "",
+      statikKonsentrasi: [],
+      konsentrasi: 0,
     };
+  }
+
+  componentDidMount() {
+    Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
+      this.setState({
+        statikKonsentrasi: response.data[0].kompetensi,
+      });
+    });
   }
 
   focusTextInput() {
@@ -35,6 +47,12 @@ export default class InputMahasiswa extends Component {
   onChangeNama(event) {
     this.setState({
       nama: event.target.value,
+    });
+  }
+
+  onChangeKonsentrasi(event) {
+    this.setState({
+      konsentrasi: event.target.selectedIndex,
     });
   }
 
@@ -54,6 +72,7 @@ export default class InputMahasiswa extends Component {
           const data = {
             nim: this.state.nim,
             nama: this.state.nama,
+            konsentrasi: this.state.konsentrasi,
           };
 
           Axios.post(APP_SERVER_URL + API_MAHASISWA_ADD, data)
@@ -99,6 +118,23 @@ export default class InputMahasiswa extends Component {
                 onChange={this.onChangeNama}
                 required
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="konsentrasi">Konsentrasi: </label>
+              <select
+                ref={this.textInput}
+                className="form-control"
+                id="konsentrasi"
+                onChange={this.onChangeKonsentrasi}
+              >
+                {this.state.statikKonsentrasi.map((konsentrasi) => {
+                  return (
+                    <option key={konsentrasi} value={konsentrasi}>
+                      {konsentrasi}
+                    </option>
+                  );
+                })}
+              </select>
             </div>
             <div className="text-right">
               <button

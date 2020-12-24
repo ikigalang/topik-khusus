@@ -16,26 +16,17 @@ export default class Rekomendasi extends Component {
     this.onChangeNim = this.onChangeNim.bind(this);
     this.onChangeTahun = this.onChangeTahun.bind(this);
     this.onChangeSemester = this.onChangeSemester.bind(this);
-    this.onChangeKompetensi = this.onChangeKompetensi.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      statikKompetensi: [],
       nama: "Masukkan NIM",
       nim: 0,
       tahun: 0,
       semester: 1,
-      kompetensiIndex: 0,
-      disabled: true
+      konsentrasi: "Masukkan NIM",
+      disabled: true,
+      statikKonsentrasi: [],
     };
-  }
-
-  componentDidMount() {
-    Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
-      this.setState({
-        statikKompetensi: response.data[0].kompetensi,
-      });
-    });
   }
 
   focusTextInput() {
@@ -49,14 +40,22 @@ export default class Rekomendasi extends Component {
         if (response.data) {
           this.setState({
             nama: response.data.nama,
+            konsentrasi: response.data.konsentrasi,
             disabled: false
           });
         } else {
           this.setState({
             nama: "NIM tidak ditemukan",
+            konsentrasi: "NIM tidak ditemukan",
             disabled: true
           });
         }
+      }).then(() => {
+        Axios.get(APP_SERVER_URL + API_STATIK).then((response) => {
+          this.setState({
+            statikKonsentrasi: response.data[0].kompetensi,
+          });
+        });
       })
       .catch((error) => console.log(error));
     this.setState({
@@ -73,12 +72,6 @@ export default class Rekomendasi extends Component {
   onChangeSemester(event) {
     this.setState({
       semester: event.target.value,
-    });
-  }
-
-  onChangeKompetensi(event) {
-    this.setState({
-      kompetensiIndex: event.target.selectedIndex,
     });
   }
 
@@ -104,7 +97,7 @@ export default class Rekomendasi extends Component {
             "/" +
             this.state.nim +
             "/" +
-            this.state.kompetensiIndex +
+            this.state.konsentrasi +
             "/" +
             this.state.semester +
             "/" +
@@ -172,21 +165,14 @@ export default class Rekomendasi extends Component {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="kompetensi">Kompetensi: </label>
-              <select
-                ref={this.textInput}
+              <label htmlFor="konsentrasi">Konsentrasi: </label>
+              <input
+                type="text"
                 className="form-control"
-                id="kompetensi"
-                onChange={this.onChangeKompetensi}
-              >
-                {this.state.statikKompetensi.map((kompetensi) => {
-                  return (
-                    <option key={kompetensi} value={kompetensi}>
-                      {kompetensi}
-                    </option>
-                  );
-                })}
-              </select>
+                id="konsentrasi"
+                placeholder={this.state.statikKonsentrasi[this.state.konsentrasi]}
+                readOnly
+              />
             </div>
             <div className="form-group text-right">
               <button type="submit" className="btn btn-primary w-25" disabled={this.state.disabled}>

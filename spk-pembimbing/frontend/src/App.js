@@ -27,7 +27,7 @@ function App() {
       <Route path="/login" component={Login} />
       <Route path="/input-mahasiswa" component={InputMahasiswa} />
       <Route path="/input-dosen" component={InputDosen} />
-      <Route path="/edit-mahasiswa/:nim" component={EditMahasiswa} />
+      <Route path="/edit-mahasiswa/:id/:nim" component={EditMahasiswa} />
       <Route path="/edit-dosen/:id" component={EditDosen} />
       <Route path="/daftar-dosen" component={DaftarDosen} />
       <Route path="/daftar-mahasiswa" component={DaftarMahasiswa} />
