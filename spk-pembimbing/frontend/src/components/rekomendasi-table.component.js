@@ -565,7 +565,8 @@ export default class RekomendasiTable extends Component {
               Axios.post(APP_SERVER_URL + API_BIMBINGAN_ADD, data)
                 .then((res) => {
                   console.log(res.data);
-                  window.location = "/home";
+                  alert("Berhasil ditambahkan ke daftar bimbingan.")
+                  window.location = "/rekomendasi";
                 })
                 .catch((error) => console.log("Error: " + error));
             })

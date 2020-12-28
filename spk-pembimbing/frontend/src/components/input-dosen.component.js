@@ -38,8 +38,8 @@ export default class InputDosen extends Component {
       kompetensi1: "",
       kompetensi2: "",
       kompetensi3: "",
-      kuota1: "",
-      kuota2: "",
+      kuota1: 0,
+      kuota2: 0,
     };
   }
 
@@ -178,7 +178,7 @@ export default class InputDosen extends Component {
                 type="text"
                 className="form-control"
                 id="nik"
-                placeholder="123456"
+                placeholder="1111111E"
                 onChange={this.onChangeNik}
                 required
               />
@@ -189,7 +189,7 @@ export default class InputDosen extends Component {
                 type="text"
                 className="form-control"
                 id="nama"
-                placeholder="Liliana"
+                placeholder="Liliana, S.Kom."
                 onChange={this.onChangeNama}
                 required
               />
@@ -302,7 +302,7 @@ export default class InputDosen extends Component {
               <input
                 type="number"
                 className="form-control"
-                placeholder="0"
+                value={this.state.kuota1}
                 min="0"
                 onChange={this.onChangeKuota1}
                 required
@@ -313,7 +313,7 @@ export default class InputDosen extends Component {
               <input
                 type="number"
                 className="form-control"
-                placeholder="0"
+                value={this.state.kuota2}
                 min="0"
                 onChange={this.onChangeKuota2}
                 required

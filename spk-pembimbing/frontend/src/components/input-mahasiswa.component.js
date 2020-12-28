@@ -103,7 +103,7 @@ export default class InputMahasiswa extends Component {
                 type="text"
                 className="form-control"
                 id="nim"
-                placeholder="123456"
+                placeholder="201051111"
                 onChange={this.onChangeNim}
                 required
               />

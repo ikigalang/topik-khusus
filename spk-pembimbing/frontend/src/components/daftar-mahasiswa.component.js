@@ -37,6 +37,7 @@ export default class DaftarDosen extends Component {
     super(props);
 
     this.deleteMahasiswa = this.deleteMahasiswa.bind(this);
+    this.onChangeNim = this.onChangeNim.bind(this);
     this.onCari = this.onCari.bind(this);
     this.onSortNama = this.onSortNama.bind(this);
     this.onSortNim = this.onSortNim.bind(this);
@@ -71,6 +72,12 @@ export default class DaftarDosen extends Component {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  onChangeNim(event) {
+    this.setState({
+      nim: event.target.value,
+    });
   }
 
   onCari() {

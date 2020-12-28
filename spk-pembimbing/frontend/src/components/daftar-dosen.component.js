@@ -79,7 +79,7 @@ export default class DaftarDosen extends Component {
   onCari() {
     Axios.get(APP_SERVER_URL + API_PEMBIMBING)
       .then((response) => {
-        this.setState({ dataDosen: response.data.filter((dosen) => dosen.nik === Number(this.state.nik)) });
+        this.setState({ dataDosen: response.data.filter((dosen) => dosen.nik === this.state.nik) });
       })
       .then(() => {
         Axios.get(APP_SERVER_URL + API_BIMBINGAN).then((response) => {

@@ -29,6 +29,13 @@ export default class Rekomendasi extends Component {
     };
   }
 
+  componentDidMount() {
+    let d = new Date();
+    this.setState({
+      tahun: d.getFullYear(),
+    });
+  }
+
   focusTextInput() {
     this.textInput.current.focus();
   }
@@ -103,7 +110,7 @@ export default class Rekomendasi extends Component {
             "/" +
             this.state.tahun;
         } else {
-          alert("NIM sudah digunakan.");
+          alert("NIM sudah ada di daftar bimbingan.");
         }
       });
   }
@@ -147,7 +154,7 @@ export default class Rekomendasi extends Component {
                     className="form-control"
                     id="tahun"
                     min="0"
-                    placeholder="2020"
+                    value={this.state.tahun}
                     onChange={this.onChangeTahun}
                     required
                   />
