@@ -42,7 +42,10 @@ router.route("/add").post((req, res) => {
   newPembimbing
     .save()
     .then(() => res.json("Pembimbing added!"))
-    .catch((error) => res.status(400).json("Error: " + error));
+    .catch((error) => {
+      res.status(400).json("Error: " + error);
+      console.log(error);
+    });
 });
 
 // update pembimbing

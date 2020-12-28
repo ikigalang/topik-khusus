@@ -149,7 +149,7 @@ export default class InputDosen extends Component {
             kuota1: this.state.kuota1,
             kuota2: this.state.kuota2,
           };
-
+          console.log(data)
           Axios.post(APP_SERVER_URL + API_PEMBIMBING_ADD, data)
             .then((res) => {
               console.log(res.data);

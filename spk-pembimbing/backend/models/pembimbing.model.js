@@ -5,8 +5,10 @@ const Schema = mongoose.Schema;
 const pembimbingSchema = new Schema(
   {
     nik: {
-      type: Number,
+      type: String,
       required: true,
+      trim: true,
+      minlength: 3,
     },
     nama: {
       type: String,
