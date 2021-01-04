@@ -27,7 +27,8 @@ const Mahasiswa = (props) => (
           props.selesaiBimbingan(
             props.bimbingan,
             props.pembimbing1[0],
-            props.pembimbing2[0]
+            props.pembimbing2[0],
+            props.bimbingan.nama
           );
         }}
       >
@@ -40,7 +41,8 @@ const Mahasiswa = (props) => (
           props.deleteBimbingan(
             props.bimbingan._id,
             props.pembimbing1[0],
-            props.pembimbing2[0]
+            props.pembimbing2[0],
+            props.bimbingan.nama
           );
         }}
       >
@@ -109,7 +111,7 @@ export default class DaftarBimbingan extends Component {
       });
   }
 
-  selesaiBimbingan(bimbingan, idPembimbing1, idPembimbing2) {
+  selesaiBimbingan(bimbingan, idPembimbing1, idPembimbing2, nama) {
     const data = {
       nama: bimbingan.nama,
       nim: bimbingan.nim,
@@ -169,11 +171,12 @@ export default class DaftarBimbingan extends Component {
             (element) => element._id !== bimbingan._id
           ),
         });
+        alert(nama + " telah selesai bimbingan.")
       })
       .catch((error) => console.log(error));
   }
 
-  deleteBimbingan(id, idPembimbing1, idPembimbing2) {
+  deleteBimbingan(id, idPembimbing1, idPembimbing2, nama) {
     const data1 = {
       nik: idPembimbing1.nik,
       nama: idPembimbing1.nama,
@@ -196,34 +199,37 @@ export default class DaftarBimbingan extends Component {
       kuota1: idPembimbing2.kuota1 - 1,
       kuota2: idPembimbing2.kuota2,
     };
-    Axios.delete(APP_SERVER_URL + API_BIMBINGAN_DELETE + id)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .then(() => {
-        Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing1._id, data1)
-          .then((res) => {
-            console.log(res.data);
-          })
-          .catch((error) => {
-            console.log(error);
+
+    if (window.confirm("Apakah anda yakin ingin menghapus " + nama + " dari daftar mahasiswa bimbingan?")) {
+      Axios.delete(APP_SERVER_URL + API_BIMBINGAN_DELETE + id)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .then(() => {
+          Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing1._id, data1)
+            .then((res) => {
+              console.log(res.data);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .then(() => {
+          Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing2._id, data2).then(
+            (res) => {
+              console.log(res.data);
+            }
+          );
+        })
+        .then(() => {
+          this.setState({
+            dataBimbingan: this.state.dataBimbingan.filter(
+              (element) => element._id !== id
+            ),
           });
-      })
-      .then(() => {
-        Axios.post(APP_SERVER_URL + API_PEMBIMBING_UPDATE + idPembimbing2._id, data2).then(
-          (res) => {
-            console.log(res.data);
-          }
-        );
-      })
-      .then(() => {
-        this.setState({
-          dataBimbingan: this.state.dataBimbingan.filter(
-            (element) => element._id !== id
-          ),
-        });
-      })
-      .catch((error) => console.log(error));
+        })
+        .catch((error) => console.log(error));
+    }
   }
 
   onSortMreg() {

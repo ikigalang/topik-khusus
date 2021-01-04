@@ -188,7 +188,7 @@ export default class EditDosen extends Component {
     } else {
       return (
         <div className="container mt-4">
-          <h3 className="text-center">EDIT DATA DOSEN PEMBIMBING</h3>
+          <h3 className="text-center">UBAH DATA DOSEN PEMBIMBING</h3>
           <form onSubmit={this.onSubmit} className="w-50 mx-auto">
             <div className="form-group">
               <label htmlFor="nik">NIK: </label>
@@ -335,7 +335,7 @@ export default class EditDosen extends Component {
                 type="submit"
                 className="btn btn-primary w-25 mb-4"
               >
-                Submit
+                Simpan
               </button>
             </div>
           </form>

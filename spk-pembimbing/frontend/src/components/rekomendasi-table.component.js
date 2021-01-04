@@ -565,7 +565,7 @@ export default class RekomendasiTable extends Component {
               Axios.post(APP_SERVER_URL + API_BIMBINGAN_ADD, data)
                 .then((res) => {
                   console.log(res.data);
-                  alert("Berhasil ditambahkan ke daftar bimbingan.")
+                  alert(this.props.match.params.nama + " berhasil ditambahkan ke daftar bimbingan.")
                   window.location = "/rekomendasi";
                 })
                 .catch((error) => console.log("Error: " + error));
@@ -658,7 +658,7 @@ export default class RekomendasiTable extends Component {
               className="btn btn-primary w-25 mb-4"
               onClick={this.onSave}
             >
-              Save
+              Simpan
             </button>
           </div>
         </div>

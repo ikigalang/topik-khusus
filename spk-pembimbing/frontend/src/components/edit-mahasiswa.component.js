@@ -162,7 +162,7 @@ export default class EditDosen extends Component {
                 type="submit"
                 className="btn btn-primary w-25 mb-4"
               >
-                Submit
+                Simpan
               </button>
             </div>
           </form>

@@ -23,7 +23,8 @@ const Mahasiswa = (props) => (
         className="btn btn-danger mx-1 d-inline"
         onClick={() => {
           props.deleteBimbingan(
-            props.bimbingan._id
+            props.bimbingan._id,
+            props.bimbingan.nama
           );
         }}
       >
@@ -91,19 +92,21 @@ export default class DaftarBimbingan extends Component {
       });
   }
 
-  deleteBimbingan(id) {
-    Axios.delete(APP_SERVER_URL + API_BIMBINGAN_DELETE + id)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .then(() => {
-        this.setState({
-          dataBimbingan: this.state.dataBimbingan.filter(
-            (element) => element._id !== id
-          ),
-        });
-      })
-      .catch((error) => console.log(error));
+  deleteBimbingan(id, nama) {
+    if (window.confirm("Apakah anda yakin ingin menghapus " + nama + " dari daftar mahasiswa selesai bimbingan?")) {
+      Axios.delete(APP_SERVER_URL + API_BIMBINGAN_DELETE + id)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .then(() => {
+          this.setState({
+            dataBimbingan: this.state.dataBimbingan.filter(
+              (element) => element._id !== id
+            ),
+          });
+        })
+        .catch((error) => console.log(error));
+    }
   }
 
   onSortMreg() {

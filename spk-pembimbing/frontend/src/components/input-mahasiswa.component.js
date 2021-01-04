@@ -141,7 +141,7 @@ export default class InputMahasiswa extends Component {
                 type="submit"
                 className="btn btn-primary w-25 mb-4"
               >
-                Submit
+                Simpan
               </button>
             </div>
           </form>

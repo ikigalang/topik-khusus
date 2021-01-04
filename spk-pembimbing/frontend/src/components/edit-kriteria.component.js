@@ -146,7 +146,7 @@ export default class EditKriteria extends Component {
     } else {
       return (
         <div className="container mt-4 text-center">
-          <h3>EDIT BOBOT KRITERIA</h3>
+          <h3>UBAH BOBOT KRITERIA</h3>
           <div className="w-50 mx-auto">
             <h4 className="text-left mt-4">Pembimbing I</h4>
             <table className="table table-bordered">
@@ -328,7 +328,7 @@ export default class EditKriteria extends Component {
                 className="btn btn-primary w-25 mb-4"
                 onClick={this.onSave}
               >
-                Save
+                Simpan
               </button>
             </div>
           </div>

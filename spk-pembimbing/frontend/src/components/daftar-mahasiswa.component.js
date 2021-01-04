@@ -23,7 +23,7 @@ const Mahasiswa = (props) => (
         type="button"
         className="btn btn-danger mx-2 d-inline"
         onClick={() => {
-          props.deleteMahasiswa(props.mahasiswa.nim);
+          props.deleteMahasiswa(props.mahasiswa.nim, props.mahasiswa.nama);
         }}
       >
         Delete
@@ -129,7 +129,7 @@ export default class DaftarDosen extends Component {
     }
   }
 
-  deleteMahasiswa(nim) {
+  deleteMahasiswa(nim, nama) {
     let free = true;
     this.state.dataBimbingan.forEach((bimbingan) => {
       if (bimbingan.nim === nim) {
@@ -137,15 +137,17 @@ export default class DaftarDosen extends Component {
       }
     });
     if (free) {
-      Axios.delete(APP_SERVER_URL + API_MAHASISWA_DELETE + nim)
-        .then((res) => {
-          this.setState({
-            dataMahasiswa: this.state.dataMahasiswa.filter(
-              (element) => element.nim !== nim
-            ),
-          });
-        })
-        .catch((error) => console.log(error));
+      if (window.confirm("Apakah anda yakin ingin menghapus " + nama + " dari daftar mahasiswa?")) {
+        Axios.delete(APP_SERVER_URL + API_MAHASISWA_DELETE + nim)
+          .then((res) => {
+            this.setState({
+              dataMahasiswa: this.state.dataMahasiswa.filter(
+                (element) => element.nim !== nim
+              ),
+            });
+          })
+          .catch((error) => console.log(error));
+      }
     } else {
       alert("Tidak dapat menghapus karena ada mahasiswa yang sedang bimbingan");
     }

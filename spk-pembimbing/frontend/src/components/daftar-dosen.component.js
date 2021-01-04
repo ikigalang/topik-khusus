@@ -21,17 +21,17 @@ const Dosen = (props) => (
     <td>
       <Link to={"/edit-dosen/" + props.dosen._id}>
         <button type="button" className="btn btn-warning mx-1 d-inline">
-          Edit
+          Ubah
           </button>
       </Link>
       <button
         type="button"
         className="btn btn-danger mx-2 d-inline"
         onClick={() => {
-          props.deleteDosen(props.dosen._id);
+          props.deleteDosen(props.dosen._id, props.dosen.nama);
         }}
       >
-        Delete
+        Hapus
         </button>
     </td>
   </tr>
@@ -125,7 +125,7 @@ export default class DaftarDosen extends Component {
     }
   }
 
-  deleteDosen(id) {
+  deleteDosen(id, nama) {
     let free = true;
     this.state.dataBimbingan.forEach((bimbingan) => {
       if (bimbingan.idPembimbing1 === id || bimbingan.idPembimbing2 === id) {
@@ -133,15 +133,17 @@ export default class DaftarDosen extends Component {
       }
     });
     if (free) {
-      Axios.delete(APP_SERVER_URL + API_PEMBIMBING_DELETE + id)
-        .then((res) => {
-          this.setState({
-            dataDosen: this.state.dataDosen.filter(
-              (element) => element._id !== id
-            ),
-          });
-        })
-        .catch((error) => console.log(error));
+      if (window.confirm("Apakah Anda yakin ingin menghapus " + nama + " dari daftar dosen pembimbing?")) {
+        Axios.delete(APP_SERVER_URL + API_PEMBIMBING_DELETE + id)
+          .then((res) => {
+            this.setState({
+              dataDosen: this.state.dataDosen.filter(
+                (element) => element._id !== id
+              ),
+            });
+          })
+          .catch((error) => console.log(error));
+      }
     } else {
       alert("Tidak dapat menghapus karena ada mahasiswa yang sedang bimbingan");
     }
